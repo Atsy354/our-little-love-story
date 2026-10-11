@@ -1,1713 +1,1386 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7e5e8" />
-    <title>Our Little Photobooth ♡</title>
-    <style>
-      :root {
-        --pink: #e9aebc;
-        --rose: #b85e78;
-        --cream: #fff9f4;
-        --ink: #5c424b;
-        --muted: #9b7b83;
-        --line: #efd6dc;
-        --shadow: 0 18px 50px #8d52621a;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        color: var(--ink);
-        background:
-          radial-gradient(circle at 10% 10%, #fff 0, transparent 28%),
-          linear-gradient(135deg, #fff8f3, #f9e8ec 55%, #f5e7df);
-        font-family: Georgia, "Times New Roman", serif;
-        min-height: 100vh;
-      }
-      button,
-      input,
-      select {
-        font: inherit;
-      }
-      button {
-        cursor: pointer;
-      }
-      .hidden {
-        display: none !important;
-      }
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px clamp(14px, 4vw, 42px);
-        background: #fff9f0dc;
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid #eed9dd;
-      }
-      .brand {
-        font-size: 1.05rem;
-        font-style: italic;
-        letter-spacing: 0.04em;
-      }
-      .top-actions {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      .tiny {
-        border: 1px solid var(--line);
-        background: #fffaf8;
-        border-radius: 999px;
-        padding: 8px 12px;
-        color: var(--rose);
-        font-size: 0.86rem;
-      }
-      main {
-        width: min(1050px, 100% - 28px);
-        margin: 0 auto;
-        padding: clamp(24px, 5vw, 58px) 0 70px;
-      }
-      .screen {
-        animation: fade 0.5s ease both;
-      }
-      @keyframes fade {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      .hero {
-        text-align: center;
-        min-height: 70vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        padding: 30px 10px;
-      }
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.22em;
-        font:
-          600 0.72rem Arial,
-          sans-serif;
-        color: var(--rose);
-      }
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-      h1 {
-        font-size: clamp(2.7rem, 8vw, 5.8rem);
-        line-height: 1.02;
-        font-weight: 400;
-        font-style: italic;
-        max-width: 850px;
-        margin: 18px auto;
-        color: #a9506b;
-      }
-      h2 {
-        font-weight: 400;
-        font-style: italic;
-        font-size: clamp(2rem, 5vw, 3.3rem);
-        color: #a9506b;
-        margin-bottom: 12px;
-      }
-      .sub {
-        font-size: clamp(1rem, 2vw, 1.18rem);
-        line-height: 1.8;
-        color: #876873;
-        max-width: 580px;
-        margin: 0 auto 26px;
-      }
-      .flower {
-        font-size: clamp(2rem, 5vw, 3.8rem);
-        color: #d58fa2;
-        letter-spacing: 0.45em;
-        margin: 18px 0;
-      }
-      .bow {
-        position: absolute;
-        color: #dca2b0;
-        font-size: 3rem;
-        opacity: 0.55;
-      }
-      .bow\.one {
-        top: 12%;
-        left: 8%;
-        transform: rotate(-18deg);
-      }
-      .bow\.two {
-        right: 7%;
-        bottom: 14%;
-        transform: rotate(20deg);
-      }
-      .floating {
-        position: absolute;
-        color: #d58fa2;
-        opacity: 0.5;
-        font-size: 1.4rem;
-      }
-      .f1 {
-        top: 25%;
-        right: 18%;
-      }
-      .f2 {
-        left: 16%;
-        bottom: 25%;
-      }
-      .primary,
-      .secondary {
-        border-radius: 999px;
-        padding: 13px 23px;
-        border: 0;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-      }
-      .primary {
-        color: white;
-        background: linear-gradient(135deg, #cb7c94, #ad5571);
-        box-shadow: 0 9px 22px #b65b792c;
-      }
-      .secondary {
-        color: #a6536d;
-        background: #fffaf7;
-        border: 1px solid #e9c8d0;
-      }
-      .primary:hover,
-      .secondary:hover {
-        transform: translateY(-2px);
-      }
-      .section-head {
-        text-align: center;
-        margin-bottom: 28px;
-      }
-      .section-head p {
-        color: var(--muted);
-        line-height: 1.7;
-      }
-      .paper {
-        position: relative;
-        background: #fffaf4;
-        border: 1px solid #f0d9dc;
-        box-shadow: var(--shadow);
-        border-radius: 8px;
-        padding: clamp(24px, 6vw, 54px);
-        max-width: 740px;
-        margin: 0 auto;
-        overflow: hidden;
-      }
-      .paper:before {
-        content: "";
-        position: absolute;
-        inset: 10px;
-        border: 1px dashed #e8c4cd;
-        pointer-events: none;
-      }
-      .paper > * {
-        position: relative;
-      }
-      .letter-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: #ba7b8b;
-      }
-      .letter-title {
-        font-style: italic;
-        font-size: 2rem;
-        margin: 10px 0 22px;
-      }
-      .letter-body {
-        font-size: 1.06rem;
-        line-height: 1.95;
-        white-space: pre-line;
-      }
-      .letter-footer {
-        font-style: italic;
-        color: #b05f79;
-        font-size: 1.35rem;
-        margin-top: 24px;
-      }
-      .center {
-        text-align: center;
-        margin-top: 24px;
-      }
-      .panel {
-        background: #fffaf5e8;
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        padding: clamp(16px, 3vw, 28px);
-        box-shadow: var(--shadow);
-      }
-      .booth-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.78fr);
-        gap: 22px;
-        align-items: start;
-      }
-      .controls {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-      }
-      .field-label {
-        display: block;
-        font:
-          600 0.78rem Arial,
-          sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #a86c7e;
-        margin-bottom: 8px;
-      }
-      .theme-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .theme-choice {
-        border: 1px solid #ecd5da;
-        background: #fffdfb;
-        color: #805867;
-        text-align: left;
-        border-radius: 12px;
-        padding: 10px;
-        font-size: 0.87rem;
-        line-height: 1.35;
-        min-height: 60px;
-      }
-      .theme-choice span {
-        display: block;
-        font-size: 0.7rem;
-        color: #b28a94;
-        margin-top: 3px;
-      }
-      .theme-choice.active {
-        background: #f7e5ea;
-        border-color: #c77d92;
-        box-shadow: inset 0 0 0 1px #c77d92;
-      }
-      .source-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .photo-slots {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
-      }
-      .slot {
-        border: 1px dashed #dcb4c0;
-        border-radius: 10px;
-        overflow: hidden;
-        background: #fff4f5;
-        min-width: 0;
-      }
-      .slot img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 3/4;
-        object-fit: cover;
-      }
-      .slot .placeholder {
-        aspect-ratio: 3/4;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        color: #bd8d9a;
-        font-size: 0.75rem;
-        padding: 4px;
-      }
-      .slot button {
-        width: 100%;
-        border: 0;
-        border-top: 1px solid #efd9de;
-        background: #fffaf9;
-        color: #9c5a70;
-        padding: 8px 3px;
-        font-size: 0.73rem;
-      }
-      .slot-number {
-        font:
-          600 0.7rem Arial,
-          sans-serif;
-        letter-spacing: 0.08em;
-        color: #b77c8c;
-        padding: 7px 4px 2px;
-        text-align: center;
-      }
-      .preview-wrap {
-        display: flex;
-        justify-content: center;
-        padding: 10px;
-      }
-      .strip {
-        width: min(100%, 330px);
-        padding: 15px 15px 18px;
-        background: #fffaf2;
-        border: 1px solid #ead6d0;
-        box-shadow: 0 12px 32px #7b46541c;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.25s;
-      }
-      .strip-title {
-        text-align: center;
-        font-size: 1.3rem;
-        line-height: 1.2;
-        margin: 2px 0 5px;
-        font-style: italic;
-      }
-      .strip-date {
-        text-align: center;
-        font:
-          600 0.65rem Arial,
-          sans-serif;
-        letter-spacing: 0.19em;
-        margin-bottom: 12px;
-        color: #a77b7d;
-      }
-      .strip-photos {
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-      }
-      .strip-photo {
-        width: 100%;
-        aspect-ratio: 4/3;
-        background: #f1e3e2;
-        overflow: hidden;
-        position: relative;
-      }
-      .strip-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .strip-photo .empty {
-        height: 100%;
-        display: grid;
-        place-items: center;
-        color: #c6a2a8;
-        font-size: 0.8rem;
-      }
-      .strip-foot {
-        text-align: center;
-        font-size: 0.7rem;
-        letter-spacing: 0.18em;
-        margin-top: 12px;
-        color: #b58a8e;
-      }
-      .theme-flower .strip {
-        background: #fffaf2;
-        border: 2px solid #d6a4a2;
-        border-radius: 22px;
-      }
-      .theme-flower .strip:before {
-        content: "✿  ❀  ✿";
-        display: block;
-        text-align: center;
-        color: #b97581;
-        letter-spacing: 0.45em;
-      }
-      .theme-letter .strip {
-        background: #f8eddb;
-        border: 1px solid #c9a87e;
-        box-shadow:
-          inset 0 0 0 5px #f8eddb,
-          inset 0 0 0 6px #d4b78d;
-      }
-      .theme-letter .strip-title {
-        font-family: "Brush Script MT", cursive;
-      }
-      .theme-kawaii .strip {
-        background: #fff0f5;
-        border: 3px dotted #e3a3bf;
-        border-radius: 25px;
-      }
-      .theme-kawaii .strip:before {
-        content: "ʕ♡ᴥ♡ʔ";
-        display: block;
-        text-align: center;
-        color: #d68aa9;
-        font-size: 1.1rem;
-      }
-      .theme-film .strip {
-        background: #242326;
-        color: #fff4df;
-        border: 8px solid #242326;
-      }
-      .theme-film .strip:before {
-        content: "▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮";
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        letter-spacing: 0.4em;
-        color: #f4e9d3;
-        font-size: 0.62rem;
-      }
-      .theme-film .strip-title,
-      .theme-film .strip-date,
-      .theme-film .strip-foot {
-        color: #fff0d7;
-      }
-      .theme-film .strip-photo {
-        border: 2px solid #fff4df;
-      }
-      .theme-coquette .strip {
-        background: #fff7fa;
-        border: 2px solid #e5b8c7;
-        border-radius: 5px;
-        outline: 1px solid #e5b8c7;
-        outline-offset: 3px;
-      }
-      .theme-coquette .strip:before {
-        content: "୨୧  ♡  ୨୧";
-        display: block;
-        text-align: center;
-        color: #c47f9b;
-        letter-spacing: 0.25em;
-      }
-      .theme-stars .strip {
-        background: #20223e;
-        color: #fff0d4;
-        border: 1px solid #8d8ab8;
-      }
-      .theme-stars .strip:before {
-        content: "✦  ☾  ⋆  ✧  ⋆";
-        display: block;
-        text-align: center;
-        color: #e5d7ff;
-        letter-spacing: 0.4em;
-      }
-      .theme-stars .strip-title,
-      .theme-stars .strip-date,
-      .theme-stars .strip-foot {
-        color: #f4e5ff;
-      }
-      .theme-y2k .strip {
-        background: linear-gradient(140deg, #ffe0f0, #dff6ff);
-        border: 3px solid #d59de4;
-        border-radius: 16px;
-        box-shadow: 5px 5px 0 #bca5eb;
-      }
-      .theme-y2k .strip-title {
-        font-family: Arial, sans-serif;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        text-shadow: 1px 2px #fff;
-      }
-      .theme-botanical .strip {
-        background: #eee5d2;
-        border: 1px solid #b4a17e;
-      }
-      .theme-botanical .strip:before {
-        content: "❦  ❧  ❦";
-        display: block;
-        text-align: center;
-        color: #77856b;
-        letter-spacing: 0.3em;
-      }
-      .theme-botanical .strip-title {
-        font-family: Georgia, serif;
-        letter-spacing: 0.03em;
-      }
-      .theme-pixel .strip {
-        background: #f4f0ff;
-        border: 4px dashed #8374b4;
-        border-radius: 0;
-      }
-      .theme-pixel .strip-title {
-        font-family: monospace;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-      .theme-pixel .strip:before {
-        content: "♥ ░ ♥ ░ ♥";
-        display: block;
-        text-align: center;
-        color: #8976c2;
-        font-family: monospace;
-      }
-      .theme-sunset .strip {
-        background: linear-gradient(#f7c5b0, #ffe7c7 55%, #fff4df);
-        border: 1px solid #dc987f;
-      }
-      .theme-sunset .strip:before {
-        content: "☼  ☁  ☼";
-        display: block;
-        text-align: center;
-        color: #be755d;
-        letter-spacing: 0.45em;
-      }
-      .theme-sunset .strip-title {
-        color: #9d594b;
-      }
-      /* Theme-specific compositions: each theme changes the actual photo arrangement. */
-      .strip-photos {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: auto;
-        gap: 8px;
-        align-items: stretch;
-      }
-      .strip-photo {
-        aspect-ratio: 4/3;
-        min-width: 0;
-        border-radius: 2px;
-      }
-      .theme-flower .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px 12px;
-      }
-      .theme-flower .strip-photo:nth-child(2),
-      .theme-flower .strip-photo:nth-child(3) {
-        transform: translateY(9px);
-      }
-      .theme-letter .strip-photos {
-        grid-template-columns: 1fr;
-        gap: 7px;
-      }
-      .theme-letter .strip-photo {
-        aspect-ratio: 2.2/1;
-        border: 5px solid #fff8e9;
-        outline: 1px solid #d4b78d;
-      }
-      .theme-kawaii .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
-      }
-      .theme-kawaii .strip-photo {
-        aspect-ratio: 1/1;
-        border-radius: 18px;
-        border: 3px solid #fff;
-      }
-      .theme-kawaii .strip-photo:nth-child(1) {
-        transform: rotate(-3deg);
-      }
-      .theme-kawaii .strip-photo:nth-child(2) {
-        transform: rotate(3deg);
-      }
-      .theme-kawaii .strip-photo:nth-child(3) {
-        transform: rotate(2deg);
-      }
-      .theme-kawaii .strip-photo:nth-child(4) {
-        transform: rotate(-2deg);
-      }
-      .theme-film .strip {
-        width: min(100%, 290px);
-        padding: 16px 20px 18px;
-      }
-      .theme-film .strip-photos {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .theme-film .strip-photo {
-        aspect-ratio: 3/2;
-        border: 2px solid #fff4df;
-      }
-      .theme-coquette .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 8px;
-      }
-      .theme-coquette .strip-photo {
-        aspect-ratio: 3/4;
-        border-radius: 42% 42% 3px 3px;
-        border: 3px solid #fff;
-      }
-      .theme-stars .strip-photos {
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 7px;
-      }
-      .theme-stars .strip-photo {
-        aspect-ratio: 1/1;
-      }
-      .theme-stars .strip-photo:nth-child(1) {
-        grid-row: span 2;
-        aspect-ratio: auto;
-        min-height: 155px;
-      }
-      .theme-stars .strip-photo:nth-child(4) {
-        grid-column: 2;
-      }
-      .theme-y2k .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .theme-y2k .strip-photo {
-        aspect-ratio: 1/1;
-        border: 3px solid white;
-        box-shadow: 2px 2px 0 #d59de4;
-      }
-      .theme-y2k .strip-photo:nth-child(2),
-      .theme-y2k .strip-photo:nth-child(4) {
-        transform: translateY(10px);
-      }
-      .theme-botanical .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-      }
-      .theme-botanical .strip-photo {
-        aspect-ratio: 3/4;
-        border: 5px solid #f8f0df;
-        outline: 1px solid #b4a17e;
-      }
-      .theme-botanical .strip-photo:nth-child(1) {
-        grid-column: span 2;
-        aspect-ratio: 2.2/1;
-      }
-      .theme-pixel .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 5px;
-      }
-      .theme-pixel .strip-photo {
-        aspect-ratio: 1/1;
-        image-rendering: pixelated;
-        border: 3px solid #d9d0fa;
-      }
-      .theme-sunset .strip-photos {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .theme-sunset .strip-photo {
-        aspect-ratio: 4/5;
-        border-radius: 48% 48% 4px 4px;
-        border: 3px solid #fff2dc;
-      }
-      .theme-sunset .strip-photo:nth-child(1),
-      .theme-sunset .strip-photo:nth-child(4) {
-        transform: translateY(8px);
-      }
-      @media (max-width: 400px) {
-        .theme-film .strip {
-          padding: 10px;
-        }
-        .theme-stars .strip-photo:nth-child(1) {
-          min-height: 120px;
-        }
-      }
-      .status {
-        font-size: 0.85rem;
-        line-height: 1.6;
-        color: #a17681;
-        min-height: 1.3em;
-      }
-      .camera-box {
-        background: #241e23;
-        border-radius: 14px;
-        overflow: hidden;
-        position: relative;
-      }
-      .camera-box video {
-        width: 100%;
-        display: block;
-        max-height: 360px;
-        object-fit: cover;
-        transform: scaleX(-1);
-      }
-      .camera-box .camera-empty {
-        color: #f7dfe7;
-        text-align: center;
-        padding: 42px 16px;
-        font-size: 0.9rem;
-        line-height: 1.7;
-      }
-      .camera-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 10px;
-      }
-      .small-note {
-        font:
-          0.8rem/1.6 Arial,
-          sans-serif;
-        color: #9b7e86;
-      }
-      .end-card {
-        text-align: center;
-        max-width: 700px;
-        margin: auto;
-        padding: 50px 22px;
-      }
-      .end-card .flower {
-        font-size: 2.5rem;
-      }
-      .footer {
-        text-align: center;
-        color: #b28c94;
-        font-size: 0.8rem;
-        padding: 30px 12px;
-      }
-      .toast {
-        position: fixed;
-        left: 50%;
-        bottom: 22px;
-        transform: translateX(-50%);
-        background: #674652;
-        color: white;
-        padding: 11px 16px;
-        border-radius: 999px;
-        font:
-          0.85rem Arial,
-          sans-serif;
-        z-index: 50;
-        box-shadow: var(--shadow);
-        max-width: 90vw;
-        text-align: center;
-      }
-      .welcome-screen {
-        min-height: calc(100svh - 70px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 26px 10px;
-        text-align: center;
-      }
-      .welcome-card {
-        position: relative;
-        width: min(760px, 100%);
-        padding: clamp(28px, 6vw, 64px) 22px;
-        background: #fffaf4;
-        border: 1px solid #efcfd7;
-        border-radius: 28px;
-        box-shadow: 0 20px 60px #8d52621a;
-        overflow: hidden;
-      }
-      .welcome-card:before {
-        content: "";
-        position: absolute;
-        inset: 10px;
-        border: 1px dashed #e8c4cd;
-        border-radius: 21px;
-        pointer-events: none;
-      }
-      .welcome-card > * {
-        position: relative;
-      }
-      .welcome-flower {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        letter-spacing: 0.3em;
-        color: #d58fa2;
-        margin: 14px 0;
-      }
-      .welcome-bow {
-        font-size: 2rem;
-        color: #d58fa2;
-        opacity: 0.8;
-      }
-      .welcome-title {
-        font-size: clamp(2.6rem, 8vw, 5rem);
-        font-weight: 400;
-        font-style: italic;
-        line-height: 1.06;
-        color: #a9506b;
-        margin: 16px auto;
-      }
-      .welcome-copy {
-        max-width: 500px;
-        margin: 0 auto 25px;
-        color: #876873;
-        line-height: 1.8;
-      }
-      .letter-card {
-        width: min(800px, 100%);
-        text-align: left;
-        padding: clamp(26px, 5vw, 54px) clamp(22px, 5vw, 52px);
-      }
-      .letter-card > .welcome-bow,
-      .letter-card > .welcome-flower,
-      .letter-card > .eyebrow,
-      .letter-card > .welcome-title {
-        text-align: center;
-      }
-      .letter-copy {
-        color: #795d66;
-        font-size: 1rem;
-        line-height: 1.9;
-      }
-      .letter-copy p {
-        margin: 0 0 16px;
-      }
-      .letter-signoff {
-        padding-top: 5px;
-        color: #a9506b;
-        font-style: italic;
-      }
-      @media (max-width: 760px) {
-        .booth-layout {
-          grid-template-columns: 1fr;
-        }
-        .preview-panel {
-          order: -1;
-        }
-        .topbar {
-          align-items: flex-start;
-        }
-        .photo-slots {
-          gap: 6px;
-        }
-        .strip {
-          width: min(100%, 300px);
-        }
-        main {
-          width: min(100% - 20px, 650px);
-        }
-      }
-      @media (max-width: 400px) {
-        .photo-slots {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .theme-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .tiny {
-          padding: 7px 9px;
-          font-size: 0.78rem;
-        }
-        .strip {
-          padding: 11px;
-        }
-        .strip-photo {
-          aspect-ratio: 4/3;
-        }
-      }
-      /* Photostrip layout: always Frame 1–4 in one vertical column for every theme. */
-      .strip-photos,
-      .theme-flower .strip-photos,
-      .theme-letter .strip-photos,
-      .theme-kawaii .strip-photos,
-      .theme-film .strip-photos,
-      .theme-coquette .strip-photos,
-      .theme-stars .strip-photos,
-      .theme-y2k .strip-photos,
-      .theme-botanical .strip-photos,
-      .theme-pixel .strip-photos,
-      .theme-sunset .strip-photos {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: 1fr !important;
-        grid-auto-rows: auto !important;
-        gap: 8px !important;
-        align-items: stretch;
-      }
-      .strip-photos .strip-photo,
-      .theme-flower .strip-photo,
-      .theme-letter .strip-photo,
-      .theme-kawaii .strip-photo,
-      .theme-film .strip-photo,
-      .theme-coquette .strip-photo,
-      .theme-stars .strip-photo,
-      .theme-y2k .strip-photo,
-      .theme-botanical .strip-photo,
-      .theme-pixel .strip-photo,
-      .theme-sunset .strip-photo {
-        width: 100%;
-        min-width: 0;
-        grid-column: auto !important;
-        grid-row: auto !important;
-        transform: none !important;
-        flex: 0 0 auto;
-      }
-      /* Keep a consistent photo window while theme-specific borders and decoration remain. */
-      .strip-photos .strip-photo {
-        aspect-ratio: 4 / 3 !important;
-        min-height: 0 !important;
-      }
-      /* Keep the four photobooth frames stacked vertically in every theme. */
-      #strip .strip-photos {
-        display: flex !important;
-        flex-direction: column !important;
-        grid-template-columns: none !important;
-        gap: 8px;
-      }
-      #strip .strip-photos .strip-photo {
-        width: 100% !important;
-        min-width: 0 !important;
-        grid-column: auto !important;
-        grid-row: auto !important;
-        transform: none !important;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        Our Little Love Story <span aria-hidden="true">♡</span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7e5e8">
+  <title>Our Little Photobooth ♡</title>
+
+  <style>
+    :root {
+      --pink: #e9aebc;
+      --rose: #b85e78;
+      --cream: #fff9f4;
+      --ink: #5c424b;
+      --muted: #9b7b83;
+      --line: #efd6dc;
+      --shadow: 0 18px 50px #8d52621a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, #fff 0, transparent 28%),
+        linear-gradient(135deg, #fff8f3, #f9e8ec 55%, #f5e7df);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .45; }
+    .hidden { display: none !important; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 12px clamp(12px, 4vw, 40px);
+      background: #fff9f0eF;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #eed9dd;
+    }
+
+    .brand { font-size: 1rem; font-style: italic; }
+    .top-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .tiny {
+      border: 1px solid var(--line);
+      background: #fffaf8;
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: var(--rose);
+      font-size: .82rem;
+    }
+
+    main {
+      width: min(1060px, calc(100% - 28px));
+      margin: auto;
+      padding: clamp(20px, 5vw, 52px) 0 60px;
+    }
+
+    .screen { animation: fade .45s ease both; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      color: #a9506b;
+      font-size: clamp(2.5rem, 9vw, 5rem);
+      line-height: 1.06;
+      font-weight: 400;
+      font-style: italic;
+      margin: 16px auto;
+    }
+
+    h2 {
+      color: #a9506b;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow {
+      color: var(--rose);
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font: 600 .7rem Arial, sans-serif;
+    }
+
+    .welcome-screen {
+      min-height: calc(100svh - 120px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .welcome-card {
+      position: relative;
+      width: min(760px, 100%);
+      padding: clamp(28px, 6vw, 60px) 22px;
+      background: #fffaf4;
+      border: 1px solid #efcfd7;
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .welcome-card::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px dashed #e8c4cd;
+      border-radius: 18px;
+      pointer-events: none;
+    }
+
+    .welcome-card > * { position: relative; }
+    .welcome-flower { color: #d58fa2; font-size: 2.6rem; margin: 12px 0; }
+    .welcome-bow { color: #d58fa2; font-size: 2rem; }
+    .welcome-title { max-width: 700px; }
+
+    .welcome-copy {
+      color: #876873;
+      max-width: 510px;
+      line-height: 1.8;
+      margin: 0 auto 24px;
+    }
+
+    .letter-card {
+      width: min(800px, 100%);
+      text-align: left;
+      padding: clamp(26px, 5vw, 50px);
+    }
+
+    .letter-card > .welcome-bow,
+    .letter-card > .welcome-flower,
+    .letter-card > .eyebrow,
+    .letter-card > h2 { text-align: center; }
+
+    .letter-copy { color: #795d66; font-size: 1rem; line-height: 1.9; }
+    .letter-copy p { margin-bottom: 16px; }
+    .letter-signoff { color: #a9506b; font-style: italic; }
+
+    .primary, .secondary {
+      border-radius: 999px;
+      padding: 12px 19px;
+      border: 0;
+      transition: transform .2s, box-shadow .2s;
+      line-height: 1.4;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, #cb7c94, #ad5571);
+      box-shadow: 0 7px 20px #b65b792c;
+    }
+
+    .secondary {
+      color: #a6536d;
+      background: #fffaf7;
+      border: 1px solid #e9c8d0;
+    }
+
+    .primary:not(:disabled):hover,
+    .secondary:not(:disabled):hover { transform: translateY(-2px); }
+
+    .section-head { text-align: center; margin-bottom: 24px; }
+    .section-head p { color: var(--muted); line-height: 1.7; }
+
+    .booth-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+      align-items: start;
+      gap: 20px;
+    }
+
+    .controls { display: flex; flex-direction: column; gap: 16px; }
+
+    .panel {
+      background: #fffaf5ed;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: clamp(14px, 3vw, 24px);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .field-label {
+      display: block;
+      font: 600 .76rem Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #a86c7e;
+      margin-bottom: 10px;
+    }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .theme-choice {
+      border: 1px solid #ecd5da;
+      background: #fffdfb;
+      color: #805867;
+      text-align: left;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: .84rem;
+      line-height: 1.4;
+      min-width: 0;
+    }
+
+    .theme-choice span {
+      display: block;
+      font-size: .69rem;
+      color: #b28a94;
+      margin-top: 3px;
+    }
+
+    .theme-choice.active {
+      background: #f7e5ea;
+      border-color: #c77d92;
+      box-shadow: inset 0 0 0 1px #c77d92;
+    }
+
+    .progress {
+      display: flex;
+      gap: 6px;
+      margin: 12px 0;
+    }
+
+    .progress span {
+      height: 5px;
+      flex: 1;
+      border-radius: 20px;
+      background: #eedde1;
+    }
+
+    .progress span.done { background: #b85e78; }
+    .progress span.current { background: #e9aebc; }
+
+    .step-text {
+      color: #a17681;
+      font: .85rem/1.6 Arial, sans-serif;
+      margin: 6px 0 14px;
+    }
+
+    .source-actions, .confirm-actions, .camera-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .source-actions button, .confirm-actions button { flex: 1; }
+
+    .confirm-actions { margin-top: 12px; }
+
+    .confirm-actions .primary,
+    .confirm-actions .secondary { min-width: 0; }
+
+    .status {
+      color: #a17681;
+      font: .85rem/1.6 Arial, sans-serif;
+      min-height: 1.4em;
+      margin: 12px 0 0;
+    }
+
+    .small-note {
+      color: #9b7e86;
+      font: .79rem/1.6 Arial, sans-serif;
+    }
+
+    .camera-box {
+      background: #241e23;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .camera-box video {
+      display: block;
+      width: 100%;
+      max-height: 420px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+
+    .camera-empty {
+      color: #f7dfe7;
+      text-align: center;
+      padding: 30px 14px;
+      font-size: .9rem;
+      line-height: 1.7;
+    }
+
+    .camera-actions { margin-top: 10px; }
+
+    /* Preview and photostrip */
+    .preview-panel { min-width: 0; }
+    .preview-wrap { display: flex; justify-content: center; padding: 12px 0 18px; }
+
+    .strip {
+      --strip-bg: #fffaf2;
+      --strip-ink: #8e5969;
+      width: min(100%, 310px);
+      padding: 15px 14px 17px;
+      position: relative;
+      overflow: hidden;
+      background: var(--strip-bg);
+      color: var(--strip-ink);
+      border: 2px solid #d6a4a2;
+      border-radius: 20px;
+      box-shadow: 0 12px 32px #7b46541c;
+      transition: background .2s, border .2s;
+    }
+
+    .strip-title {
+      text-align: center;
+      font-size: clamp(1rem, 4vw, 1.35rem);
+      line-height: 1.2;
+      font-style: italic;
+      overflow-wrap: anywhere;
+      margin: 4px 0 5px;
+    }
+
+    .strip-date {
+      text-align: center;
+      font: 600 .62rem Arial, sans-serif;
+      letter-spacing: .16em;
+      margin-bottom: 12px;
+      color: var(--strip-ink);
+    }
+
+    .strip-photos {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Fixed portrait windows. Landscape pictures are cropped, never stretched. */
+    .strip-photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      min-height: 0;
+      overflow: hidden;
+      background: #f0e0e4;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px #54313b12;
+    }
+
+    .strip-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .strip-photo .empty {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+      color: #bc929f;
+      font-size: .78rem;
+      background: #f8e9eb;
+    }
+
+    .strip-photo.active-frame {
+      outline: 3px solid #d47795;
+      outline-offset: 2px;
+    }
+
+    .frame-mark {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      z-index: 2;
+      border-radius: 20px;
+      padding: 4px 7px;
+      font: 600 .6rem Arial, sans-serif;
+      color: white;
+      background: #5e876bd9;
+    }
+
+    .strip-foot {
+      text-align: center;
+      font-size: .64rem;
+      letter-spacing: .13em;
+      margin-top: 13px;
+      overflow-wrap: anywhere;
+      color: var(--strip-ink);
+    }
+
+    /* Ten visual themes, with the same four portrait frames. */
+    .theme-flower .strip { --strip-bg: #fffaf2; --strip-ink: #9c5c6d; }
+    .theme-flower .strip::before {
+      content: "✿  ❀  ✿";
+      display: block;
+      text-align: center;
+      color: #b97581;
+      letter-spacing: .35em;
+    }
+
+    .theme-letter .strip {
+      --strip-bg: #f8eddb;
+      --strip-ink: #8f6b48;
+      border-color: #c9a87e;
+      box-shadow: inset 0 0 0 4px #f8eddb, inset 0 0 0 5px #d4b78d;
+      border-radius: 2px;
+    }
+    .theme-letter .strip-title { font-family: "Brush Script MT", cursive; }
+
+    .theme-kawaii .strip {
+      --strip-bg: #fff0f5;
+      --strip-ink: #b35f87;
+      border: 3px dotted #e3a3bf;
+      border-radius: 24px;
+    }
+    .theme-kawaii .strip::before {
+      content: "ʕ♡ᴥ♡ʔ";
+      display: block;
+      text-align: center;
+      color: #d68aa9;
+      font-size: 1.1rem;
+    }
+    .theme-kawaii .strip-photo { border-radius: 12px; }
+
+    .theme-film .strip {
+      --strip-bg: #242326;
+      --strip-ink: #fff0d7;
+      background: #242326;
+      color: #fff0d7;
+      border: 8px solid #242326;
+      outline: 1px solid #555057;
+      border-radius: 0;
+    }
+    .theme-film .strip::before {
+      content: "▮ ▮ ▮ ▮ ▮ ▮ ▮ ▮";
+      display: block;
+      text-align: center;
+      color: #f4e9d3;
+      letter-spacing: .2em;
+      font-size: .65rem;
+    }
+    .theme-film .strip-photo { border-radius: 0; border: 2px solid #fff4df; }
+
+    .theme-coquette .strip {
+      --strip-bg: #fff7fa;
+      --strip-ink: #a9577c;
+      border: 2px solid #e5b8c7;
+      border-radius: 5px;
+      outline: 1px solid #e5b8c7;
+      outline-offset: 2px;
+    }
+    .theme-coquette .strip::before {
+      content: "୨୧  ♡  ୨୧";
+      display: block;
+      text-align: center;
+      color: #c47f9b;
+      letter-spacing: .25em;
+    }
+    .theme-coquette .strip-photo { border-radius: 30% 30% 3px 3px; }
+
+    .theme-stars .strip {
+      --strip-bg: #20223e;
+      --strip-ink: #f4e5ff;
+      background: #20223e;
+      border-color: #8d8ab8;
+      color: #f4e5ff;
+    }
+    .theme-stars .strip::before {
+      content: "✦  ☾  ⋆  ✧  ⋆";
+      display: block;
+      text-align: center;
+      color: #e5d7ff;
+      letter-spacing: .2em;
+    }
+
+    .theme-y2k .strip {
+      --strip-bg: #ffe0f0;
+      --strip-ink: #87569b;
+      background: linear-gradient(140deg, #ffe0f0, #dff6ff);
+      border: 3px solid #d59de4;
+      border-radius: 16px;
+      box-shadow: 4px 4px 0 #bca5eb;
+    }
+    .theme-y2k .strip-title {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      text-shadow: 1px 2px white;
+    }
+
+    .theme-botanical .strip {
+      --strip-bg: #eee5d2;
+      --strip-ink: #647359;
+      background: #eee5d2;
+      border-color: #b4a17e;
+    }
+    .theme-botanical .strip::before {
+      content: "❦  ❧  ❦";
+      display: block;
+      text-align: center;
+      color: #77856b;
+      letter-spacing: .25em;
+    }
+    .theme-botanical .strip-photo { border: 4px solid #f8f0df; }
+
+    .theme-pixel .strip {
+      --strip-bg: #f4f0ff;
+      --strip-ink: #7566a5;
+      background: #f4f0ff;
+      border: 4px dashed #8374b4;
+      border-radius: 0;
+    }
+    .theme-pixel .strip::before {
+      content: "♥ ░ ♥ ░ ♥";
+      display: block;
+      text-align: center;
+      color: #8976c2;
+      font-family: monospace;
+    }
+    .theme-pixel .strip-title { font-family: monospace; font-size: 1rem; font-weight: bold; }
+
+    .theme-sunset .strip {
+      --strip-bg: #ffe7c7;
+      --strip-ink: #9d594b;
+      background: linear-gradient(#f7c5b0, #ffe7c7 55%, #fff4df);
+      border-color: #dc987f;
+    }
+    .theme-sunset .strip::before {
+      content: "☼  ☁  ☼";
+      display: block;
+      text-align: center;
+      color: #be755d;
+      letter-spacing: .35em;
+    }
+    .theme-sunset .strip-photo { border-color: #fff2dc; }
+
+    /* Printer and paper emergence animation */
+    .printer-area { margin-top: 20px; }
+
+    .printer {
+      position: relative;
+      width: min(100%, 300px);
+      height: 90px;
+      margin: 0 auto;
+      border-radius: 18px 18px 10px 10px;
+      background: linear-gradient(145deg, #f9dce3, #e6b9c7);
+      border: 1px solid #d9a4b4;
+      box-shadow: 0 9px 20px #a15c7024;
+    }
+
+    .printer::before {
+      content: "";
+      position: absolute;
+      top: 12px;
+      left: 13%;
+      right: 13%;
+      height: 18px;
+      border-radius: 6px;
+      background: #bd8999;
+      box-shadow: inset 0 3px 5px #70435444;
+    }
+
+    .printer::after {
+      content: "♡  LITTLE LOVE PRINTER  ♡";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 12px;
+      text-align: center;
+      font: 600 .62rem Arial, sans-serif;
+      letter-spacing: .1em;
+      color: #94566b;
+    }
+
+    .print-paper {
+      position: relative;
+      z-index: 1;
+      width: min(74%, 205px);
+      margin: 0 auto;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .print-paper .strip {
+      width: 100%;
+      box-shadow: 0 5px 15px #4d28351a;
+    }
+
+    .printer.printing .print-paper {
+      animation: printOut 2.2s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+
+    @keyframes printOut {
+      0% { transform: translateY(-90%); opacity: 0; }
+      18% { opacity: 1; }
+      100% { transform: translateY(12px); opacity: 1; }
+    }
+
+    .print-message {
+      text-align: center;
+      color: #a17681;
+      font: .82rem/1.6 Arial, sans-serif;
+      margin: 14px 0;
+    }
+
+    .print-actions { display: grid; gap: 9px; }
+
+    .footer {
+      text-align: center;
+      color: #b28c94;
+      font-size: .78rem;
+      padding: 28px 12px;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 90vw;
+      background: #674652;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 999px;
+      font: .83rem/1.4 Arial, sans-serif;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 760px) {
+      .booth-layout { grid-template-columns: 1fr; }
+      .preview-panel { order: -1; }
+      .strip { width: min(100%, 300px); }
+      main { width: calc(100% - 20px); }
+      .welcome-screen { min-height: calc(100svh - 100px); }
+    }
+
+    @media (max-width: 430px) {
+      .topbar { align-items: flex-start; }
+      .brand { max-width: 120px; line-height: 1.4; }
+      .tiny { padding: 7px 8px; font-size: .73rem; }
+      .theme-grid { gap: 6px; }
+      .theme-choice { padding: 8px; font-size: .78rem; }
+      .panel { border-radius: 16px; }
+      .strip { padding: 12px 11px 14px; }
+      .strip-photos { gap: 7px; }
+      .confirm-actions button, .source-actions button { font-size: .85rem; padding: 11px 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-flower">
+  <header class="topbar">
+    <div class="brand">Our Little Love Story ♡</div>
+    <div class="top-actions">
+      <button id="musicToggle" class="tiny" type="button">♫ Musik: mati</button>
+      <button id="homeBtn" class="tiny" type="button">⌂ Awal</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- WELCOME -->
+    <section id="welcome" class="welcome-screen screen">
+      <div class="welcome-card">
+        <div class="welcome-bow">୨୧</div>
+        <div class="welcome-flower">✿ ♡ ❀</div>
+        <div class="eyebrow">a little celebration of us</div>
+        <h1 class="welcome-title">Happy 5 Months,<br>My Love ♡</h1>
+        <div style="color:#d58fa2;letter-spacing:.22em;margin:20px 0">♡ ───── ♡</div>
+        <p class="welcome-copy">A little gift made with lots of love, just for you.</p>
+        <button class="primary" id="startBtn" type="button">Mulai ♡</button>
       </div>
-      <div class="top-actions">
-        <button
-          id="musicToggle"
-          class="tiny"
-          type="button"
-          aria-pressed="false"
-        >
-          ♫ Musik: mati
-        </button>
-        <button id="homeBtn" class="tiny" type="button">⌂ Halaman awal</button>
+    </section>
+
+    <!-- LETTER -->
+    <section id="letterPage" class="welcome-screen screen hidden">
+      <article class="welcome-card letter-card">
+        <div class="welcome-bow" style="text-align:center">୨୧</div>
+        <div class="welcome-flower">✿ ♡ ❀</div>
+        <div class="eyebrow">a letter from my heart</div>
+        <h2 class="welcome-title" style="font-size:clamp(2rem,6vw,3.6rem)">Dear, My Love ♡</h2>
+
+        <div class="letter-copy">
+          <p><strong>Hai, Sayang.. ❤️<br>Happy Anniversary yang ke-5 bulan! ♡</strong></p>
+          <p>Aku seneng banget, nggak terasa kita udah sampai lima bulan. Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu bikin aku happy banget karena bisa melewati semuanya bersama orang yang aku sayang.</p>
+          <p>Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai kenangan kecil dari perjalanan kita.</p>
+          <p>Karena kamu suka photobooth, makanya aku membuat ini khusus buat kamu. Aku ingin kita punya lebih banyak foto, lebih banyak kenangan, dan lebih banyak alasan untuk tersenyum setiap kali mengingat hari-hari yang sudah kita lewati bersama.</p>
+          <p>Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku berbagi cerita, dan sudah menjadi seseorang yang begitu berarti buat aku. Aku nggak tahu semua hal yang akan kita temui ke depannya, tapi aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
+          <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa. Karena hari ini, photobooth-nya memang sederhana, tapi orang yang ada di dalam kenangan itu adalah seseorang yang sangat aku sayang.</p>
+          <p class="letter-signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
+        </div>
+
+        <p style="text-align:center;color:#b77c8c;letter-spacing:.1em;font-size:.8rem;margin:20px 0">
+          11 · 10 · 2026 — Our 5th Month Anniversary
+        </p>
+        <div style="text-align:center">
+          <button class="primary" id="toBoothBtn" type="button">let's go Photobooth! 📸</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- PHOTOBOOTH -->
+    <section id="booth" class="screen hidden">
+      <div class="section-head">
+        <div class="eyebrow">choose · pose · print</div>
+        <h2>Our Little Photobooth</h2>
+        <p>Pilih tema, isi empat frame, tekan Okee untuk mengunci setiap foto, lalu cetak kenangan kalian. ♡</p>
       </div>
-    </header>
-    <main>
-      <section id="welcome" class="welcome-screen screen">
-        <div class="welcome-card">
-          <div class="welcome-bow">୨୧</div>
-          <div class="welcome-flower">✿ ♡ ❀</div>
-          <div class="eyebrow">a little celebration of us</div>
-          <h1 class="welcome-title">Happy 5 Months,<br />My Love ♡</h1>
-          <div style="color: #d58fa2; letter-spacing: 0.22em; margin: 20px 0">
-            ==========
-          </div>
-          <p class="welcome-copy">
-            A little gift made with lots of love, just for you.
-          </p>
-          <button class="primary" id="startBtn" type="button">Mulai ♡</button>
+
+      <div class="booth-layout">
+        <div class="controls">
+          <section class="panel">
+            <label class="field-label">Pilih tema photostrip</label>
+            <div id="themeList" class="theme-grid">
+              <button class="theme-choice active" data-theme="flower" type="button">🌷 Flower Garden<span>Forever in Bloom</span></button>
+              <button class="theme-choice" data-theme="letter" type="button">💌 Love Letter<span>Little Things, With You</span></button>
+              <button class="theme-choice" data-theme="kawaii" type="button">🧸 Kawaii Love<span>You're My Cutie!</span></button>
+              <button class="theme-choice" data-theme="film" type="button">🎞 Classic Film<span>Our Little Moments</span></button>
+              <button class="theme-choice" data-theme="coquette" type="button">🎀 Coquette<span>My Darling ♡</span></button>
+              <button class="theme-choice" data-theme="stars" type="button">🌙 Moon & Stars<span>You're My Universe</span></button>
+              <button class="theme-choice" data-theme="y2k" type="button">💿 Retro Y2K<span>LOVE U 4EVER</span></button>
+              <button class="theme-choice" data-theme="botanical" type="button">🌿 Vintage Botanical<span>A Love to Keep</span></button>
+              <button class="theme-choice" data-theme="pixel" type="button">👾 Pixel Love<span>PLAYER 1 + PLAYER 2</span></button>
+              <button class="theme-choice" data-theme="sunset" type="button">🌅 Golden Sunset<span>Meet Me at Sunset</span></button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="field-label">Empat frame kenangan</div>
+            <div id="progress" class="progress" aria-label="Kemajuan foto">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <p id="stepText" class="step-text">Frame 1 dari 4 · belum diisi</p>
+
+            <div class="source-actions">
+              <button id="uploadBtn" class="secondary" type="button">＋ Pilih foto</button>
+              <button id="cameraOpenBtn" class="secondary" type="button">◎ Buka kamera</button>
+            </div>
+
+            <input id="singleInput" class="hidden" type="file" accept="image/*">
+
+            <div id="cameraPanel" class="hidden" style="margin-top:15px">
+              <div class="camera-box">
+                <video id="video" autoplay playsinline muted></video>
+                <div id="cameraEmpty" class="camera-empty hidden">Menunggu kamera…</div>
+              </div>
+              <div class="camera-actions">
+                <button id="captureBtn" class="primary" type="button">Ambil foto 📸</button>
+                <button id="cameraCloseBtn" class="secondary" type="button">Tutup kamera</button>
+              </div>
+              <p class="small-note" style="margin:8px 0 0">Kamera membutuhkan izin browser dan HTTPS atau localhost.</p>
+            </div>
+
+            <div class="confirm-actions">
+              <button id="retakeBtn" class="secondary" type="button">↻ Retake</button>
+              <button id="okayBtn" class="primary" type="button">Okee ♡</button>
+            </div>
+
+            <p id="status" class="status" aria-live="polite">Pilih foto atau buka kamera untuk mengisi frame pertama.</p>
+            <p class="small-note">Foto yang sudah dikunci dengan Okee tidak bisa diganti lagi selama sesi ini. Pastikan fotonya sudah sesuai sebelum mengunci, ya. ♡</p>
+          </section>
         </div>
-      </section>
-      <section id="letterPage" class="welcome-screen screen hidden">
-        <article class="welcome-card letter-card">
-          <div class="welcome-bow">୨୧</div>
-          <div class="welcome-flower">✿ ♡ ❀</div>
-          <div class="eyebrow">a letter from my heart</div>
-          <h2 class="welcome-title" style="font-size: clamp(2rem, 6vw, 3.6rem)">
-            Dear, My Love ♡
-          </h2>
-          <div class="letter-copy">
-            <p>
-              <strong>Hai, Sayang.. ❤️</strong><br /><strong
-                >Happy Anniversary yang ke-5 bulan! ♡</strong
-              >
-            </p>
-            <p>
-              Aku seneng banget, nggak terasa kita udah sampai lima bulan.
-              Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada
-              tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu
-              bikin aku happy banget karena bisa melewati semuanya bersama orang
-              yang aku sayang.
-            </p>
-            <p>
-              Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau
-              sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat
-              sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai
-              kenangan kecil dari perjalanan kita.
-            </p>
-            <p>
-              Karena kamu suka photobooth, makanya aku membuat ini khusus buat
-              kamu. Aku ingin kita punya lebih banyak foto, lebih banyak
-              kenangan, dan lebih banyak alasan untuk tersenyum setiap kali
-              mengingat hari-hari yang sudah kita lewati bersama.
-            </p>
-            <p>
-              Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku
-              berbagi cerita, dan sudah menjadi seseorang yang begitu berarti
-              buat aku. Aku nggak tahu semua hal yang akan kita temui ke
-              depannya, tapi aku berharap kita bisa terus bersama untuk
-              selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.
-            </p>
-            <p>
-              Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka,
-              pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya,
-              yaa. Karena hari ini, photobooth-nya memang sederhana, tapi orang
-              yang ada di dalam kenangan itu adalah seseorang yang sangat aku
-              sayang.
-            </p>
-            <p class="letter-signoff">
-              Dari pacar ganteng kamu,<br />I LOVE U SAYANG ♡
-            </p>
+
+        <!-- SINGLE MAIN PREVIEW: no duplicate photo thumbnail grid -->
+        <section class="panel preview-panel">
+          <div class="section-head" style="margin-bottom:5px">
+            <div class="eyebrow">live preview</div>
+            <h3 style="font-size:1.4rem;font-weight:400;font-style:italic;margin:8px 0">Your keepsake ♡</h3>
           </div>
-          <p
-            style="
-              color: #b77c8c;
-              letter-spacing: 0.12em;
-              font-size: 0.8rem;
-              margin: 18px 0 22px;
-            "
-          >
-            11 · 10 · 2026 — Our 5th Month Anniversary
+
+          <div class="preview-wrap">
+            <div id="strip" class="strip theme-flower">
+              <div id="stripTitle" class="strip-title">Forever in Bloom</div>
+              <div class="strip-date">11 · 10 · 2026</div>
+              <div id="stripPhotos" class="strip-photos"></div>
+              <div id="stripFoot" class="strip-foot">♡ A LITTLE LOVE STORY ♡</div>
+            </div>
+          </div>
+
+          <p class="small-note" style="text-align:center">
+            Semua empat foto akan tersusun vertikal dalam satu photostrip.
           </p>
-          <button class="primary" id="toBoothBtn" type="button">
-            let's go Photobooth! 📸
-          </button>
-        </article>
-      </section>
-      <section id="booth" class="screen hidden">
-        <div class="section-head">
-          <div class="eyebrow">choose · pose · print</div>
-          <h2>Our Little Photobooth</h2>
-          <p>
-            Pilih satu dari 10 konsep photostrip, ambil atau unggah empat foto,
-            lalu ekspor hasil PNG dengan bingkai yang sesuai tema.
+
+          <div class="printer-area">
+            <div id="printer" class="printer">
+              <div id="printPaper" class="print-paper"></div>
+            </div>
+            <p id="printMessage" class="print-message">Photostrip kamu akan keluar dari printer setelah semua frame terkunci. ♡</p>
+            <div class="print-actions">
+              <button id="printBtn" class="primary" type="button" disabled>▤ Print Photo</button>
+              <button id="downloadBtn" class="secondary hidden" type="button">♡ Download PNG</button>
+            </div>
+          </div>
+          <p class="small-note" style="margin-top:12px">
+            File PNG dibuat dari photostrip, bukan dari seluruh layar HP, agar rasio dan bingkai tetap utuh.
           </p>
-        </div>
-        <div class="booth-layout">
-          <div class="controls">
-            <div class="panel">
-              <label class="field-label" for="themeList"
-                >Pilih tema photostrip</label
-              >
-              <div id="themeList" class="theme-grid">
-                <button class="theme-choice active" data-theme="flower">
-                  🌷 Flower Garden<span>Forever in Bloom</span>
-                </button>
-                <button class="theme-choice" data-theme="letter">
-                  💌 Love Letter<span>Little Things, With You</span>
-                </button>
-                <button class="theme-choice" data-theme="kawaii">
-                  🧸 Kawaii Love<span>You're My Cutie!</span>
-                </button>
-                <button class="theme-choice" data-theme="film">
-                  🎞 Classic Film<span>Our Little Moments</span>
-                </button>
-                <button class="theme-choice" data-theme="coquette">
-                  🎀 Coquette<span>My Darling ♡</span>
-                </button>
-                <button class="theme-choice" data-theme="stars">
-                  🌙 Moon & Stars<span>You're My Universe</span>
-                </button>
-                <button class="theme-choice" data-theme="y2k">
-                  💿 Retro Y2K<span>LOVE U 4EVER</span>
-                </button>
-                <button class="theme-choice" data-theme="botanical">
-                  🌿 Vintage Botanical<span>A Love to Keep</span>
-                </button>
-                <button class="theme-choice" data-theme="pixel">
-                  👾 Pixel Love<span>PLAYER 1 + PLAYER 2</span>
-                </button>
-                <button class="theme-choice" data-theme="sunset">
-                  🌅 Golden Sunset<span>Meet Me at Sunset</span>
-                </button>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="field-label">Empat frame kenangan</div>
-              <div id="slots" class="photo-slots"></div>
-              <div class="source-actions" style="margin-top: 14px">
-                <button id="uploadAllBtn" class="secondary" type="button">
-                  ＋ Upload galeri
-                </button>
-                <button id="cameraOpenBtn" class="secondary" type="button">
-                  ◎ Buka kamera
-                </button>
-              </div>
-              <input
-                id="galleryInput"
-                type="file"
-                accept="image/*"
-                multiple
-                class="hidden"
-              />
-              <input
-                id="singleInput"
-                type="file"
-                accept="image/*"
-                class="hidden"
-              />
-              <div id="cameraPanel" class="hidden" style="margin-top: 16px">
-                <div class="camera-box">
-                  <video id="video" autoplay playsinline muted></video>
-                  <div id="cameraEmpty" class="camera-empty">
-                    Kamera belum aktif.<br />Izinkan akses kamera saat diminta
-                    browser.
-                  </div>
-                </div>
-                <div class="camera-actions">
-                  <button id="captureBtn" class="primary" type="button">
-                    Ambil foto untuk frame terpilih</button
-                  ><button id="cameraCloseBtn" class="secondary" type="button">
-                    Tutup kamera
-                  </button>
-                </div>
-                <p class="small-note" style="margin: 9px 0 0">
-                  Pilih frame melalui tombol “Retake / isi” di bawah thumbnail,
-                  lalu ambil foto. Kamera memerlukan HTTPS (GitHub Pages sudah
-                  mendukungnya) atau localhost.
-                </p>
-              </div>
-              <p id="status" class="status" aria-live="polite">
-                Pilih “Retake / isi” pada frame untuk menentukan tempat foto
-                akan dimasukkan.
-              </p>
-            </div>
-          </div>
-          <div class="panel preview-panel">
-            <div class="section-head" style="margin-bottom: 8px">
-              <div class="eyebrow">live preview</div>
-              <h3
-                style="
-                  font-size: 1.45rem;
-                  font-weight: 400;
-                  font-style: italic;
-                  margin: 8px 0;
-                "
-              >
-                Your keepsake ♡
-              </h3>
-            </div>
-            <div class="preview-wrap">
-              <div id="strip" class="strip theme-flower">
-                <div id="stripTitle" class="strip-title">Forever in Bloom</div>
-                <div class="strip-date">11 · 10 · 2026</div>
-                <div id="stripPhotos" class="strip-photos"></div>
-                <div id="stripFoot" class="strip-foot">
-                  ♡ A LITTLE LOVE STORY ♡
-                </div>
-              </div>
-            </div>
-            <p class="small-note">
-              Pratinjau akan diperbarui saat kamu memilih tema atau mengganti
-              foto.
-            </p>
-            <button
-              id="exportBtn"
-              class="primary"
-              style="width: 100%; margin-top: 8px"
-              type="button"
-            >
-              ♡ Ekspor photostrip PNG
-            </button>
-            <p class="small-note" style="margin-top: 12px">
-              Ekspor dibuat lokal di perangkatmu dalam ukuran tinggi. Foto tidak
-              diunggah ke server.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-    <div class="footer">OUR LITTLE PHOTOBOOTH ♡ <br />11 · 10 · 2026</div>
-    <div id="toast" class="toast hidden" role="status"></div>
-    <audio
-      id="music"
-      autoplay
-      loop
-      preload="auto"
-      src="assets/Stephen Sanchez - Until I Found You (Official Video).mp3"
-    ></audio>
-    <script
-      src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      (() => {
-        const $ = (id) => document.getElementById(id);
-        const screens = ["welcome", "letterPage", "booth"];
-        const themes = {
-          flower: {
-            title: "Forever in Bloom",
-            foot: "♡ A LITTLE LOVE STORY ♡",
-          },
-          letter: {
-            title: "Little Things, With You",
-            foot: "SEALED WITH LOVE · 11.10.26",
-          },
-          kawaii: { title: "You're My Cutie!", foot: "♡ HUGS, KISSES & YOU ♡" },
-          film: {
-            title: "Our Little Moments",
-            foot: "FRAME 05 · TAKE 11.10.26",
-          },
-          coquette: { title: "My Darling ♡", foot: "୨୧ WITH LOVE, ALWAYS ୨୧" },
-          stars: {
-            title: "You're My Universe",
-            foot: "✦ WRITTEN IN THE STARS ✦",
-          },
-          y2k: { title: "LOVE U 4EVER", foot: "XOXO · 4EVER ONLINE" },
-          botanical: {
-            title: "A Love to Keep",
-            foot: "GROWN WITH LOVE · MMXXVI",
-          },
-          pixel: { title: "PLAYER 1 + PLAYER 2", foot: "♥ GAME SAVED ♥" },
-          sunset: { title: "Meet Me at Sunset", foot: "SAME SKY, SAME HEART" },
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">OUR LITTLE PHOTOBOOTH ♡<br>11 · 10 · 2026</footer>
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <audio id="music" loop preload="none" src="assets/Stephen Sanchez - Until I Found You (Official Video).mp3"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = id => document.getElementById(id);
+
+      const themes = {
+        flower: { title: "Forever in Bloom", foot: "♡ A LITTLE LOVE STORY ♡" },
+        letter: { title: "Little Things, With You", foot: "SEALED WITH LOVE · 11.10.26" },
+        kawaii: { title: "You're My Cutie!", foot: "♡ HUGS, KISSES & YOU ♡" },
+        film: { title: "Our Little Moments", foot: "FRAME 05 · TAKE 11.10.26" },
+        coquette: { title: "My Darling ♡", foot: "୨୧ WITH LOVE, ALWAYS ୨୧" },
+        stars: { title: "You're My Universe", foot: "✦ WRITTEN IN THE STARS ✦" },
+        y2k: { title: "LOVE U 4EVER", foot: "XOXO · 4EVER ONLINE" },
+        botanical: { title: "A Love to Keep", foot: "GROWN WITH LOVE · MMXXVI" },
+        pixel: { title: "PLAYER 1 + PLAYER 2", foot: "♥ GAME SAVED ♥" },
+        sunset: { title: "Meet Me at Sunset", foot: "SAME SKY, SAME HEART" }
+      };
+
+      const themeNames = Object.keys(themes);
+
+      // Each frame has an image and a locked flag.
+      const photos = Array.from({ length: 4 }, () => ({
+        src: null,
+        locked: false
+      }));
+
+      let currentTheme = "flower";
+      let activeIndex = 0;
+      let stream = null;
+      let toastTimer = null;
+      let musicOn = false;
+      let printed = false;
+      let printing = false;
+
+      const toast = message => {
+        $("toast").textContent = message;
+        $("toast").classList.remove("hidden");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => $("toast").classList.add("hidden"), 2600);
+      };
+
+      const status = message => $("status").textContent = message;
+
+      function showScreen(id) {
+        ["welcome", "letterPage", "booth"].forEach(screen => {
+          $(screen).classList.toggle("hidden", screen !== id);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function nextUnlockedIndex() {
+        return photos.findIndex(photo => !photo.locked);
+      }
+
+      function allLocked() {
+        return photos.every(photo => photo.locked && photo.src);
+      }
+
+      function currentPhotoExists() {
+        return Boolean(photos[activeIndex] && photos[activeIndex].src);
+      }
+
+      function updateActiveIndex() {
+        const next = nextUnlockedIndex();
+        activeIndex = next === -1 ? 3 : next;
+      }
+
+      function setTheme(theme) {
+        if (!themes[theme]) return;
+
+        currentTheme = theme;
+        document.body.classList.remove(...themeNames.map(t => "theme-" + t));
+        document.body.classList.add("theme-" + theme);
+
+        const strip = $("strip");
+        strip.classList.remove(...themeNames.map(t => "theme-" + t));
+        strip.classList.add("theme-" + theme);
+
+        $("stripTitle").textContent = themes[theme].title;
+        $("stripFoot").textContent = themes[theme].foot;
+
+        document.querySelectorAll(".theme-choice").forEach(button => {
+          const selected = button.dataset.theme === theme;
+          button.classList.toggle("active", selected);
+          button.setAttribute("aria-pressed", String(selected));
+        });
+
+        // If already printed, require printing again to update the paper.
+        if (printed) resetPrintState();
+        renderPhotos();
+      }
+
+      function resetPrintState() {
+        printed = false;
+        printing = false;
+        $("printer").classList.remove("printing");
+        $("printPaper").innerHTML = "";
+        $("downloadBtn").classList.add("hidden");
+        $("printBtn").disabled = !allLocked();
+        $("printBtn").textContent = "▤ Print Photo";
+        $("printMessage").textContent = allLocked()
+          ? "Semua frame siap dicetak. Tekan Print Photo ♡"
+          : "Photostrip kamu akan keluar dari printer setelah semua frame terkunci. ♡";
+      }
+
+      function renderPhotos() {
+        const root = $("stripPhotos");
+        root.innerHTML = "";
+
+        photos.forEach((photo, index) => {
+          const frame = document.createElement("div");
+          frame.className = "strip-photo";
+
+          if (index === activeIndex && !photo.locked && !allLocked()) {
+            frame.classList.add("active-frame");
+          }
+
+          if (photo.src) {
+            const img = document.createElement("img");
+            img.src = photo.src;
+            img.alt = "Foto kenangan frame " + (index + 1);
+            img.draggable = false;
+            frame.appendChild(img);
+          } else {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "♡\nFoto " + (index + 1);
+            empty.style.whiteSpace = "pre-line";
+            frame.appendChild(empty);
+          }
+
+          if (photo.locked) {
+            const mark = document.createElement("span");
+            mark.className = "frame-mark";
+            mark.textContent = "✓ LOCKED";
+            frame.appendChild(mark);
+          }
+
+          root.appendChild(frame);
+        });
+
+        updateControls();
+      }
+
+      function updateControls() {
+        updateActiveIndex();
+
+        $("progress").querySelectorAll("span").forEach((el, i) => {
+          el.classList.toggle("done", photos[i].locked);
+          el.classList.toggle("current", i === activeIndex && !allLocked());
+        });
+
+        if (allLocked()) {
+          $("stepText").textContent = "4 dari 4 frame terkunci · siap dicetak ♡";
+          $("uploadBtn").disabled = true;
+          $("cameraOpenBtn").disabled = true;
+          $("retakeBtn").disabled = true;
+          $("okayBtn").disabled = true;
+          $("captureBtn").disabled = true;
+          $("printBtn").disabled = printed || printing;
+          if (!printed && !printing) {
+            $("printMessage").textContent = "Semua foto sudah terkunci. Saatnya mencetak kenangan kalian! ♡";
+          }
+          return;
+        }
+
+        const current = photos[activeIndex];
+        $("stepText").textContent =
+          "Frame " + (activeIndex + 1) + " dari 4 · " +
+          (current.src ? "foto siap diperiksa" : "belum diisi");
+
+        $("uploadBtn").disabled = Boolean(current.locked);
+        $("cameraOpenBtn").disabled = Boolean(current.locked);
+        $("retakeBtn").disabled = !current.src || current.locked;
+        $("okayBtn").disabled = !current.src || current.locked;
+        $("captureBtn").disabled = Boolean(current.locked);
+        $("printBtn").disabled = true;
+      }
+
+      function loadFile(file) {
+        if (!file || !file.type.startsWith("image/")) {
+          toast("Pilih file gambar ya ♡");
+          return;
+        }
+
+        if (allLocked() || photos[activeIndex].locked) {
+          toast("Frame ini sudah terkunci ♡");
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onerror = () => toast("Gambar tidak berhasil dibaca. Coba lagi ya.");
+
+        reader.onload = () => {
+          const img = new Image();
+
+          img.onload = () => {
+            photos[activeIndex].src = reader.result;
+            resetPrintState();
+            renderPhotos();
+            status("Foto masuk ke frame " + (activeIndex + 1) + ". Periksa dulu, lalu tekan Okee ♡");
+          };
+
+          img.onerror = () => toast("Gambar ini tidak bisa dibuka.");
+          img.src = reader.result;
         };
-        const themeClasses = Object.keys(themes).map((t) => "theme-" + t);
-        let currentTheme = "flower",
-          selectedSlot = 0,
-          photos = [null, null, null, null],
-          stream = null,
-          toastTimer = null,
+
+        reader.readAsDataURL(file);
+      }
+
+      function retakeCurrent() {
+        if (allLocked() || photos[activeIndex].locked) {
+          toast("Foto yang sudah Okee tidak bisa diubah lagi ♡");
+          return;
+        }
+
+        photos[activeIndex].src = null;
+        resetPrintState();
+        renderPhotos();
+        status("Frame " + (activeIndex + 1) + " siap diisi ulang. Ambil foto baru atau pilih dari galeri ♡");
+      }
+
+      function confirmCurrent() {
+        if (!currentPhotoExists()) {
+          toast("Isi foto frame ini dulu ya ♡");
+          return;
+        }
+
+        if (photos[activeIndex].locked) return;
+
+        photos[activeIndex].locked = true;
+
+        if (allLocked()) {
+          renderPhotos();
+          resetPrintState();
+          status("Yeay! Empat foto sudah terkunci. Sekarang tekan Print Photo ♡");
+          toast("Semua foto selesai! Siap dicetak ♡");
+          $("printBtn").disabled = false;
+          $("printMessage").textContent = "Empat kenangan sudah siap keluar dari printer! ♡";
+          $("printer").scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        const completed = activeIndex + 1;
+        updateActiveIndex();
+        resetPrintState();
+        renderPhotos();
+        status("Frame " + completed + " terkunci ♡ Lanjut ke frame " + (activeIndex + 1) + "!");
+        toast("Okee! Foto frame " + completed + " berhasil dikunci ♡");
+      }
+
+      async function openCamera() {
+        if (allLocked()) {
+          toast("Semua foto sudah terkunci ♡");
+          return;
+        }
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          toast("Kamera membutuhkan HTTPS atau localhost. Kamu juga bisa pilih foto dari galeri.");
+          return;
+        }
+
+        try {
+          closeCamera();
+
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: {
+              facingMode: "user"
+            }
+          });
+
+          $("video").srcObject = stream;
+          $("cameraPanel").classList.remove("hidden");
+          $("cameraEmpty").classList.add("hidden");
+
+          try {
+            await $("video").play();
+          } catch (_) {}
+
+          status("Kamera aktif untuk frame " + (activeIndex + 1) + ". Pose dulu, lalu ambil foto ♡");
+          $("cameraPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } catch (error) {
+          console.error(error);
+          toast("Akses kamera gagal. Izinkan kamera di browser atau gunakan upload foto.");
+        }
+      }
+
+      function closeCamera() {
+        if (stream) {
+          stream.getTracks().forEach(track => track.stop());
+          stream = null;
+        }
+
+        if ($("video")) $("video").srcObject = null;
+      }
+
+      function capturePhoto() {
+        const video = $("video");
+
+        if (!stream || !video.videoWidth || !video.videoHeight) {
+          toast("Tunggu sampai kamera siap ya ♡");
+          return;
+        }
+
+        if (allLocked() || photos[activeIndex].locked) {
+          toast("Frame ini sudah terkunci ♡");
+          return;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const ctx = canvas.getContext("2d");
+
+        // Mirror the saved selfie to match the camera preview.
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        photos[activeIndex].src = canvas.toDataURL("image/jpeg", 0.94);
+        resetPrintState();
+        renderPhotos();
+
+        status("Foto berhasil diambil untuk frame " + (activeIndex + 1) + ". Tekan Retake jika mau ulang, atau Okee untuk mengunci ♡");
+      }
+
+      function stopAndHideCamera() {
+        closeCamera();
+        $("cameraPanel").classList.add("hidden");
+      }
+
+      async function printStrip() {
+        if (!allLocked()) {
+          toast("Lengkapi dan kunci keempat foto terlebih dahulu ♡");
+          return;
+        }
+
+        if (printed || printing) return;
+
+        printing = true;
+        $("printBtn").disabled = true;
+        $("printBtn").textContent = "Mencetak… ♡";
+        $("downloadBtn").classList.add("hidden");
+        $("printMessage").textContent = "Sebentar ya, photostrip kalian sedang dicetak… ♡";
+
+        const printer = $("printer");
+        const paper = $("printPaper");
+        printer.classList.remove("printing");
+        paper.innerHTML = "";
+
+        const clone = $("strip").cloneNode(true);
+        clone.removeAttribute("id");
+        clone.style.width = "100%";
+        clone.style.maxWidth = "none";
+        clone.style.margin = "0";
+        clone.style.boxShadow = "none";
+        paper.appendChild(clone);
+
+        // Force the browser to restart the animation.
+        void printer.offsetWidth;
+        printer.classList.add("printing");
+
+        await new Promise(resolve => setTimeout(resolve, 2400));
+
+        printing = false;
+        printed = true;
+        $("printBtn").textContent = "✓ Sudah dicetak";
+        $("downloadBtn").classList.remove("hidden");
+        $("printMessage").textContent = "Tadaaa! Photostrip kalian sudah keluar. Simpan kenangan ini ya ♡";
+        toast("Photostrip berhasil dicetak ♡");
+      }
+
+      async function downloadStrip() {
+        if (!allLocked() || !printed) {
+          toast("Cetak photostrip terlebih dahulu ya ♡");
+          return;
+        }
+
+        if (typeof window.html2canvas !== "function") {
+          toast("Fitur PNG belum termuat. Periksa koneksi internet lalu coba lagi.");
+          return;
+        }
+
+        const button = $("downloadBtn");
+        button.disabled = true;
+        button.textContent = "Menyiapkan PNG…";
+
+        let staging;
+
+        try {
+          const source = $("strip");
+          const rect = source.getBoundingClientRect();
+
+          if (!rect.width || !rect.height) {
+            throw new Error("Pratinjau photostrip tidak terlihat.");
+          }
+
+          // Capture only the strip itself, not the phone screen.
+          staging = document.createElement("div");
+          staging.style.cssText =
+            "position:fixed;left:-10000px;top:0;width:" +
+            rect.width + "px;pointer-events:none;";
+
+          const clone = source.cloneNode(true);
+          clone.style.width = rect.width + "px";
+          clone.style.maxWidth = "none";
+          clone.style.margin = "0";
+          clone.style.transition = "none";
+
+          staging.appendChild(clone);
+          document.body.appendChild(staging);
+
+          const images = Array.from(clone.querySelectorAll("img"));
+
+          await Promise.all(images.map(img => {
+            if (img.complete) return Promise.resolve();
+
+            return new Promise(resolve => {
+              img.onload = resolve;
+              img.onerror = resolve;
+            });
+          }));
+
+          const canvas = await window.html2canvas(clone, {
+            backgroundColor: null,
+            scale: 3,
+            useCORS: true,
+            allowTaint: false,
+            logging: false,
+            width: Math.ceil(rect.width),
+            windowWidth: Math.ceil(rect.width),
+            scrollX: 0,
+            scrollY: 0
+          });
+
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+
+          if (!blob) throw new Error("PNG belum berhasil dibuat.");
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+
+          link.href = url;
+          link.download = "our-little-photobooth-" + currentTheme + "-11-10-2026.png";
+
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+
+          setTimeout(() => URL.revokeObjectURL(url), 3000);
+
+          status("Photostrip PNG berhasil dibuat dengan bingkai dan rasio yang sesuai ♡");
+          toast("Photostrip tersimpan! Cek folder Download kamu ♡");
+        } catch (error) {
+          console.error(error);
+          toast(error.message || "PNG belum berhasil dibuat. Coba lagi ya.");
+        } finally {
+          if (staging) staging.remove();
+          button.disabled = false;
+          button.textContent = "♡ Download PNG";
+        }
+      }
+
+      function updateMusicButton() {
+        $("musicToggle").textContent = musicOn ? "♫ Musik: diputar" : "♫ Musik: mati";
+        $("musicToggle").setAttribute("aria-pressed", String(musicOn));
+      }
+
+      async function toggleMusic() {
+        const audio = $("music");
+
+        if (musicOn) {
+          audio.pause();
           musicOn = false;
-        // Coba putar musik saat halaman dibuka. Jika browser memblokir autoplay bersuara,
-        // coba lagi otomatis pada interaksi pertama pengguna (tap/klik/tekan tombol).
-        function attemptAutoplay() {
-          const audio = $("music");
-          audio
-            .play()
-            .then(() => {
-              musicOn = true;
-              updateMusicButton();
-            })
-            .catch(() => {});
+          updateMusicButton();
+          return;
         }
-        document.addEventListener("DOMContentLoaded", attemptAutoplay, {
-          once: true,
-        });
-        ["pointerdown", "touchstart", "keydown"].forEach((eventName) => {
-          document.addEventListener(
-            eventName,
-            function resumeMusic() {
-              if (!musicOn) {
-                attemptAutoplay();
-              }
-              if (musicOn) {
-                ["pointerdown", "touchstart", "keydown"].forEach((name) =>
-                  document.removeEventListener(name, resumeMusic),
-                );
-              }
-            },
-            { passive: true },
-          );
-        });
-        const toast = (msg) => {
-          $("toast").textContent = msg;
-          $("toast").classList.remove("hidden");
-          clearTimeout(toastTimer);
-          toastTimer = setTimeout(
-            () => $("toast").classList.add("hidden"),
-            2800,
-          );
-        };
-        const status = (msg) => ($("status").textContent = msg);
-        function show(id) {
-          if (!screens.includes(id)) return;
-          screens.forEach((s) => $(s).classList.toggle("hidden", s !== id));
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-        function setTheme(theme) {
-          // Pastikan hanya tema yang tersedia yang dapat diterapkan.
-          if (!Object.prototype.hasOwnProperty.call(themes, theme)) {
-            console.warn("Tema tidak dikenal:", theme);
-            return;
-          }
 
-          currentTheme = theme;
-          const strip = $("strip");
+        try {
+          await audio.play();
+          musicOn = true;
+          updateMusicButton();
+        } catch (error) {
+          toast("Musik belum bisa diputar. Pastikan file lagu ada di folder assets ♡");
+        }
+      }
 
-          // Pasang kelas pada body DAN strip agar selector CSS tema tetap cocok.
-          document.body.classList.remove(...themeClasses);
-          document.body.classList.add("theme-" + theme);
-          strip.classList.remove(...themeClasses);
-          strip.classList.add("theme-" + theme);
+      // Navigation
+      $("startBtn").addEventListener("click", () => {
+        showScreen("letterPage");
+        $("music").play().then(() => {
+          musicOn = true;
+          updateMusicButton();
+        }).catch(() => {});
+      });
 
-          $("stripTitle").textContent = themes[theme].title;
-          $("stripFoot").textContent = themes[theme].foot;
+      $("toBoothBtn").addEventListener("click", () => showScreen("booth"));
+      $("homeBtn").addEventListener("click", () => showScreen("welcome"));
 
-          document.querySelectorAll(".theme-choice").forEach((button) => {
-            const isActive = button.dataset.theme === theme;
-            button.classList.toggle("active", isActive);
-            button.setAttribute("aria-pressed", String(isActive));
-          });
+      // Theme buttons
+      document.querySelectorAll(".theme-choice").forEach(button => {
+        button.addEventListener("click", () => setTheme(button.dataset.theme));
+      });
 
-          renderPhotos();
-        }
-        function renderSlots() {
-          const root = $("slots");
-          root.innerHTML = "";
-          photos.forEach((photo, i) => {
-            const slot = document.createElement("div");
-            slot.className = "slot";
-            const num = document.createElement("div");
-            num.className = "slot-number";
-            num.textContent = "FRAME " + (i + 1);
-            slot.appendChild(num);
-            if (photo) {
-              const img = document.createElement("img");
-              img.src = photo;
-              img.alt = "Foto frame " + (i + 1);
-              slot.appendChild(img);
-            } else {
-              const empty = document.createElement("div");
-              empty.className = "placeholder";
-              empty.textContent = "♡\\\\\nFoto " + (i + 1);
-              empty.style.whiteSpace = "pre-line";
-              slot.appendChild(empty);
-            }
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.textContent = photo ? "Retake / isi" : "＋ Isi frame";
-            btn.addEventListener("click", () => {
-              selectedSlot = i;
-              $("singleInput").click();
-              status(
-                "Frame " +
-                  (i + 1) +
-                  " dipilih. Pilih gambar dari galeri atau gunakan kamera.",
-              );
-            });
-            slot.appendChild(btn);
-            root.appendChild(slot);
-          });
-        }
-        function renderPhotos() {
-          const root = $("stripPhotos");
-          root.innerHTML = "";
-          photos.forEach((photo, i) => {
-            const frame = document.createElement("div");
-            frame.className = "strip-photo";
-            if (photo) {
-              const img = document.createElement("img");
-              img.src = photo;
-              img.alt = "Kenangan " + (i + 1);
-              frame.appendChild(img);
-            } else {
-              const empty = document.createElement("div");
-              empty.className = "empty";
-              empty.textContent = "♡ photo " + (i + 1) + " ♡";
-              frame.appendChild(empty);
-            }
-            root.appendChild(frame);
-          });
-          renderSlots();
-        }
-        function loadFile(file, index) {
-          if (!file || !file.type.startsWith("image/")) {
-            toast("Pilih file gambar ya ♡");
-            return;
-          }
-          const reader = new FileReader();
-          reader.onload = () => {
-            const img = new Image();
-            img.onload = () => {
-              photos[index] = reader.result;
-              renderPhotos();
-              status("Frame " + (index + 1) + " berhasil diperbarui ♡");
-            };
-            img.onerror = () => toast("Gambar ini tidak bisa dibuka.");
-            img.src = reader.result;
-          };
-          reader.readAsDataURL(file);
-        }
-        $("startBtn").addEventListener("click", () => {
-          const audio = $("music");
-          show("letterPage");
-          if (audio.src) {
-            audio
-              .play()
-              .then(() => {
-                musicOn = true;
-                updateMusicButton();
-              })
-              .catch(() => {});
-          }
-        });
-        $("toBoothBtn").addEventListener("click", () => show("booth"));
-        $("homeBtn").addEventListener("click", () => show("welcome"));
-        document
-          .querySelectorAll(".theme-choice")
-          .forEach((b) =>
-            b.addEventListener("click", () => setTheme(b.dataset.theme)),
-          );
-        $("uploadAllBtn").addEventListener("click", () =>
-          $("galleryInput").click(),
-        );
-        $("galleryInput").addEventListener("change", (e) => {
-          const files = Array.from(e.target.files || []).filter((f) =>
-            f.type.startsWith("image/"),
-          );
-          if (!files.length) return;
-          let idx = 0;
-          while (idx < 4 && photos[idx]) idx = idx + 1;
-          files.slice(0, 4 - idx).forEach((f, n) => loadFile(f, idx + n));
-          if (idx >= 4)
-            toast(
-              "Semua frame sudah terisi. Gunakan Retake / isi untuk mengganti foto.",
-            );
-          else if (files.length > 4 - idx)
-            toast("Maksimal empat foto. Foto tambahan diabaikan.");
-          e.target.value = "";
-        });
-        $("singleInput").addEventListener("change", (e) => {
-          const f = e.target.files && e.target.files[0];
-          if (f) loadFile(f, selectedSlot);
-          e.target.value = "";
-        });
-        async function openCamera() {
-          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            toast(
-              "Kamera tidak tersedia. Coba buka melalui HTTPS atau localhost.",
-            );
-            return;
-          }
-          try {
-            stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: "user" },
-              audio: false,
-            });
-            $("video").srcObject = stream;
-            $("cameraPanel").classList.remove("hidden");
-            $("cameraEmpty").classList.add("hidden");
-            status(
-              "Kamera aktif. Frame " +
-                (selectedSlot + 1) +
-                " akan menerima foto berikutnya.",
-            );
-          } catch (err) {
-            toast(
-              "Akses kamera gagal. Izinkan kamera di browser, atau gunakan upload galeri.",
-            );
-          }
-        }
-        function closeCamera() {
-          if (stream) {
-            stream.getTracks().forEach((t) => t.stop());
-            stream = null;
-          }
-          $("video").srcObject = null;
-          $("cameraPanel").classList.add("hidden");
-          $("cameraEmpty").classList.remove("hidden");
-        }
-        $("cameraOpenBtn").addEventListener("click", openCamera);
-        $("cameraCloseBtn").addEventListener("click", closeCamera);
-        $("captureBtn").addEventListener("click", () => {
-          const v = $("video");
-          if (!stream || !v.videoWidth) {
-            toast("Tunggu sampai kamera siap ya ♡");
-            return;
-          }
-          const c = document.createElement("canvas");
-          c.width = v.videoWidth;
-          c.height = v.videoHeight;
-          const ctx = c.getContext("2d");
-          ctx.translate(c.width, 0);
-          ctx.scale(-1, 1);
-          ctx.drawImage(v, 0, 0, c.width, c.height);
-          photos[selectedSlot] = c.toDataURL("image/jpeg", 0.94);
-          renderPhotos();
-          status(
-            "Foto berhasil diambil untuk frame " + (selectedSlot + 1) + " ♡",
-          );
-          if (selectedSlot < 3) selectedSlot++;
-        });
-        function tryStartMusic() {
-          if (musicOn) return;
-          const audio = $("music");
-          if (!audio.src) {
-            toast(
-              "Untuk musik, pilih file audio di tombol Musik setelah menyiapkan file lagu.",
-            );
-            return;
-          }
-          audio
-            .play()
-            .then(() => {
-              musicOn = true;
-              updateMusicButton();
-            })
-            .catch(() =>
-              toast("Tekan tombol Musik sekali lagi untuk memulai lagu."),
-            );
-        }
-        function updateMusicButton() {
-          $("musicToggle").textContent = musicOn
-            ? "♫ Musik: diputar"
-            : "♫ Musik: mati";
-          $("musicToggle").setAttribute("aria-pressed", String(musicOn));
-        }
-        $("musicToggle").addEventListener("click", () => {
-          const audio = $("music");
-          if (musicOn) {
-            audio.pause();
-            musicOn = false;
-            updateMusicButton();
-            return;
-          }
-          if (!audio.src) {
-            const picker = document.createElement("input");
-            picker.type = "file";
-            picker.accept = "audio/*";
-            picker.onchange = () => {
-              const f = picker.files && picker.files[0];
-              if (!f) return;
-              audio.src = URL.createObjectURL(f);
-              audio
-                .play()
-                .then(() => {
-                  musicOn = true;
-                  updateMusicButton();
-                })
-                .catch(() =>
-                  toast(
-                    "Browser belum bisa memulai musik. Tekan tombol musik lagi.",
-                  ),
-                );
-            };
-            picker.click();
-            return;
-          }
-          audio
-            .play()
-            .then(() => {
-              musicOn = true;
-              updateMusicButton();
-            })
-            .catch(() => toast("Browser belum bisa memulai musik. Coba lagi."));
-        });
-        function roundedRect(ctx, x, y, w, h, r) {
-          ctx.beginPath();
-          ctx.roundRect(x, y, w, h, r);
-          ctx.fill();
-        }
-        function drawFit(ctx, img, x, y, w, h) {
-          const iw = img.naturalWidth || img.width,
-            ih = img.naturalHeight || img.height;
-          // Fit seluruh foto ke frame tanpa memotong wajah/objek; ruang sisa diisi warna latar.
-          const scale = Math.min(w / iw, h / ih),
-            dw = iw * scale,
-            dh = ih * scale;
-          const dx = x + (w - dw) / 2,
-            dy = y + (h - dh) / 2;
-          ctx.save();
-          ctx.fillStyle = "#eee6e5";
-          ctx.fillRect(x, y, w, h);
-          ctx.drawImage(img, dx, dy, dw, dh);
-          ctx.restore();
-        }
-        function canvasDecor(ctx, theme, w) {
-          ctx.save();
-          const center = w / 2;
-          const text = (t, y, size, color, font = "Georgia") => {
-            ctx.fillStyle = color;
-            ctx.font = `${size}px ${font}`;
-            ctx.textAlign = "center";
-            ctx.fillText(t, center, y);
-          };
-          if (theme === "flower") {
-            text("✿  ❀  ✿", 47, 34, "#b97581");
-          }
-          if (theme === "letter") {
-            ctx.strokeStyle = "#c9a87e";
-            ctx.lineWidth = 4;
-            ctx.strokeRect(12, 12, w - 24, 40);
-            text("✉  WITH LOVE  ✉", 39, 18, "#9e7a58", "Georgia");
-          }
-          if (theme === "kawaii") {
-            text("ʕ♡ᴥ♡ʔ", 45, 29, "#d68aa9");
-          }
-          if (theme === "film") {
-            ctx.fillStyle = "#fff1d8";
-            for (let x = 12; x < w - 10; x += 28) {
-              ctx.fillRect(x, 12, 17, 8);
-              ctx.fillRect(x, 42, 17, 8);
-            }
-          }
-          if (theme === "coquette") {
-            text("୨୧  ♡  ୨୧", 44, 30, "#c47f9b");
-          }
-          if (theme === "stars") {
-            text("✦  ☾  ⋆  ✧  ⋆", 43, 28, "#e5d7ff");
-          }
-          if (theme === "y2k") {
-            text("✦ ♥ ✦", 42, 26, "#a77fd2", "Arial");
-          }
-          if (theme === "botanical") {
-            text("❦  ❧  ❦", 44, 28, "#77856b");
-          }
-          if (theme === "pixel") {
-            text("♥ ░ ♥ ░ ♥", 42, 23, "#8976c2", "monospace");
-          }
-          if (theme === "sunset") {
-            text("☼  ☁  ☼", 43, 28, "#be755d");
-          }
-          ctx.restore();
-        }
-        async function exportStrip() {
-          const btn = $("exportBtn");
-          btn.disabled = true;
-          btn.textContent = "Menyiapkan PNG…";
-          let staging = null;
-          try {
-            if (typeof window.html2canvas !== "function")
-              throw new Error(
-                "Renderer tidak tersedia. Periksa koneksi internet lalu coba lagi.",
-              );
-            const source = $("strip");
-            // Capture the exact DOM preview, including theme CSS, borders, pseudo-elements,
-            // staggered layouts, and image crop rules. Only scale the same design for print.
-            const rect = source.getBoundingClientRect();
-            if (!rect.width || !rect.height)
-              throw new Error("Pratinjau tidak terlihat.");
-            staging = document.createElement("div");
-            staging.style.cssText =
-              "position:fixed;left:-10000px;top:0;width:" +
-              rect.width +
-              "px;z-index:-1;pointer-events:none;";
-            const clone = source.cloneNode(true);
-            clone.style.width = rect.width + "px";
-            clone.style.maxWidth = "none";
-            clone.style.transition = "none";
-            staging.appendChild(clone);
-            document.body.appendChild(staging);
-            // Wait for cloned image resources before rasterizing.
-            const cloneImages = Array.from(clone.querySelectorAll("img"));
-            await Promise.all(
-              cloneImages.map((img) =>
-                img.complete
-                  ? Promise.resolve()
-                  : new Promise((resolve) => {
-                      img.onload = resolve;
-                      img.onerror = resolve;
-                    }),
-              ),
-            );
-            const canvas = await window.html2canvas(clone, {
-              backgroundColor: null,
-              scale: 4,
-              useCORS: true,
-              allowTaint: false,
-              logging: false,
-              width: Math.ceil(rect.width),
-              windowWidth: Math.ceil(rect.width),
-              scrollX: 0,
-              scrollY: 0,
-            });
-            const blob = await new Promise((resolve) =>
-              canvas.toBlob(resolve, "image/png"),
-            );
-            if (!blob) throw new Error("PNG export failed");
-            const url = URL.createObjectURL(blob),
-              a = document.createElement("a");
-            a.href = url;
-            a.download =
-              "our-little-photobooth-" + currentTheme + "-11-10-2026.png";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            setTimeout(() => URL.revokeObjectURL(url), 2000);
-            status(
-              "PNG dibuat dari tampilan live preview dengan resolusi tinggi ♡",
-            );
-            toast("Photostrip sesuai preview berhasil disimpan ♡");
-          } catch (err) {
-            console.error(err);
-            toast(err.message || "Ekspor belum berhasil. Coba lagi.");
-          } finally {
-            if (staging) staging.remove();
-            btn.disabled = false;
-            btn.textContent = "♡ Ekspor photostrip PNG";
-          }
-        }
-        $("exportBtn").addEventListener("click", exportStrip);
-        window.addEventListener("beforeunload", closeCamera);
-        setTheme(currentTheme);
-      })();
-    </script>
-  </body>
+      // Upload one photo into the current unconfirmed frame.
+      $("uploadBtn").addEventListener("click", () => {
+        if (allLocked()) return;
+        $("singleInput").click();
+      });
+
+      $("singleInput").addEventListener("change", event => {
+        const file = event.target.files && event.target.files[0];
+        if (file) loadFile(file);
+        event.target.value = "";
+      });
+
+      $("retakeBtn").addEventListener("click", retakeCurrent);
+      $("okayBtn").addEventListener("click", confirmCurrent);
+
+      $("cameraOpenBtn").addEventListener("click", openCamera);
+      $("cameraCloseBtn").addEventListener("click", stopAndHideCamera);
+      $("captureBtn").addEventListener("click", capturePhoto);
+
+      $("printBtn").addEventListener("click", printStrip);
+      $("downloadBtn").addEventListener("click", downloadStrip);
+      $("musicToggle").addEventListener("click", toggleMusic);
+
+      window.addEventListener("beforeunload", closeCamera);
+
+      // Initial state
+      setTheme(currentTheme);
+      renderPhotos();
+      updateMusicButton();
+    })();
+  </script>
+</body>
 </html>
