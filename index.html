@@ -3,695 +3,745 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7e5e8">
 <title>Our Little Photobooth ♡</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Dancing+Script:wght@500;600;700&display=swap');
-
 :root {
-  --pink: #d45d83;
-  --deep: #9e3457;
-  --rose: #f5cbd5;
-  --pale: #fff7f4;
-  --ink: #633344;
-  --line: #efcbd3;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #fff8f5, #fff0f3, #fffaf5);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-}
-
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: 0;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px 4%;
-  border-bottom: 1px solid var(--line);
-  background: #fff8f4;
-}
-
-.brand {
-  font: 600 clamp(1.7rem, 3vw, 2.6rem) 'Dancing Script', cursive;
-  color: var(--pink);
-}
-
-.tagline {
-  font: italic 14px 'Playfair Display', serif;
-  color: #b65c78;
-  text-align: center;
-}
-
-.nav {
-  display: flex;
-  gap: 8px;
-}
-
-.pill {
-  background: transparent;
-  border: 1px solid #dc91a7;
-  color: var(--deep);
-  padding: 9px 13px;
-  border-radius: 30px;
-}
-
-main {
-  max-width: 1500px;
-  margin: auto;
-  padding: 20px 24px 30px;
-}
-
-.workspace {
-  display: grid;
-  grid-template-columns: 1.05fr .95fr 1fr;
-  gap: 10px;
-  align-items: stretch;
-}
-
-.panel {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 16px;
-  background: #fffaf7;
-  min-width: 0;
-}
-
-.section-title {
-  font: 600 17px 'Playfair Display', serif;
-  color: var(--deep);
-  margin: 0 0 14px;
-}
-
-.step-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--deep);
-  margin: 12px 0 9px;
-}
-
-.source-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-}
-
-.big-btn {
-  border: 1px solid var(--line);
-  background: #fff1f2;
-  border-radius: 10px;
-  padding: 12px;
-  color: var(--deep);
-}
-
-.big-btn.active,
-.primary {
-  background: linear-gradient(110deg, #d86c8d, #c95179);
-  color: white;
-}
-
-.theme-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.theme-option {
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  text-align: left;
-  padding: 8px;
-  border: 1px solid var(--line);
-  background: #fff8f5;
-  border-radius: 9px;
-  color: var(--ink);
-  min-height: 55px;
-}
-
-.theme-option.selected {
-  outline: 2px solid #d66b8b;
-  background: #ffeaf0;
-}
-
-.theme-icon {
-  font-size: 22px;
-  min-width: 33px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  background: #fbe4e7;
-  border-radius: 8px;
-}
-
-.theme-name {
-  font: 12px 'Playfair Display', serif;
-  line-height: 1.25;
-}
-
-.theme-name small {
-  display: block;
-  font: 10px 'DM Sans', sans-serif;
-  color: #a45c72;
-  margin-top: 4px;
-}
-
-.camera-box {
-  position: relative;
-  aspect-ratio: 3 / 3.55;
-  background: #f7e3e7;
-  border: 3px solid white;
-  outline: 1px solid var(--line);
-  border-radius: 11px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-
-.camera-box video,
-.camera-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.camera-placeholder {
-  padding: 20px;
-  text-align: center;
-  color: #a35d74;
-}
-
-.camera-placeholder span {
-  font-size: 48px;
-  display: block;
-}
-
-.camera-meta {
-  text-align: center;
-  font-size: 12px;
-  color: #b65c78;
-  margin: 12px 0;
-}
-
-.dots,
-.capture-count {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #f5dce2;
-  border: 1px solid #e9bdca;
-}
-
-.dot.done {
-  background: var(--pink);
-}
-
-.count-chip {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
-  background: #f8dfe4;
-  color: #a94566;
-  font-weight: 700;
-}
-
-.count-chip.done {
-  background: #cf6082;
-  color: white;
-}
-
-.action-row,
-.print-actions {
-  display: flex;
-  gap: 9px;
-}
-
-.action-row button,
-.print-actions button {
-  flex: 1;
-  border-radius: 28px;
-  padding: 10px;
-  border: 1px solid #dc91a7;
-  background: transparent;
-  color: var(--deep);
-}
-
-.action-row .primary,
-.print-actions .primary {
-  background: linear-gradient(110deg, #d86c8d, #c95179);
-  color: white;
-  border: 0;
-}
-
-.note {
-  margin-top: 16px;
-  padding: 16px 12px;
-  text-align: center;
-  border: 1px dashed #e4a6b6;
-  background: #fff7f4;
-  font: italic 15px 'Dancing Script', cursive;
-  color: #b75b7a;
-}
-
-.strip-stage {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 0 18px;
-  overflow-x: auto;
-}
-
-.strip-grid {
-  display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 4px;
-  width: 100%;
-  min-width: 480px;
-}
-
-.strip {
-  min-width: 0;
-  padding: 5px 3px 8px;
-  background: var(--strip-bg, #fff1ed);
-  border: 1px solid var(--strip-edge, #e8b5bf);
-  box-shadow: 0 3px 9px #9c5c681c;
-}
-
-.strip-title {
-  font: 600 10px 'Dancing Script', cursive;
-  text-align: center;
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--strip-ink, #943d5a);
-  line-height: 1.1;
-}
-
-.strip-photos {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.strip-photo {
-  width: 100%;
-  aspect-ratio: 3 / 3.6;
-  object-fit: cover;
-  display: block;
-  border: 1px solid white;
-  background: #f1d5dc;
-}
-
-.strip-footer {
-  text-align: center;
-  font: 8px 'Dancing Script', cursive;
-  margin-top: 6px;
-  color: var(--strip-ink, #943d5a);
-}
-
-.strip[data-theme="film"] {
-  background: #7e2636;
-  border-color: #54202b;
-}
-
-.strip[data-theme="film"] .strip-title,
-.strip[data-theme="film"] .strip-footer {
-  color: #fff4e7;
-}
-
-.strip[data-theme="moon"] {
-  background: #182849;
-  border-color: #667aaf;
-}
-
-.strip[data-theme="moon"] .strip-title,
-.strip[data-theme="moon"] .strip-footer {
-  color: #fff0c9;
-}
-
-.strip[data-theme="y2k"] {
-  background: linear-gradient(145deg, #ffb5dc, #a6e9ff, #f7d2a5);
-}
-
-.strip[data-theme="sunset"] {
-  background: linear-gradient(#ffb58d, #ffddaa);
-}
-
-.strip[data-theme="botanical"] {
-  background: #f2eddb;
-  border-color: #a8b18b;
-}
-
-.strip[data-theme="flower"] {
-  background: #f7f1df;
-  border-color: #c9ad88;
-}
-
-.strip[data-theme="kawaii"] {
-  background: #ffeaf3;
-  border-color: #e9aac5;
-}
-
-.strip[data-theme="coquette"] {
-  background: #fff0f1;
-  border: 2px solid #eab0bd;
-}
-
-.strip[data-theme="memories"] {
-  background: #f6e7f3;
-  border-color: #d2a4cb;
-}
-
-.strip[data-theme="anniversary"] {
-  background: #fff0eb;
-  border-color: #e8b2a8;
-}
-
-.print-actions {
-  margin-top: 10px;
-}
-
-.gallery-section {
-  margin-top: 22px;
-  border-top: 1px solid #e6a4b5;
-  padding-top: 14px;
-}
-
-.gallery-heading {
-  text-align: center;
-  font: italic 600 26px 'Playfair Display', serif;
-  color: #c74e75;
-  margin: 0;
-}
-
-.gallery-sub {
-  text-align: center;
-  color: #b9657f;
-  font-size: 12px;
-  margin: 5px 0 18px;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.theme-card {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 9px;
-  background: #fff9f6;
-  cursor: pointer;
-  text-align: left;
-  color: var(--ink);
-  min-width: 0;
-}
-
-.theme-card.selected {
-  outline: 2px solid #d66b8b;
-}
-
-.mini-strip {
-  width: 70%;
-  max-width: 130px;
-  margin: 0 auto 9px;
-  padding: 5px;
-  background: var(--strip-bg, #fff0ed);
-  border: 1px solid var(--strip-edge, #e8b5bf);
-}
-
-.mini-title {
-  text-align: center;
-  font: 11px 'Dancing Script', cursive;
-  color: var(--strip-ink, #943d5a);
-  min-height: 19px;
-}
-
-.mini-photos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-}
-
-.mini-photo {
-  aspect-ratio: 1;
-  object-fit: cover;
-  width: 100%;
-  background: #f1d5dc;
-}
-
-.mini-foot {
-  text-align: center;
-  font: 9px 'Dancing Script', cursive;
-  color: var(--strip-ink, #943d5a);
-  padding-top: 4px;
-}
-
-.card-name {
-  font: 600 14px 'Playfair Display', serif;
-  color: #ad3f64;
-}
-
-.card-type {
-  display: inline-block;
-  margin: 5px 0;
-  padding: 3px 8px;
-  border-radius: 12px;
-  background: #f5dbe2;
-  color: #9d4662;
-  font-size: 9px;
-}
-
-.card-desc {
-  font: 11px/1.5 'Playfair Display', serif;
-  color: #a45e74;
-}
-
-.status {
-  font-size: 12px;
-  text-align: center;
-  min-height: 18px;
-  color: #a34b69;
-  margin-top: 8px;
-}
-
-.hidden,
-#fileInput {
-  display: none !important;
-}
-
-footer {
-  text-align: center;
-  padding: 22px;
-  color: #b65d7b;
-  font: italic 13px 'Playfair Display', serif;
-}
-
-@media (max-width: 1050px) {
-  .workspace {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .settings-panel {
-    grid-column: 1 / -1;
-  }
-
-  .theme-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .gallery {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 650px) {
-  .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .tagline {
-    display: none;
-  }
-
-  main {
-    padding: 12px;
-  }
-
-  .workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .settings-panel {
-    grid-column: auto;
-  }
-
-  .theme-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .strip-grid {
-    width: 760px;
-    min-width: 760px;
-  }
-
-  .gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .gallery-heading {
-    font-size: 22px;
-  }
-}
-
-@media print {
-  body {
-    background: white;
-  }
-
-  .topbar,
-  .settings-panel,
-  .camera-panel,
-  .gallery-section,
-  footer,
-  .print-actions,
-  .preview-head,
-  .status {
-    display: none !important;
-  }
-
-  main {
-    padding: 0;
-  }
-
-  .workspace {
-    display: block;
-  }
-
-  .preview-panel {
-    border: 0;
-    padding: 0;
-  }
-
-  .strip-stage {
-    min-height: 0;
-    overflow: visible;
-  }
-
-  .strip-grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    min-width: 0;
-  }
-}
+  --pink:#e9aebc;
+  --rose:#b85e78;
+  --cream:#fff9f4;
+  --ink:#5c424b;
+  --muted:#9b7b83;
+  --line:#efd6dc;
+  --shadow:0 12px 32px #8d52621a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:var(--ink);
+  background:radial-gradient(circle at 10% 10%,#fff 0,transparent 28%),
+  linear-gradient(135deg,#fff8f3,#f9e8ec 55%,#f5e7df);
+  font-family:Georgia,"Times New Roman",serif;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none!important}
+.topbar{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;padding:12px 4%;
+  background:#fff9f0ef;backdrop-filter:blur(12px);
+  border-bottom:1px solid #eed9dd
+}
+.brand{font-style:italic;color:#a9506b}
+.top-actions{display:flex;flex-wrap:wrap;gap:6px}
+.tiny,.secondary{
+  border:1px solid var(--line);background:#fffaf8;color:var(--rose);
+  border-radius:999px;padding:9px 13px
+}
+main{width:min(1100px,calc(100% - 24px));margin:auto;padding:30px 0 40px}
+.screen{animation:fade .4s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+h1,h2,h3,p{margin-top:0}
+h1{color:#a9506b;font-size:clamp(2.4rem,8vw,4.5rem);line-height:1.06;font-weight:400;font-style:italic;margin:16px auto}
+h2{color:#a9506b;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;font-style:italic;margin-bottom:12px}
+.eyebrow{color:var(--rose);text-transform:uppercase;letter-spacing:.18em;font:600 .68rem Arial,sans-serif}
+.welcome-screen{min-height:calc(100svh - 100px);display:flex;align-items:center;justify-content:center;text-align:center;padding:15px 0}
+.welcome-card{
+  position:relative;width:min(800px,100%);padding:clamp(26px,5vw,50px) 24px;
+  background:#fffaf4;border:1px solid #efcfd7;border-radius:24px;
+  box-shadow:var(--shadow);overflow:hidden
+}
+.welcome-card:before{content:"";position:absolute;inset:9px;border:1px dashed #e8c4cd;border-radius:17px;pointer-events:none}
+.welcome-card>*{position:relative}
+.welcome-flower{color:#d58fa2;font-size:2rem;margin:12px 0}
+.welcome-bow{color:#d58fa2;font-size:1.8rem}
+.welcome-copy{color:#876873;max-width:510px;line-height:1.8;margin:0 auto 22px}
+.letter-card{text-align:left;padding:clamp(24px,5vw,45px)}
+.letter-copy{color:#795d66;font-size:.97rem;line-height:1.85}
+.letter-copy p{margin-bottom:15px}
+.letter-signoff{color:#a9506b;font-style:italic}
+.primary,.secondary{border-radius:999px;padding:11px 17px;border:0;transition:transform .2s}
+.primary{color:white;background:linear-gradient(135deg,#cb7c94,#ad5571);box-shadow:0 6px 16px #b65b7925}
+.secondary{color:#a6536d;background:#fffaf7;border:1px solid #e9c8d0}
+.primary:hover:not(:disabled),.secondary:hover:not(:disabled){transform:translateY(-1px)}
+.section-head{text-align:center;margin-bottom:20px}
+.section-head p{color:var(--muted);line-height:1.7}
+.booth-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.controls{display:flex;flex-direction:column;gap:14px}
+.panel{background:#fffaf5ed;border:1px solid var(--line);border-radius:18px;padding:clamp(13px,2.5vw,21px);box-shadow:var(--shadow);min-width:0}
+.field-label{display:block;font:600 .73rem Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#a86c7e;margin-bottom:10px}
+.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.theme-choice{border:1px solid #ecd5da;background:#fffdfb;color:#805867;text-align:left;border-radius:11px;padding:9px;font-size:.8rem;line-height:1.4;min-width:0}
+.theme-choice span{display:block;font-size:.68rem;color:#b28a94;margin-top:3px}
+.theme-choice.active{background:#f7e5ea;border-color:#c77d92;box-shadow:inset 0 0 0 1px #c77d92}
+.progress{display:flex;gap:5px;margin:10px 0}
+.progress span{height:5px;flex:1;border-radius:20px;background:#eedde1}
+.progress span.done{background:#b85e78}
+.progress span.current{background:#e9aebc}
+.step-text,.status,.small-note{color:#a17681;font: .8rem/1.55 Arial,sans-serif}
+.step-text{margin:6px 0 13px}
+.status{min-height:1.4em;margin:11px 0 0}
+.source-actions,.confirm-actions,.camera-actions{display:flex;flex-wrap:wrap;gap:8px}
+.source-actions button,.confirm-actions button{flex:1;min-width:0}
+.confirm-actions{margin-top:11px}
+.camera-box{background:#241e23;border-radius:12px;overflow:hidden}
+.camera-box video{display:block;width:100%;max-height:360px;aspect-ratio:3/4;object-fit:cover;transform:scaleX(-1)}
+.camera-actions{margin-top:9px}
+
+/* Photostrip asli + delapan strip hasil */
+.preview-panel{min-width:0}
+.preview-wrap{width:100%;overflow-x:auto;padding:8px 0 12px}
+#stripGallery{
+  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:5px;width:100%;align-items:start
+}
+.strip{
+  --strip-bg:#fffaf2;--strip-ink:#8e5969;
+  position:relative;width:100%;min-width:0;max-width:none;
+  padding:8px 5px 9px;overflow:hidden;
+  background:var(--strip-bg);color:var(--strip-ink);
+  border:2px solid #d6a4a2;border-radius:9px;
+  box-shadow:0 5px 12px #7b46541a
+}
+.strip-title{text-align:center;font-size:clamp(6px,.8vw,12px);line-height:1.3;font-style:italic;overflow-wrap:anywhere;margin:3px 0 5px}
+.strip-date{text-align:center;font:600 clamp(5px,.5vw,8px) Arial,sans-serif;letter-spacing:.02em;margin-bottom:5px}
+.strip-photos{display:flex;flex-direction:column;gap:4px}
+.strip-photo{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#f0e0e4;border:1px solid white}
+.strip-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.strip-photo .empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:#bc929f;font-size:clamp(6px,.6vw,10px);background:#f8e9eb;white-space:pre-line}
+.strip-photo.active-frame{outline:2px solid #d47795;outline-offset:1px}
+.strip-foot{text-align:center;font-size:clamp(5px,.48vw,8px);line-height:1.4;margin-top:6px;overflow-wrap:anywhere;color:var(--strip-ink)}
+/* Sepuluh gaya tema */
+.theme-flower .strip{--strip-bg:#fffaf2;--strip-ink:#9c5c6d;border-color:#d6a4a2}
+.theme-flower .strip-title:before{content:"✿ "}
+.theme-flower .strip-foot:after{content:" ❀"}
+.theme-letter .strip{--strip-bg:#f8eddb;--strip-ink:#8f6b48;border-color:#c9a87e;border-radius:2px;box-shadow:inset 0 0 0 2px #d4b78d}
+.theme-kawaii .strip{--strip-bg:#fff0f5;--strip-ink:#b35f87;border:2px dotted #e3a3bf;border-radius:13px}
+.theme-kawaii .strip-photo{border-radius:5px}
+.theme-film .strip{--strip-bg:#242326;--strip-ink:#fff0d7;background:#242326;border:4px solid #242326;border-radius:0}
+.theme-film .strip-photo{border:2px solid #fff4df;border-radius:0}
+.theme-coquette .strip{--strip-bg:#fff7fa;--strip-ink:#a9577c;border:2px solid #e5b8c7;border-radius:5px}
+.theme-coquette .strip-title:before{content:"୨୧ "}
+.theme-stars .strip{--strip-bg:#20223e;--strip-ink:#f4e5ff;background:#20223e;border-color:#8d8ab8}
+.theme-stars .strip-title:before{content:"✦ "}
+.theme-y2k .strip{--strip-bg:#ffe0f0;--strip-ink:#87569b;background:linear-gradient(140deg,#ffe0f0,#dff6ff);border:2px solid #d59de4;box-shadow:2px 2px 0 #bca5eb}
+.theme-y2k .strip-title{font-family:Arial,sans-serif;font-weight:900}
+.theme-botanical .strip{--strip-bg:#eee5d2;--strip-ink:#647359;background:#eee5d2;border-color:#b4a17e}
+.theme-botanical .strip-title:before{content:"❦ "}
+.theme-pixel .strip{--strip-bg:#f4f0ff;--strip-ink:#7566a5;background:#f4f0ff;border:2px dashed #8374b4;border-radius:0}
+.theme-pixel .strip-title{font-family:monospace;font-weight:bold}
+.theme-sunset .strip{--strip-bg:#ffe7c7;--strip-ink:#9d594b;background:linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df);border-color:#dc987f}
+.theme-sunset .strip-title:before{content:"☼ "}
+
+/* Printer */
+.printer-area{margin-top:16px}
+.printer-stage{position:relative;width:min(100%,360px);margin:0 auto}
+.printer-machine{position:relative;z-index:3;padding:0 10px 10px;background:linear-gradient(145deg,#f9dce3,#e6b9c7);border:1px solid #d9a4b4;border-radius:18px 18px 12px 12px;box-shadow:0 7px 16px #a15c7024}
+.printer-top{height:36px;display:flex;align-items:center;justify-content:center;color:#94566b;font:600 .58rem Arial,sans-serif;letter-spacing:.1em}
+.printer-mouth{height:15px;border-radius:5px;background:#87596a;box-shadow:inset 0 3px 5px #42253166;border:2px solid #b77f90;position:relative;z-index:5}
+.printer-mouth:after{content:"";position:absolute;inset:3px 5px;background:#37252c;border-radius:2px}
+.printer-output{height:0;position:relative;z-index:2}
+.paper-holder{position:absolute;top:-2px;left:50%;width:min(68%,190px);transform:translateX(-50%);z-index:2;opacity:0;pointer-events:none}
+.paper-holder .strip{width:100%;max-width:none;margin:0}
+.printer-front{position:relative;z-index:4;height:48px;border-radius:0 0 8px 8px;background:linear-gradient(145deg,#f3cbd6,#e6b9c7);border-top:1px solid #d9a4b4;display:flex;align-items:center;justify-content:center;color:#94566b;font:600 .58rem Arial,sans-serif;letter-spacing:.08em}
+.printer-stage.printing .printer-output,.printer-stage.printed .printer-output{height:var(--paper-height,200px)}
+.printer-stage.printing .paper-holder{animation:paperEmerges 2.2s cubic-bezier(.22,.68,.28,1) forwards}
+.printer-stage.printed .paper-holder{opacity:1;top:var(--paper-travel,200px)}
+@keyframes paperEmerges{0%{top:-2px;opacity:0}10%{opacity:1}100%{top:var(--paper-travel,200px);opacity:1}}
+.print-actions{display:grid;gap:8px;width:min(100%,360px);margin:12px auto 0}
+.print-actions button{width:100%}
+.printer-download{position:relative;z-index:6;padding-top:4px}
+.printer-download button{width:100%}
+.print-message{text-align:center;color:#a17681;font:.8rem/1.55 Arial,sans-serif;margin:12px 0}
+.footer{text-align:center;color:#b28c94;font-size:.75rem;padding:24px 12px}
+.toast{position:fixed;z-index:100;left:50%;bottom:20px;transform:translateX(-50%);max-width:90vw;width:max-content;background:#674652;color:white;padding:10px 15px;border-radius:999px;font:.8rem/1.4 Arial,sans-serif;text-align:center;box-shadow:var(--shadow)}
+@media(max-width:760px){
+  main{width:calc(100% - 18px);padding-top:16px}
+  .booth-layout{grid-template-columns:1fr}
+  .preview-panel{order:-1}
+  #stripGallery{width:720px;min-width:720px}
+  .welcome-screen{min-height:calc(100svh - 90px)}
+}
+@media(max-width:430px){
+  .topbar{align-items:flex-start}
+  .brand{max-width:115px;line-height:1.4}
+  .tiny{padding:7px 8px;font-size:.7rem}
+  .theme-choice{padding:8px;font-size:.76rem}
+  .panel{border-radius:15px}
+}
+@media print{
+  body{background:white}
+  .topbar,.controls,.section-head,.print-actions,.printer-area,.footer,.small-note{display:none!important}
+  main{width:100%;padding:0}
+  .booth-layout{display:block}
+  .preview-panel{border:0;box-shadow:none;padding:0}
+  #stripGallery{width:100%;min-width:0;grid-template-columns:repeat(8,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 
-<body>
+<body class="theme-flower">
 <header class="topbar">
-  <div class="brand">Our Little Photobooth ♡</div>
-  <div class="tagline">Same person, different moments,<br>always you ♡</div>
-  <nav class="nav">
-    <button class="pill" id="musicBtn">♫ Musik</button>
-    <button class="pill" id="albumBtn">▣ Album</button>
-    <button class="pill" id="aboutBtn">♡ Tentang</button>
-  </nav>
+  <div class="brand">Our Little Love Story ♡</div>
+  <div class="top-actions">
+    <button id="musicToggle" class="tiny" type="button">♫ Musik: mati</button>
+    <button id="homeBtn" class="tiny" type="button">⌂ Awal</button>
+  </div>
 </header>
 
 <main>
-<section class="workspace">
-
-  <div class="panel settings-panel">
-    <div class="step-title">1. PILIH SUMBER FOTO</div>
-    <div class="source-buttons">
-      <button class="big-btn active" id="cameraBtn">📷 Kamera Langsung</button>
-      <button class="big-btn" id="uploadBtn">♧ Upload Foto</button>
+  <section id="welcome" class="welcome-screen screen">
+    <div class="welcome-card">
+      <div class="welcome-bow">୨୧</div>
+      <div class="welcome-flower">✿ ♡ ❀</div>
+      <div class="eyebrow">a little celebration of us</div>
+      <h1>Happy 5 Months,<br>My Love ♡</h1>
+      <div style="color:#d58fa2;letter-spacing:.22em;margin:20px 0">♡ ───── ♡</div>
+      <p class="welcome-copy">A little gift made with lots of love, just for you.</p>
+      <button class="primary" id="startBtn" type="button">Mulai ♡</button>
     </div>
-    <input type="file" id="fileInput" accept="image/*" multiple>
+  </section>
 
-    <div class="step-title">2. PILIH TEMA (10 DESAIN)</div>
-    <div class="theme-grid" id="themeOptions"></div>
-
-    <div class="step-title">3. AMBIL 4 FOTO</div>
-    <div class="capture-count" id="captureCount"></div>
-    <div class="action-row">
-      <button id="resetBtn">Reset</button>
-      <button class="primary" id="finishBtn">Okee ✓</button>
-    </div>
-    <div class="status" id="settingsStatus">Pilih tema, lalu ambil atau upload 4 foto.</div>
-  </div>
-
-  <div class="panel camera-panel">
-    <h2 class="section-title">✧ Preview Foto</h2>
-    <div class="camera-box">
-      <video id="video" autoplay playsinline muted class="hidden"></video>
-      <img id="currentImage" class="hidden" alt="Foto terpilih">
-      <div class="camera-placeholder" id="placeholder">
-        <span>♡</span>
-        Izinkan kamera atau upload foto untuk memulai.
+  <section id="letterPage" class="welcome-screen screen hidden">
+    <article class="welcome-card letter-card">
+      <div class="welcome-bow" style="text-align:center">୨୧</div>
+      <div class="welcome-flower" style="text-align:center">✿ ♡ ❀</div>
+      <div class="eyebrow" style="text-align:center">a letter from my heart</div>
+      <h2 style="text-align:center;font-size:clamp(2rem,6vw,3.3rem)">Dear, My Love ♡</h2>
+      <div class="letter-copy">
+        <p><strong>Hai, Sayang.. ❤️<br>Happy Anniversary yang ke-5 bulan! ♡</strong></p>
+        <p>Aku seneng banget, nggak terasa kita udah sampai lima bulan. Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu bikin aku happy banget karena bisa melewati semuanya bersama orang yang aku sayang.</p>
+        <p>Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai kenangan kecil dari perjalanan kita.</p>
+        <p>Karena kamu suka photobooth, makanya aku membuat ini khusus buat kamu. Aku ingin kita punya lebih banyak foto, lebih banyak kenangan, dan lebih banyak alasan untuk tersenyum setiap kali mengingat hari-hari yang sudah kita lewati bersama.</p>
+        <p>Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku berbagi cerita, dan sudah menjadi seseorang yang begitu berarti buat aku. Aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
+        <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa. Karena hari ini, photobooth-nya memang sederhana, tapi orang yang ada di dalam kenangan itu adalah seseorang yang sangat aku sayang.</p>
+        <p class="letter-signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
       </div>
-    </div>
-    <div class="camera-meta" id="photoMeta">Foto 1 dari 4</div>
-    <div class="dots" id="photoDots"></div>
-    <div class="action-row">
-      <button id="retakeBtn">↻ Retake</button>
-      <button class="primary" id="takeBtn">Okee ✓</button>
-    </div>
-    <div class="note">Setiap foto adalah<br>cerita kecil tentang<br>kita ♡</div>
-    <div class="status" id="cameraStatus"></div>
-  </div>
+      <p style="text-align:center;color:#b77c8c;font-size:.78rem;margin:20px 0">11 · 10 · 2026 — Our 5th Month Anniversary</p>
+      <div style="text-align:center"><button class="primary" id="toBoothBtn" type="button">let's go Photobooth! 📸</button></div>
+    </article>
+  </section>
 
-  <div class="panel preview-panel">
-    <h2 class="section-title">✦ Preview Photostrip</h2>
-    <div class="strip-stage">
-      <div class="strip-grid" id="stripGrid"></div>
+  <section id="booth" class="screen hidden">
+    <div class="section-head">
+      <div class="eyebrow">choose · pose · print</div>
+      <h2>Our Little Photobooth</h2>
+      <p>Pilih tema, ambil empat foto, lalu cetak kenangan kalian. ♡</p>
     </div>
-    <div class="print-actions">
-      <button id="printBtn">▣ Cetak</button>
-      <button class="primary" id="downloadBtn">⇩ Download PNG</button>
+
+    <div class="booth-layout">
+      <div class="controls">
+        <section class="panel">
+          <label class="field-label">Pilih tema photostrip</label>
+          <div id="themeList" class="theme-grid">
+            <button class="theme-choice active" data-theme="flower" type="button">💗 Our Five Months<span>Our 5th Month Anniversary</span></button>
+            <button class="theme-choice" data-theme="letter" type="button">💌 Anniversary Letter<span>Little Things, With You</span></button>
+            <button class="theme-choice" data-theme="kawaii" type="button">📸 Our Little Memories<span>Five Months of Us</span></button>
+            <button class="theme-choice" data-theme="film" type="button">🎞 Classic Film<span>Our Little Moments</span></button>
+            <button class="theme-choice" data-theme="coquette" type="button">🎀 Coquette<span>My Darling ♡</span></button>
+            <button class="theme-choice" data-theme="stars" type="button">🌙 Moon & Stars<span>You're My Universe</span></button>
+            <button class="theme-choice" data-theme="y2k" type="button">💿 Retro Y2K<span>LOVE U 4EVER</span></button>
+            <button class="theme-choice" data-theme="botanical" type="button">🌿 Vintage Botanical<span>A Love to Keep</span></button>
+            <button class="theme-choice" data-theme="pixel" type="button">👾 Pixel Love<span>Player 1 + Player 2</span></button>
+            <button class="theme-choice" data-theme="sunset" type="button">🌅 Golden Sunset<span>Meet Me at Sunset</span></button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="field-label">Empat foto · empat frame</div>
+          <div id="progress" class="progress"><span></span><span></span><span></span><span></span></div>
+          <p id="stepText" class="step-text">Foto 1 dari 4 · belum diisi</p>
+          <div class="source-actions">
+            <button id="uploadBtn" class="secondary" type="button">＋ Pilih foto</button>
+            <button id="cameraOpenBtn" class="secondary" type="button">◎ Buka kamera</button>
+          </div>
+          <input id="singleInput" class="hidden" type="file" accept="image/*">
+          <div id="cameraPanel" class="hidden" style="margin-top:14px">
+            <div class="camera-box"><video id="video" autoplay playsinline muted></video></div>
+            <div class="camera-actions">
+              <button id="captureBtn" class="primary" type="button">Ambil foto 📸</button>
+              <button id="cameraCloseBtn" class="secondary" type="button">Tutup kamera</button>
+            </div>
+            <p class="small-note">Kamera membutuhkan izin browser dan HTTPS atau localhost.</p>
+          </div>
+          <div class="confirm-actions">
+            <button id="retakeBtn" class="secondary" type="button">↻ Retake</button>
+            <button id="okayBtn" class="primary" type="button">Okee ♡</button>
+            <button id="resetBtn" class="secondary" type="button">Reset</button>
+          </div>
+          <p id="status" class="status" aria-live="polite">Pilih foto atau buka kamera untuk mengisi foto pertama.</p>
+          <p class="small-note">Periksa foto sebelum menekan Okee. Foto yang sudah dikunci tidak bisa diubah sampai Reset ditekan. ♡</p>
+        </section>
+      </div>
+
+      <section class="panel preview-panel">
+        <div class="section-head" style="margin-bottom:4px">
+          <div class="eyebrow">live preview</div>
+          <h3 style="font-size:1.25rem;font-weight:400;font-style:italic;margin:7px 0">Your keepsake ♡</h3>
+        </div>
+
+        <div class="preview-wrap">
+          <div id="stripGallery">
+            <div id="strip" class="strip">
+              <div id="stripTitle" class="strip-title">Our Five Months ♡</div>
+              <div class="strip-date">11 · 10 · 2026</div>
+              <div id="stripPhotos" class="strip-photos"></div>
+              <div id="stripFoot" class="strip-foot">♡ A LITTLE LOVE STORY ♡</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="small-note" style="text-align:center">Delapan strip berdampingan, setiap strip memiliki urutan foto berbeda. Download PNG akan memuat semua strip.</p>
+
+        <div class="printer-area">
+          <div id="printerStage" class="printer-stage">
+            <div class="printer-machine">
+              <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
+              <div class="printer-mouth"></div>
+              <div id="printerOutput" class="printer-output">
+                <div id="printPaper" class="paper-holder"></div>
+              </div>
+              <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
+              <div class="printer-download">
+                <button id="downloadBtn" class="secondary hidden" type="button">♡ Download PNG</button>
+              </div>
+            </div>
+          </div>
+          <p id="printMessage" class="print-message">Setelah empat foto terkunci, tekan Print Photo. ♡</p>
+          <div class="print-actions"><button id="printBtn" class="primary" type="button" disabled>▤ Print Photo</button></div>
+        </div>
+      </section>
     </div>
-    <div class="status" id="printStatus">8 strip berbeda akan dibuat dari 4 foto kamu.</div>
-  </div>
-
-</section>
-
-<section class="gallery-section" id="album">
-  <h2 class="gallery-heading">♥ 10 Desain Photostrip ♥</h2>
-  <p class="gallery-sub">Pilih tema favoritmu dan abadikan momen spesial bersama.</p>
-  <div class="gallery" id="gallery"></div>
-</section>
+  </section>
 </main>
 
-<footer>──── ♡ Thank you for being part of my story ♡ ────</footer>
+<footer class="footer">OUR LITTLE PHOTOBOOTH ♡<br>11 · 10 · 2026</footer>
+<div id="toast" class="toast hidden" role="status"></div>
 
+<audio id="music" loop preload="none" src="assets/Stephen Sanchez - Until You Found Me (Official Video).mp3"></audio>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+
+const themes = {
+  flower:{title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
+  letter:{title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
+  kawaii:{title:"Our Little Memories",foot:"LITTLE MOMENTS, ENDLESS LOVE"},
+  film:{title:"Our Little Moments",foot:"FRAME 05 · TAKE 11.10.26"},
+  coquette:{title:"My Darling ♡",foot:"୨୧ WITH LOVE, ALWAYS ୨୧"},
+  stars:{title:"You're My Universe",foot:"✦ WRITTEN IN THE STARS ✦"},
+  y2k:{title:"LOVE U 4EVER",foot:"XOXO · 4EVER ONLINE"},
+  botanical:{title:"A Love to Keep",foot:"GROWN WITH LOVE · MMXXVI"},
+  pixel:{title:"PLAYER 1 + PLAYER 2",foot:"♥ GAME SAVED ♥"},
+  sunset:{title:"Meet Me at Sunset",foot:"SAME SKY, SAME HEART"}
+};
+
+/* Empat foto yang sama dipakai pada delapan strip dengan urutan berbeda. */
+const orders = [
+  [0,1,2,3], [1,0,3,2], [2,3,0,1], [3,2,1,0],
+  [0,2,1,3], [1,3,2,0], [2,0,3,1], [3,1,0,2]
+];
+
+const photos = Array.from({length:4},()=>({src:null,locked:false}));
+let currentTheme="flower",activeIndex=0,stream=null;
+let toastTimer=null,musicOn=false,printed=false,printing=false;
+
+function toast(message){
+  $("toast").textContent=message;
+  $("toast").classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2600);
+}
+function status(message){$("status").textContent=message}
+function allLocked(){return photos.every(p=>p.src&&p.locked)}
+function nextUnlocked(){return photos.findIndex(p=>!p.locked)}
+function updateActive(){
+  const next=nextUnlocked();
+  if(next!==-1) activeIndex=next;
+}
+function showScreen(id){
+  ["welcome","letterPage","booth"].forEach(s=>$(s).classList.toggle("hidden",s!==id));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function setTheme(theme){
+  if(!themes[theme])return;
+  currentTheme=theme;
+  document.body.classList.remove(...Object.keys(themes).map(t=>"theme-"+t));
+  document.body.classList.add("theme-"+theme);
+  $("stripTitle").textContent=themes[theme].title;
+  $("stripFoot").textContent=themes[theme].foot;
+
+  document.querySelectorAll(".theme-choice").forEach(b=>{
+    const selected=b.dataset.theme===theme;
+    b.classList.toggle("active",selected);
+    b.setAttribute("aria-pressed",String(selected));
+  });
+
+  resetPrinter();
+  renderPhotos();
+}
+
+function makeFrame(photo,index,active=false){
+  const frame=document.createElement("div");
+  frame.className="strip-photo";
+  if(active)frame.classList.add("active-frame");
+
+  if(photo&&photo.src){
+    const img=document.createElement("img");
+    img.src=photo.src;
+    img.alt="Foto "+(index+1);
+    img.draggable=false;
+    frame.appendChild(img);
+  }else{
+    const empty=document.createElement("div");
+    empty.className="empty";
+    empty.textContent="♡\nFoto "+(index+1);
+    frame.appendChild(empty);
+  }
+  return frame;
+}
+
+function renderPhotos(){
+  updateActive();
+  const root=$("stripPhotos");
+  root.innerHTML="";
+
+  photos.forEach((photo,i)=>{
+    root.appendChild(makeFrame(photo,i,i===activeIndex&&!photo.locked&&!allLocked()));
+  });
+
+  renderGallery();
+  updateControls();
+}
+
+function renderGallery(){
+  const gallery=$("stripGallery");
+  const original=$("strip");
+  gallery.querySelectorAll(".generated-strip").forEach(el=>el.remove());
+
+  const originalFrames=Array.from($("stripPhotos").children);
+
+  orders.slice(1).forEach((order,stripIndex)=>{
+    const copy=original.cloneNode(true);
+    copy.removeAttribute("id");
+    copy.classList.add("generated-strip");
+
+    const title=copy.querySelector(".strip-title");
+    const foot=copy.querySelector(".strip-foot");
+    const container=copy.querySelector(".strip-photos");
+
+    title.textContent=themes[currentTheme].title;
+    foot.textContent=themes[currentTheme].foot;
+    container.innerHTML="";
+
+    order.forEach(index=>{
+      const frame=originalFrames[index].cloneNode(true);
+      frame.classList.remove("active-frame");
+      container.appendChild(frame);
+    });
+    gallery.appendChild(copy);
+  });
+}
+
+function updateControls(){
+  updateActive();
+  $("progress").querySelectorAll("span").forEach((bar,i)=>{
+    bar.classList.toggle("done",photos[i].locked);
+    bar.classList.toggle("current",i===activeIndex&&!allLocked());
+  });
+
+  if(allLocked()){
+    $("stepText").textContent="4 dari 4 foto terkunci · siap dicetak ♡";
+    $("uploadBtn").disabled=true;
+    $("cameraOpenBtn").disabled=true;
+    $("retakeBtn").disabled=true;
+    $("okayBtn").disabled=true;
+    $("captureBtn").disabled=true;
+    $("printBtn").disabled=printed||printing;
+    return;
+  }
+
+  const photo=photos[activeIndex];
+  $("stepText").textContent="Foto "+(activeIndex+1)+" dari 4 · "+(photo.src?"foto siap diperiksa":"belum diisi");
+  $("uploadBtn").disabled=photo.locked;
+  $("cameraOpenBtn").disabled=photo.locked;
+  $("retakeBtn").disabled=!photo.src||photo.locked;
+  $("okayBtn").disabled=!photo.src||photo.locked;
+  $("captureBtn").disabled=photo.locked;
+  $("printBtn").disabled=true;
+}
+
+function resetPrinter(){
+  printed=false;printing=false;
+  const stage=$("printerStage"),output=$("printerOutput"),paper=$("printPaper");
+  stage.classList.remove("printing","printed");
+  output.style.removeProperty("--paper-height");
+  output.style.height="0";
+  paper.style.removeProperty("--paper-travel");
+  paper.innerHTML="";
+  $("downloadBtn").classList.add("hidden");
+  $("printBtn").textContent="▤ Print Photo";
+  $("printBtn").disabled=!allLocked();
+  $("printMessage").textContent=allLocked()
+    ?"Semua foto siap dicetak. Tekan Print Photo ♡"
+    :"Photostrip akan keluar setelah empat foto terkunci. ♡";
+}
+
+function loadFile(file){
+  if(!file||!file.type.startsWith("image/")){toast("Pilih file gambar ya ♡");return}
+  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
+
+  const reader=new FileReader();
+  reader.onerror=()=>toast("Gambar tidak berhasil dibaca.");
+  reader.onload=()=>{
+    const img=new Image();
+    img.onload=()=>{
+      photos[activeIndex].src=reader.result;
+      resetPrinter();renderPhotos();
+      status("Foto masuk ke frame "+(activeIndex+1)+". Periksa lalu tekan Okee ♡");
+    };
+    img.onerror=()=>toast("Gambar ini tidak bisa dibuka.");
+    img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function retake(){
+  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
+  photos[activeIndex].src=null;
+  resetPrinter();renderPhotos();
+  status("Frame "+(activeIndex+1)+" siap diulang. Ambil atau pilih foto baru ♡");
+}
+
+function confirmPhoto(){
+  const photo=photos[activeIndex];
+  if(!photo||!photo.src){toast("Isi foto ini dulu ya ♡");return}
+  if(photo.locked)return;
+
+  const completed=activeIndex;
+  photo.locked=true;
+  resetPrinter();
+
+  if(allLocked()){
+    renderPhotos();
+    status("Yeay! Empat foto sudah terkunci. Sekarang tekan Print Photo ♡");
+    $("printBtn").disabled=false;
+    $("printMessage").textContent="Empat foto siap keluar dari printer! ♡";
+    toast("Semua foto selesai! Siap dicetak ♡");
+    return;
+  }
+
+  updateActive();renderPhotos();
+  status("Foto "+(completed+1)+" terkunci ♡ Lanjut ke foto "+(activeIndex+1)+"!");
+  toast("Okee! Foto "+(completed+1)+" terkunci ♡");
+}
+
+async function openCamera(){
+  if(allLocked()){toast("Semua foto sudah terkunci ♡");return}
+  if(!navigator.mediaDevices?.getUserMedia){
+    toast("Kamera membutuhkan HTTPS atau localhost. Kamu juga bisa upload foto.");return;
+  }
+  try{
+    closeCamera();
+    stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user"}});
+    $("video").srcObject=stream;
+    $("cameraPanel").classList.remove("hidden");
+    try{await $("video").play()}catch(_){}
+    status("Kamera aktif untuk foto "+(activeIndex+1)+". Pose dulu lalu ambil foto ♡");
+  }catch(error){
+    console.error(error);
+    toast("Akses kamera gagal. Izinkan kamera atau gunakan upload foto.");
+  }
+}
+
+function closeCamera(){
+  if(stream){stream.getTracks().forEach(track=>track.stop());stream=null}
+  if($("video"))$("video").srcObject=null;
+}
+function hideCamera(){closeCamera();$("cameraPanel").classList.add("hidden")}
+
+function capturePhoto(){
+  const video=$("video");
+  if(!stream||!video.videoWidth){toast("Tunggu sampai kamera siap ya ♡");return}
+  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
+
+  const canvas=document.createElement("canvas");
+  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+  const ctx=canvas.getContext("2d");
+  ctx.translate(canvas.width,0);ctx.scale(-1,1);
+  ctx.drawImage(video,0,0,canvas.width,canvas.height);
+  photos[activeIndex].src=canvas.toDataURL("image/jpeg",.94);
+  resetPrinter();renderPhotos();
+  status("Foto berhasil diambil. Tekan Retake untuk ulang atau Okee untuk mengunci ♡");
+}
+
+function resetAll(){
+  photos.forEach(p=>{p.src=null;p.locked=false});
+  activeIndex=0;resetPrinter();renderPhotos();
+  status("Semua foto direset. Mulai lagi dari foto pertama ♡");
+  toast("Photobooth siap digunakan lagi ♡");
+}
+
+function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+
+async function printStrip(){
+  if(!allLocked()){toast("Lengkapi empat foto terlebih dahulu ya ♡");return}
+  if(printed||printing)return;
+
+  printing=true;
+  $("printBtn").disabled=true;
+  $("printBtn").textContent="Mencetak… ♡";
+  $("downloadBtn").classList.add("hidden");
+  $("printMessage").textContent="Photostrip sedang keluar dari celah printer… ♡";
+
+  const stage=$("printerStage"),output=$("printerOutput"),holder=$("printPaper");
+  holder.innerHTML="";
+
+  // Printer mengeluarkan preview delapan strip sekaligus.
+  const clone=$("stripGallery").cloneNode(true);
+  clone.style.width="100%";
+  clone.style.minWidth="0";
+  clone.style.gridTemplateColumns="repeat(8,minmax(0,1fr))";
+  clone.style.gap="3px";
+  clone.querySelectorAll(".strip").forEach(strip=>{
+    strip.style.width="100%";
+    strip.style.maxWidth="none";
+  });
+  holder.style.width="100%";
+  holder.appendChild(clone);
+
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const paperHeight=clone.getBoundingClientRect().height;
+
+  // Travel dibatasi pada tinggi kertas agar berhenti tepat di ujung.
+  const travel=Math.max(0,paperHeight-12);
+  output.style.setProperty("--paper-height",Math.ceil(paperHeight)+"px");
+  output.style.height=Math.ceil(paperHeight)+"px";
+  holder.style.setProperty("--paper-travel",Math.ceil(travel)+"px");
+
+  stage.classList.remove("printed","printing");
+  void stage.offsetWidth;
+  stage.classList.add("printing");
+  await wait(2300);
+  stage.classList.remove("printing");
+  stage.classList.add("printed");
+
+  printing=false;printed=true;
+  $("printBtn").textContent="✓ Sudah dicetak";
+  $("printBtn").disabled=true;
+  $("downloadBtn").classList.remove("hidden");
+  $("printMessage").textContent="Tadaaa! Delapan photostrip sudah tercetak. Download PNG di bawah printer ♡";
+  toast("Delapan photostrip berhasil dicetak ♡");
+}
+
+async function downloadStrip(){
+  if(!allLocked()){toast("Lengkapi empat foto dahulu ya ♡");return}
+  if(typeof window.html2canvas!=="function"){toast("Fitur PNG belum termuat. Periksa koneksi internet.");return}
+
+  const button=$("downloadBtn");
+  button.disabled=true;button.textContent="Menyiapkan PNG…";
+  let staging=null;
+
+  try{
+    const source=$("stripGallery");
+    const clone=source.cloneNode(true);
+    clone.style.width="1200px";
+    clone.style.minWidth="1200px";
+    clone.style.gridTemplateColumns="repeat(8,minmax(0,1fr))";
+    clone.style.gap="8px";
+
+    staging=document.createElement("div");
+    staging.style.cssText="position:fixed;left:-20000px;top:0;width:1200px;background:#fffaf4;padding:18px;pointer-events:none";
+    staging.appendChild(clone);
+    document.body.appendChild(staging);
+
+    await Promise.all([...clone.querySelectorAll("img")].map(img=>{
+      if(img.complete&&img.naturalWidth)return Promise.resolve();
+      return new Promise(resolve=>{img.onload=resolve;img.onerror=resolve});
+    }));
+
+    const canvas=await html2canvas(clone,{
+      backgroundColor:"#fffaf4",scale:2,useCORS:true,allowTaint:false,
+      logging:false,width:1200,windowWidth:1200,scrollX:0,scrollY:0
+    });
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+    if(!blob)throw new Error("PNG gagal dibuat.");
+
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+    link.href=url;
+    link.download="our-little-photobooth-"+currentTheme+"-8-strips.png";
+    document.body.appendChild(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    status("Delapan photostrip berhasil disimpan sebagai PNG ♡");
+    toast("PNG tersimpan! Cek folder Download kamu ♡");
+  }catch(error){
+    console.error(error);
+    toast(error.message||"PNG belum berhasil dibuat. Coba lagi.");
+  }finally{
+    if(staging)staging.remove();
+    button.disabled=false;button.textContent="♡ Download PNG";
+  }
+}
+
+function updateMusicButton(){
+  $("musicToggle").textContent=musicOn?"♫ Musik: diputar":"♫ Musik: mati";
+  $("musicToggle").setAttribute("aria-pressed",String(musicOn));
+}
+async function toggleMusic(){
+  const audio=$("music");
+  if(musicOn){audio.pause();musicOn=false;updateMusicButton();return}
+  try{await audio.play();musicOn=true;updateMusicButton()}
+  catch(_){toast("Pastikan file musik tersedia di folder assets ♡")}
+}
+
+/* Navigasi */
+$("startBtn").addEventListener("click",()=>showScreen("letterPage"));
+$("toBoothBtn").addEventListener("click",()=>showScreen("booth"));
+$("homeBtn").addEventListener("click",()=>showScreen("welcome"));
+
+/* Tema */
+document.querySelectorAll(".theme-choice").forEach(button=>{
+  button.addEventListener("click",()=>setTheme(button.dataset.theme));
+});
+
+/* Upload */
+$("uploadBtn").addEventListener("click",()=>{if(!allLocked())$("singleInput").click()});
+$("singleInput").addEventListener("change",event=>{
+  const file=event.target.files?.[0];
+  if(file)loadFile(file);
+  event.target.value="";
+});
+
+/* Kamera dan kontrol foto */
+$("retakeBtn").addEventListener("click",retake);
+$("okayBtn").addEventListener("click",confirmPhoto);
+$("resetBtn").addEventListener("click",resetAll);
+$("cameraOpenBtn").addEventListener("click",openCamera);
+$("cameraCloseBtn").addEventListener("click",hideCamera);
+$("captureBtn").addEventListener("click",capturePhoto);
+
+/* Printer dan download */
+$("printBtn").addEventListener("click",printStrip);
+$("downloadBtn").addEventListener("click",downloadStrip);
+$("musicToggle").addEventListener("click",toggleMusic);
+window.addEventListener("beforeunload",closeCamera);
+
+function init(){
+  setTheme(currentTheme);
+  renderPhotos();
+  updateMusicButton();
+}
+init();
+})();
+</script>
+</body>
+</html>
 ```
