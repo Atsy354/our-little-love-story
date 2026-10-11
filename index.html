@@ -2344,13 +2344,13 @@
 
       preload="auto"
 
-      src="assets/perfect.mp3"
+      src="assets/until-i-found-you.mp3"
 
     ></audio>
 
     <script
 
-      src="https\://cdn.jsdelivr.net/npm/html2canvas\@1.4.1/dist/html2canvas.min.js"
+      src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
 
       crossorigin="anonymous"
 
@@ -2956,6 +2956,31 @@
 
         }
 
+        function chooseMusicFile() {
+          const picker = document.createElement("input");
+          picker.type = "file";
+          picker.accept = "audio/*,.mp3,.m4a,.ogg,.wav";
+          picker.onchange = () => {
+            const file = picker.files && picker.files[0];
+            if (!file) return;
+            const audio = $("music");
+            if (audio.dataset.objectUrl) URL.revokeObjectURL(audio.dataset.objectUrl);
+            audio.dataset.objectUrl = URL.createObjectURL(file);
+            audio.src = audio.dataset.objectUrl;
+            audio.load();
+            audio.play().then(() => {
+              musicOn = true;
+              updateMusicButton();
+              toast("Musik sedang diputar ♡");
+            }).catch(() => {
+              musicOn = false;
+              updateMusicButton();
+              toast("File musik tidak bisa diputar. Coba pilih file audio lain.");
+            });
+          };
+          picker.click();
+        }
+
         $("musicToggle").addEventListener("click", () => {
 
           const audio = $("music");
@@ -2972,50 +2997,9 @@
 
           }
 
-          if (!audio.src) {
-
-            const picker = document.createElement("input");
-
-            picker.type = "file";
-
-            picker.accept = "audio/*";
-
-            picker.onchange = () => {
-
-              const f = picker.files && picker.files[0];
-
-              if (!f) return;
-
-              audio.src = URL.createObjectURL(f);
-
-              audio
-
-                .play()
-
-                .then(() => {
-
-                  musicOn = true;
-
-                  updateMusicButton();
-
-                })
-
-                .catch(() =>
-
-                  toast(
-
-                    "Browser belum bisa memulai musik. Tekan tombol musik lagi.",
-
-                  ),
-
-                );
-
-            };
-
-            picker.click();
-
+          if (!audio.getAttribute("src") || audio.error) {
+            chooseMusicFile();
             return;
-
           }
 
           audio
@@ -3030,7 +3014,12 @@
 
             })
 
-            .catch(() => toast("Browser belum bisa memulai musik. Coba lagi."));
+            .catch(() => {
+              musicOn = false;
+              updateMusicButton();
+              toast("Musik gagal dimuat. Pilih file Until I Found You saat diminta.");
+              chooseMusicFile();
+            });
 
         });
 
