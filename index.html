@@ -1,300 +1,582 @@
-```html
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7e5e8">
 <title>Our Little Photobooth ♡</title>
-
 <style>
 :root {
-  --pink:#e9aebc;
-  --rose:#b85e78;
-  --cream:#fff9f4;
-  --ink:#5c424b;
-  --muted:#9b7b83;
-  --line:#efd6dc;
-  --shadow:0 12px 32px #8d52621a;
+  --pink: #d45d83;
+  --pink-light: #fff0f4;
+  --border: #f0c5d2;
+  --cream: #fffaf6;
+  --text: #795764;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;color:var(--ink);
-  background:radial-gradient(circle at 10% 10%,#fff 0,transparent 28%),
-  linear-gradient(135deg,#fff8f3,#f9e8ec 55%,#f5e7df);
-  font-family:Georgia,"Times New Roman",serif;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: linear-gradient(135deg,#fffaf6,#fff0f4);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
 }
-button,input{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.45;cursor:not-allowed}
-.hidden{display:none!important}
-.topbar{
-  position:sticky;top:0;z-index:20;display:flex;align-items:center;
-  justify-content:space-between;gap:10px;padding:12px 4%;
-  background:#fff9f0ef;backdrop-filter:blur(12px);
-  border-bottom:1px solid #eed9dd
-}
-.brand{font-style:italic;color:#a9506b}
-.top-actions{display:flex;flex-wrap:wrap;gap:6px}
-.tiny,.secondary{
-  border:1px solid var(--line);background:#fffaf8;color:var(--rose);
-  border-radius:999px;padding:9px 13px
-}
-main{width:min(1100px,calc(100% - 24px));margin:auto;padding:30px 0 40px}
-.screen{animation:fade .4s ease both}
-@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-h1,h2,h3,p{margin-top:0}
-h1{color:#a9506b;font-size:clamp(2.4rem,8vw,4.5rem);line-height:1.06;font-weight:400;font-style:italic;margin:16px auto}
-h2{color:#a9506b;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;font-style:italic;margin-bottom:12px}
-.eyebrow{color:var(--rose);text-transform:uppercase;letter-spacing:.18em;font:600 .68rem Arial,sans-serif}
-.welcome-screen{min-height:calc(100svh - 100px);display:flex;align-items:center;justify-content:center;text-align:center;padding:15px 0}
-.welcome-card{
-  position:relative;width:min(800px,100%);padding:clamp(26px,5vw,50px) 24px;
-  background:#fffaf4;border:1px solid #efcfd7;border-radius:24px;
-  box-shadow:var(--shadow);overflow:hidden
-}
-.welcome-card:before{content:"";position:absolute;inset:9px;border:1px dashed #e8c4cd;border-radius:17px;pointer-events:none}
-.welcome-card>*{position:relative}
-.welcome-flower{color:#d58fa2;font-size:2rem;margin:12px 0}
-.welcome-bow{color:#d58fa2;font-size:1.8rem}
-.welcome-copy{color:#876873;max-width:510px;line-height:1.8;margin:0 auto 22px}
-.letter-card{text-align:left;padding:clamp(24px,5vw,45px)}
-.letter-copy{color:#795d66;font-size:.97rem;line-height:1.85}
-.letter-copy p{margin-bottom:15px}
-.letter-signoff{color:#a9506b;font-style:italic}
-.primary,.secondary{border-radius:999px;padding:11px 17px;border:0;transition:transform .2s}
-.primary{color:white;background:linear-gradient(135deg,#cb7c94,#ad5571);box-shadow:0 6px 16px #b65b7925}
-.secondary{color:#a6536d;background:#fffaf7;border:1px solid #e9c8d0}
-.primary:hover:not(:disabled),.secondary:hover:not(:disabled){transform:translateY(-1px)}
-.section-head{text-align:center;margin-bottom:20px}
-.section-head p{color:var(--muted);line-height:1.7}
-.booth-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
-.controls{display:flex;flex-direction:column;gap:14px}
-.panel{background:#fffaf5ed;border:1px solid var(--line);border-radius:18px;padding:clamp(13px,2.5vw,21px);box-shadow:var(--shadow);min-width:0}
-.field-label{display:block;font:600 .73rem Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#a86c7e;margin-bottom:10px}
-.theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-.theme-choice{border:1px solid #ecd5da;background:#fffdfb;color:#805867;text-align:left;border-radius:11px;padding:9px;font-size:.8rem;line-height:1.4;min-width:0}
-.theme-choice span{display:block;font-size:.68rem;color:#b28a94;margin-top:3px}
-.theme-choice.active{background:#f7e5ea;border-color:#c77d92;box-shadow:inset 0 0 0 1px #c77d92}
-.progress{display:flex;gap:5px;margin:10px 0}
-.progress span{height:5px;flex:1;border-radius:20px;background:#eedde1}
-.progress span.done{background:#b85e78}
-.progress span.current{background:#e9aebc}
-.step-text,.status,.small-note{color:#a17681;font: .8rem/1.55 Arial,sans-serif}
-.step-text{margin:6px 0 13px}
-.status{min-height:1.4em;margin:11px 0 0}
-.source-actions,.confirm-actions,.camera-actions{display:flex;flex-wrap:wrap;gap:8px}
-.source-actions button,.confirm-actions button{flex:1;min-width:0}
-.confirm-actions{margin-top:11px}
-.camera-box{background:#241e23;border-radius:12px;overflow:hidden}
-.camera-box video{display:block;width:100%;max-height:360px;aspect-ratio:3/4;object-fit:cover;transform:scaleX(-1)}
-.camera-actions{margin-top:9px}
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.hidden { display: none !important; }
 
-/* Photostrip asli + delapan strip hasil */
-.preview-panel{min-width:0}
-.preview-wrap{width:100%;overflow-x:auto;padding:8px 0 12px}
-#stripGallery{
-  display:grid;grid-template-columns:repeat(8,minmax(0,1fr));
-  gap:5px;width:100%;align-items:start
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px 4%;
+  border-bottom: 1px solid var(--border);
+  background: #fffaf6;
 }
-.strip{
-  --strip-bg:#fffaf2;--strip-ink:#8e5969;
-  position:relative;width:100%;min-width:0;max-width:none;
-  padding:8px 5px 9px;overflow:hidden;
-  background:var(--strip-bg);color:var(--strip-ink);
-  border:2px solid #d6a4a2;border-radius:9px;
-  box-shadow:0 5px 12px #7b46541a
+.brand {
+  font-size: clamp(24px,3vw,40px);
+  font-style: italic;
+  color: var(--pink);
 }
-.strip-title{text-align:center;font-size:clamp(6px,.8vw,12px);line-height:1.3;font-style:italic;overflow-wrap:anywhere;margin:3px 0 5px}
-.strip-date{text-align:center;font:600 clamp(5px,.5vw,8px) Arial,sans-serif;letter-spacing:.02em;margin-bottom:5px}
-.strip-photos{display:flex;flex-direction:column;gap:4px}
-.strip-photo{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#f0e0e4;border:1px solid white}
-.strip-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
-.strip-photo .empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;color:#bc929f;font-size:clamp(6px,.6vw,10px);background:#f8e9eb;white-space:pre-line}
-.strip-photo.active-frame{outline:2px solid #d47795;outline-offset:1px}
-.strip-foot{text-align:center;font-size:clamp(5px,.48vw,8px);line-height:1.4;margin-top:6px;overflow-wrap:anywhere;color:var(--strip-ink)}
-/* Sepuluh gaya tema */
-.theme-flower .strip{--strip-bg:#fffaf2;--strip-ink:#9c5c6d;border-color:#d6a4a2}
-.theme-flower .strip-title:before{content:"✿ "}
-.theme-flower .strip-foot:after{content:" ❀"}
-.theme-letter .strip{--strip-bg:#f8eddb;--strip-ink:#8f6b48;border-color:#c9a87e;border-radius:2px;box-shadow:inset 0 0 0 2px #d4b78d}
-.theme-kawaii .strip{--strip-bg:#fff0f5;--strip-ink:#b35f87;border:2px dotted #e3a3bf;border-radius:13px}
-.theme-kawaii .strip-photo{border-radius:5px}
-.theme-film .strip{--strip-bg:#242326;--strip-ink:#fff0d7;background:#242326;border:4px solid #242326;border-radius:0}
-.theme-film .strip-photo{border:2px solid #fff4df;border-radius:0}
-.theme-coquette .strip{--strip-bg:#fff7fa;--strip-ink:#a9577c;border:2px solid #e5b8c7;border-radius:5px}
-.theme-coquette .strip-title:before{content:"୨୧ "}
-.theme-stars .strip{--strip-bg:#20223e;--strip-ink:#f4e5ff;background:#20223e;border-color:#8d8ab8}
-.theme-stars .strip-title:before{content:"✦ "}
-.theme-y2k .strip{--strip-bg:#ffe0f0;--strip-ink:#87569b;background:linear-gradient(140deg,#ffe0f0,#dff6ff);border:2px solid #d59de4;box-shadow:2px 2px 0 #bca5eb}
-.theme-y2k .strip-title{font-family:Arial,sans-serif;font-weight:900}
-.theme-botanical .strip{--strip-bg:#eee5d2;--strip-ink:#647359;background:#eee5d2;border-color:#b4a17e}
-.theme-botanical .strip-title:before{content:"❦ "}
-.theme-pixel .strip{--strip-bg:#f4f0ff;--strip-ink:#7566a5;background:#f4f0ff;border:2px dashed #8374b4;border-radius:0}
-.theme-pixel .strip-title{font-family:monospace;font-weight:bold}
-.theme-sunset .strip{--strip-bg:#ffe7c7;--strip-ink:#9d594b;background:linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df);border-color:#dc987f}
-.theme-sunset .strip-title:before{content:"☼ "}
+.tagline {
+  text-align: center;
+  font-style: italic;
+  color: #b66c84;
+  font-size: 14px;
+}
+.header-buttons { display: flex; gap: 8px; }
+button {
+  transition: transform .15s, filter .15s;
+}
+button:hover:not(:disabled) {
+  filter: brightness(.97);
+  transform: translateY(-1px);
+}
+.pill, .secondary {
+  border: 1px solid #e5a5b8;
+  border-radius: 30px;
+  padding: 10px 15px;
+  background: #fffaf8;
+  color: #b84e73;
+}
+.primary {
+  border: 0;
+  border-radius: 30px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg,#d96d92,#c34d77);
+  color: white;
+}
+main {
+  width: min(1200px, calc(100% - 28px));
+  margin: 25px auto;
+}
+.card, .panel {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 20px;
+}
+.center { text-align: center; }
+.welcome {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+}
+.welcome .card {
+  width: min(760px,100%);
+  padding: clamp(28px,6vw,65px);
+  outline: 1px dashed #eac0ce;
+  outline-offset: -10px;
+}
+.eyebrow {
+  font: 600 11px Arial,sans-serif;
+  letter-spacing: 3px;
+  color: #ad6079;
+  text-transform: uppercase;
+}
+h1 {
+  color: var(--pink);
+  font-size: clamp(42px,8vw,75px);
+  line-height: 1.05;
+  font-weight: normal;
+  font-style: italic;
+  margin: 18px 0;
+}
+h2 {
+  color: #b54f73;
+  font-size: clamp(27px,5vw,42px);
+  font-weight: normal;
+  font-style: italic;
+}
+.copy {
+  line-height: 1.8;
+  max-width: 530px;
+  margin: 20px auto;
+}
+.letter p { line-height: 1.85; }
+.letter .signoff { color: #b54f73; font-style: italic; }
+.booth-heading { text-align: center; margin-bottom: 20px; }
+.booth-heading p { color: #aa7c8a; line-height: 1.6; }
+.layout {
+  display: grid;
+  grid-template-columns: minmax(270px,.85fr) minmax(0,1.35fr);
+  gap: 16px;
+  align-items: start;
+}
+.panel { min-width: 0; margin-bottom: 14px; }
+.panel h3 {
+  color: #b54f73;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0 0 14px;
+}
+.label {
+  display: block;
+  margin-bottom: 12px;
+  font: bold 12px Arial,sans-serif;
+  color: #a54e70;
+}
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 7px;
+}
+.theme-btn {
+  padding: 10px;
+  text-align: left;
+  line-height: 1.4;
+  border: 1px solid #ecd3dc;
+  background: white;
+  color: #805968;
+  border-radius: 9px;
+  font-size: 12px;
+}
+.theme-btn small {
+  display: block;
+  color: #b28a96;
+  margin-top: 4px;
+}
+.theme-btn.active {
+  background: #f8e2eb;
+  border-color: #c65d82;
+  box-shadow: inset 0 0 0 1px #c65d82;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions button { flex: 1; }
+.progress { display: flex; gap: 5px; margin: 12px 0; }
+.progress span {
+  flex: 1;
+  height: 5px;
+  background: #eedde2;
+  border-radius: 5px;
+}
+.progress .done { background: #c3547b; }
+.progress .current { background: #e9a4b9; }
+.status, .note, .step {
+  font: 12px/1.6 Arial,sans-serif;
+  color: #a17684;
+}
+.camera {
+  background: #211a20;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 12px;
+}
+video {
+  width: 100%;
+  max-height: 350px;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transform: scaleX(-1);
+}
+.camera-actions { display: flex; gap: 8px; margin-top: 8px; }
+.camera-actions button { flex: 1; }
 
-/* Printer */
-.printer-area{margin-top:16px}
-.printer-stage{position:relative;width:min(100%,360px);margin:0 auto}
-.printer-machine{position:relative;z-index:3;padding:0 10px 10px;background:linear-gradient(145deg,#f9dce3,#e6b9c7);border:1px solid #d9a4b4;border-radius:18px 18px 12px 12px;box-shadow:0 7px 16px #a15c7024}
-.printer-top{height:36px;display:flex;align-items:center;justify-content:center;color:#94566b;font:600 .58rem Arial,sans-serif;letter-spacing:.1em}
-.printer-mouth{height:15px;border-radius:5px;background:#87596a;box-shadow:inset 0 3px 5px #42253166;border:2px solid #b77f90;position:relative;z-index:5}
-.printer-mouth:after{content:"";position:absolute;inset:3px 5px;background:#37252c;border-radius:2px}
-.printer-output{height:0;position:relative;z-index:2}
-.paper-holder{position:absolute;top:-2px;left:50%;width:min(68%,190px);transform:translateX(-50%);z-index:2;opacity:0;pointer-events:none}
-.paper-holder .strip{width:100%;max-width:none;margin:0}
-.printer-front{position:relative;z-index:4;height:48px;border-radius:0 0 8px 8px;background:linear-gradient(145deg,#f3cbd6,#e6b9c7);border-top:1px solid #d9a4b4;display:flex;align-items:center;justify-content:center;color:#94566b;font:600 .58rem Arial,sans-serif;letter-spacing:.08em}
-.printer-stage.printing .printer-output,.printer-stage.printed .printer-output{height:var(--paper-height,200px)}
-.printer-stage.printing .paper-holder{animation:paperEmerges 2.2s cubic-bezier(.22,.68,.28,1) forwards}
-.printer-stage.printed .paper-holder{opacity:1;top:var(--paper-travel,200px)}
-@keyframes paperEmerges{0%{top:-2px;opacity:0}10%{opacity:1}100%{top:var(--paper-travel,200px);opacity:1}}
-.print-actions{display:grid;gap:8px;width:min(100%,360px);margin:12px auto 0}
-.print-actions button{width:100%}
-.printer-download{position:relative;z-index:6;padding-top:4px}
-.printer-download button{width:100%}
-.print-message{text-align:center;color:#a17681;font:.8rem/1.55 Arial,sans-serif;margin:12px 0}
-.footer{text-align:center;color:#b28c94;font-size:.75rem;padding:24px 12px}
-.toast{position:fixed;z-index:100;left:50%;bottom:20px;transform:translateX(-50%);max-width:90vw;width:max-content;background:#674652;color:white;padding:10px 15px;border-radius:999px;font:.8rem/1.4 Arial,sans-serif;text-align:center;box-shadow:var(--shadow)}
-@media(max-width:760px){
-  main{width:calc(100% - 18px);padding-top:16px}
-  .booth-layout{grid-template-columns:1fr}
-  .preview-panel{order:-1}
-  #stripGallery{width:720px;min-width:720px}
-  .welcome-screen{min-height:calc(100svh - 90px)}
+.preview-wrap {
+  width: 100%;
+  overflow-x: auto;
+  padding: 5px 0 12px;
 }
-@media(max-width:430px){
-  .topbar{align-items:flex-start}
-  .brand{max-width:115px;line-height:1.4}
-  .tiny{padding:7px 8px;font-size:.7rem}
-  .theme-choice{padding:8px;font-size:.76rem}
-  .panel{border-radius:15px}
+/* JUMLAH STRIP = 2, bukan 8 */
+#stripGallery {
+  width: min(100%, 500px);
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+  align-items: start;
 }
-@media print{
-  body{background:white}
-  .topbar,.controls,.section-head,.print-actions,.printer-area,.footer,.small-note{display:none!important}
-  main{width:100%;padding:0}
-  .booth-layout{display:block}
-  .preview-panel{border:0;box-shadow:none;padding:0}
-  #stripGallery{width:100%;min-width:0;grid-template-columns:repeat(8,minmax(0,1fr))}
+.strip {
+  --paper: #fffaf2;
+  --ink: #956275;
+  background: var(--paper);
+  color: var(--ink);
+  width: 100%;
+  min-width: 0;
+  padding: 9px 7px 10px;
+  border: 2px solid #d9a8a8;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px #84506019;
+  overflow: hidden;
 }
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.strip-title {
+  text-align: center;
+  font-size: clamp(10px,1.5vw,15px);
+  line-height: 1.25;
+  font-style: italic;
+  overflow-wrap: anywhere;
+  margin: 3px 0 7px;
+}
+.strip-date {
+  text-align: center;
+  font: bold 8px Arial,sans-serif;
+  margin-bottom: 6px;
+}
+.strip-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.strip-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #f8e9ec;
+  border: 1px solid white;
+}
+.strip-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.strip-photo .empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: pre-line;
+  color: #bc929f;
+  font-size: 11px;
+}
+.strip-photo.active-frame {
+  outline: 2px solid #d47795;
+  outline-offset: 1px;
+}
+.strip-foot {
+  text-align: center;
+  font-size: 7px;
+  line-height: 1.4;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+}
+/* 10 desain tema */
+.theme-flower .strip {
+  --paper: #fffaf2; --ink: #9c5c6d;
+  border-color: #d6a4a2;
+}
+.theme-letter .strip {
+  --paper: #f8eddb; --ink: #8f6b48;
+  border-color: #c9a87e;
+  box-shadow: inset 0 0 0 2px #d4b78d;
+}
+.theme-kawaii .strip {
+  --paper: #fff0f5; --ink: #b35f87;
+  border: 2px dotted #e3a3bf; border-radius: 12px;
+}
+.theme-kawaii .strip-photo { border-radius: 5px; }
+.theme-film .strip {
+  --paper: #242326; --ink: #fff0d7;
+  background: #242326; border: 4px solid #242326;
+}
+.theme-film .strip-photo { border: 2px solid #fff4df; }
+.theme-coquette .strip {
+  --paper: #fff7fa; --ink: #a9577c;
+  border: 2px solid #e5b8c7;
+}
+.theme-stars .strip {
+  --paper: #20223e; --ink: #f4e5ff;
+  background: #20223e; border-color: #8d8ab8;
+}
+.theme-y2k .strip {
+  --paper: #ffe0f0; --ink: #87569b;
+  background: linear-gradient(140deg,#ffe0f0,#dff6ff);
+  border: 2px solid #d59de4;
+}
+.theme-y2k .strip-title { font-family: Arial,sans-serif; font-weight: bold; }
+.theme-botanical .strip {
+  --paper: #eee5d2; --ink: #647359;
+  background: #eee5d2; border-color: #b4a17e;
+}
+.theme-pixel .strip {
+  --paper: #f4f0ff; --ink: #7566a5;
+  background: #f4f0ff; border: 2px dashed #8374b4;
+}
+.theme-pixel .strip-title { font-family: monospace; }
+.theme-sunset .strip {
+  --paper: #ffe7c7; --ink: #9d594b;
+  background: linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df);
+  border-color: #dc987f;
+}
+.theme-coquette .strip-title:before { content: "୨୧ "; }
+.theme-stars .strip-title:before { content: "✦ "; }
+.theme-botanical .strip-title:before { content: "❦ "; }
+.theme-sunset .strip-title:before { content: "☼ "; }
+
+.printer-area { margin-top: 22px; }
+.printer-stage { width: min(100%,420px); margin: auto; }
+.printer-machine {
+  position: relative;
+  z-index: 3;
+  padding: 0 12px 10px;
+  background: linear-gradient(145deg,#f9dce3,#e6b9c7);
+  border: 1px solid #d9a4b4;
+  border-radius: 18px 18px 12px 12px;
+  box-shadow: 0 7px 16px #a15c7024;
+}
+.printer-top {
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #94566b;
+  font: bold 9px Arial,sans-serif;
+  letter-spacing: 2px;
+}
+.printer-mouth {
+  height: 15px;
+  border-radius: 5px;
+  background: #39262e;
+  border: 2px solid #b77f90;
+  position: relative;
+  z-index: 5;
+}
+.printer-output {
+  height: 0;
+  position: relative;
+  z-index: 2;
+}
+.paper-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+#printGallery {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  padding: 8px;
+  background: #fffaf6;
+}
+#printGallery .strip { padding: 7px 5px; }
+.printer-front {
+  position: relative;
+  z-index: 4;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  color: #94566b;
+  font: bold 9px Arial,sans-serif;
+  letter-spacing: 1px;
+  background: linear-gradient(145deg,#f3cbd6,#e6b9c7);
+  border-top: 1px solid #d9a4b4;
+}
+.printer-stage.printing .printer-output,
+.printer-stage.printed .printer-output {
+  height: var(--paper-height,200px);
+}
+.printer-stage.printing .paper-holder {
+  animation: paperOut 2s cubic-bezier(.22,.68,.28,1) forwards;
+}
+.printer-stage.printed .paper-holder {
+  opacity: 1;
+  top: var(--paper-travel,200px);
+}
+@keyframes paperOut {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  100% { top: var(--paper-travel,200px); opacity: 1; }
+}
+.print-message {
+  text-align: center;
+  font: 12px/1.6 Arial,sans-serif;
+  color: #a17681;
+  margin: 12px 0;
+}
+.print-actions { width: min(100%,420px); margin: auto; }
+.print-actions button { width: 100%; }
+footer {
+  text-align: center;
+  color: #b28c94;
+  font-size: 12px;
+  padding: 25px 12px;
+}
+.toast {
+  position: fixed;
+  z-index: 100;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #674652;
+  color: white;
+  border-radius: 25px;
+  padding: 11px 17px;
+  font: 12px Arial,sans-serif;
+  max-width: 90vw;
+  text-align: center;
+}
+@media(max-width:760px) {
+  header { flex-wrap: wrap; padding: 14px; }
+  .tagline { display: none; }
+  main { width: calc(100% - 16px); margin: 14px auto; }
+  .layout { grid-template-columns: 1fr; }
+  .preview-panel { order: -1; }
+  #stripGallery { width: min(100%,460px); gap: 8px; }
+  .strip { padding: 7px 5px; }
+  .strip-title { font-size: clamp(10px,2.7vw,15px); }
+}
+@media(max-width:380px) {
+  #stripGallery { gap: 5px; }
+  .strip { padding: 5px 3px; }
+  .strip-photos { gap: 3px; }
+  .strip-title { font-size: 10px; }
+  .strip-foot { font-size: 6px; }
+  .panel { padding: 13px; }
+}
+@media print {
+  header,.controls,.booth-heading,.printer-area,footer { display:none !important; }
+  body { background:white; }
+  main { width:100%; margin:0; }
+  .layout { display:block; }
+  #stripGallery { width:100%; }
+}
 </style>
 </head>
-
 <body class="theme-flower">
-<header class="topbar">
-  <div class="brand">Our Little Love Story ♡</div>
-  <div class="top-actions">
-    <button id="musicToggle" class="tiny" type="button">♫ Musik: mati</button>
-    <button id="homeBtn" class="tiny" type="button">⌂ Awal</button>
+
+<header>
+  <div class="brand">Our Little Photobooth ♡</div>
+  <div class="tagline">Same person, different moments,<br>always you ♡</div>
+  <div class="header-buttons">
+    <button id="musicBtn" class="pill" type="button">♫ Musik</button>
+    <button id="homeBtn" class="pill" type="button">⌂ Awal</button>
   </div>
 </header>
 
 <main>
-  <section id="welcome" class="welcome-screen screen">
-    <div class="welcome-card">
-      <div class="welcome-bow">୨୧</div>
-      <div class="welcome-flower">✿ ♡ ❀</div>
-      <div class="eyebrow">a little celebration of us</div>
-      <h1>Happy 5 Months,<br>My Love ♡</h1>
-      <div style="color:#d58fa2;letter-spacing:.22em;margin:20px 0">♡ ───── ♡</div>
-      <p class="welcome-copy">A little gift made with lots of love, just for you.</p>
-      <button class="primary" id="startBtn" type="button">Mulai ♡</button>
+  <section id="welcome" class="welcome">
+    <div class="card center">
+      <div style="font-size:30px;color:#d58ba3">୨୧ ✿ ♡ ❀</div>
+      <div class="eyebrow">A Little Celebration of Us</div>
+      <h1>Our Little<br>Photobooth ♡</h1>
+      <p class="copy">A little gift made with lots of love, just for you.</p>
+      <button id="startBtn" class="primary" type="button">Buka Surprise ♡</button>
     </div>
   </section>
 
-  <section id="letterPage" class="welcome-screen screen hidden">
-    <article class="welcome-card letter-card">
-      <div class="welcome-bow" style="text-align:center">୨୧</div>
-      <div class="welcome-flower" style="text-align:center">✿ ♡ ❀</div>
-      <div class="eyebrow" style="text-align:center">a letter from my heart</div>
-      <h2 style="text-align:center;font-size:clamp(2rem,6vw,3.3rem)">Dear, My Love ♡</h2>
-      <div class="letter-copy">
-        <p><strong>Hai, Sayang.. ❤️<br>Happy Anniversary yang ke-5 bulan! ♡</strong></p>
-        <p>Aku seneng banget, nggak terasa kita udah sampai lima bulan. Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu bikin aku happy banget karena bisa melewati semuanya bersama orang yang aku sayang.</p>
-        <p>Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai kenangan kecil dari perjalanan kita.</p>
-        <p>Karena kamu suka photobooth, makanya aku membuat ini khusus buat kamu. Aku ingin kita punya lebih banyak foto, lebih banyak kenangan, dan lebih banyak alasan untuk tersenyum setiap kali mengingat hari-hari yang sudah kita lewati bersama.</p>
-        <p>Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku berbagi cerita, dan sudah menjadi seseorang yang begitu berarti buat aku. Aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
-        <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa. Karena hari ini, photobooth-nya memang sederhana, tapi orang yang ada di dalam kenangan itu adalah seseorang yang sangat aku sayang.</p>
-        <p class="letter-signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
+  <section id="letterPage" class="welcome hidden">
+    <article class="card letter">
+      <div class="center">
+        <div style="font-size:30px;color:#d58ba3">✿ ♡ ❀</div>
+        <div class="eyebrow">A Letter From My Heart</div>
+        <h2>Happy 5 Months, My Love ♡</h2>
       </div>
-      <p style="text-align:center;color:#b77c8c;font-size:.78rem;margin:20px 0">11 · 10 · 2026 — Our 5th Month Anniversary</p>
-      <div style="text-align:center"><button class="primary" id="toBoothBtn" type="button">let's go Photobooth! 📸</button></div>
+      <p><strong>Hai, Sayang.. ❤️<br>Happy Anniversary yang ke-5 bulan! ♡</strong></p>
+      <p>Aku seneng banget, nggak terasa kita udah sampai lima bulan. Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu bikin aku happy banget karena bisa melewati semuanya bersama orang yang aku sayang.</p>
+      <p>Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai kenangan kecil dari perjalanan kita.</p>
+      <p>Karena kamu suka photobooth, makanya aku membuat ini khusus buat kamu. Aku ingin kita punya lebih banyak foto, lebih banyak kenangan, dan lebih banyak alasan untuk tersenyum setiap kali mengingat hari-hari yang sudah kita lewati bersama.</p>
+      <p>Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku berbagi cerita, dan sudah menjadi seseorang yang begitu berarti buat aku. Aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
+      <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa.</p>
+      <p class="signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
+      <p class="center note">11 · 10 · 2026 — Our 5th Month Anniversary</p>
+      <div class="center">
+        <button id="toBoothBtn" class="primary" type="button">Let's go Photobooth! 📸</button>
+      </div>
     </article>
   </section>
 
-  <section id="booth" class="screen hidden">
-    <div class="section-head">
-      <div class="eyebrow">choose · pose · print</div>
-      <h2>Our Little Photobooth</h2>
-      <p>Pilih tema, ambil empat foto, lalu cetak kenangan kalian. ♡</p>
+  <section id="booth" class="hidden">
+    <div class="booth-heading">
+      <div class="eyebrow">Choose · Pose · Print</div>
+      <h2>Our Little Photobooth ♡</h2>
+      <p>Pilih tema, ambil 4 foto, lalu cetak kenangan kalian.</p>
     </div>
 
-    <div class="booth-layout">
+    <div class="layout">
       <div class="controls">
         <section class="panel">
-          <label class="field-label">Pilih tema photostrip</label>
-          <div id="themeList" class="theme-grid">
-            <button class="theme-choice active" data-theme="flower" type="button">💗 Our Five Months<span>Our 5th Month Anniversary</span></button>
-            <button class="theme-choice" data-theme="letter" type="button">💌 Anniversary Letter<span>Little Things, With You</span></button>
-            <button class="theme-choice" data-theme="kawaii" type="button">📸 Our Little Memories<span>Five Months of Us</span></button>
-            <button class="theme-choice" data-theme="film" type="button">🎞 Classic Film<span>Our Little Moments</span></button>
-            <button class="theme-choice" data-theme="coquette" type="button">🎀 Coquette<span>My Darling ♡</span></button>
-            <button class="theme-choice" data-theme="stars" type="button">🌙 Moon & Stars<span>You're My Universe</span></button>
-            <button class="theme-choice" data-theme="y2k" type="button">💿 Retro Y2K<span>LOVE U 4EVER</span></button>
-            <button class="theme-choice" data-theme="botanical" type="button">🌿 Vintage Botanical<span>A Love to Keep</span></button>
-            <button class="theme-choice" data-theme="pixel" type="button">👾 Pixel Love<span>Player 1 + Player 2</span></button>
-            <button class="theme-choice" data-theme="sunset" type="button">🌅 Golden Sunset<span>Meet Me at Sunset</span></button>
+          <label class="label">1. Pilih Tema (10 Desain)</label>
+          <div class="theme-grid" id="themeList">
+            <button class="theme-btn active" data-theme="flower" type="button">💗 Our Five Months<small>Anniversary</small></button>
+            <button class="theme-btn" data-theme="letter" type="button">💌 Anniversary Letter<small>Little Things, With You</small></button>
+            <button class="theme-btn" data-theme="kawaii" type="button">📸 Our Little Memories<small>Five Months of Us</small></button>
+            <button class="theme-btn" data-theme="film" type="button">🎞 Classic Film<small>Our Little Moments</small></button>
+            <button class="theme-btn" data-theme="coquette" type="button">🎀 Coquette<small>My Darling</small></button>
+            <button class="theme-btn" data-theme="stars" type="button">🌙 Moon & Stars<small>You're My Universe</small></button>
+            <button class="theme-btn" data-theme="y2k" type="button">💿 Retro Y2K<small>LOVE U 4EVER</small></button>
+            <button class="theme-btn" data-theme="botanical" type="button">🌿 Vintage Botanical<small>A Love to Keep</small></button>
+            <button class="theme-btn" data-theme="pixel" type="button">👾 Pixel Love<small>Player 1 + Player 2</small></button>
+            <button class="theme-btn" data-theme="sunset" type="button">🌅 Golden Sunset<small>Meet Me at Sunset</small></button>
           </div>
         </section>
 
         <section class="panel">
-          <div class="field-label">Empat foto · empat frame</div>
-          <div id="progress" class="progress"><span></span><span></span><span></span><span></span></div>
-          <p id="stepText" class="step-text">Foto 1 dari 4 · belum diisi</p>
-          <div class="source-actions">
-            <button id="uploadBtn" class="secondary" type="button">＋ Pilih foto</button>
-            <button id="cameraOpenBtn" class="secondary" type="button">◎ Buka kamera</button>
+          <label class="label">2. Ambil 4 Foto</label>
+          <div class="progress" id="progress">
+            <span></span><span></span><span></span><span></span>
           </div>
-          <input id="singleInput" class="hidden" type="file" accept="image/*">
-          <div id="cameraPanel" class="hidden" style="margin-top:14px">
-            <div class="camera-box"><video id="video" autoplay playsinline muted></video></div>
+          <p id="stepText" class="step">Foto 1 dari 4 · belum diisi</p>
+          <div class="actions">
+            <button id="uploadBtn" class="secondary" type="button">♧ Upload Foto</button>
+            <button id="cameraBtn" class="primary" type="button">📷 Kamera Langsung</button>
+          </div>
+          <input id="fileInput" class="hidden" type="file" accept="image/*">
+
+          <div id="cameraPanel" class="hidden">
+            <div class="camera"><video id="video" autoplay playsinline muted></video></div>
             <div class="camera-actions">
-              <button id="captureBtn" class="primary" type="button">Ambil foto 📸</button>
-              <button id="cameraCloseBtn" class="secondary" type="button">Tutup kamera</button>
+              <button id="captureBtn" class="primary" type="button">Ambil Foto</button>
+              <button id="closeCameraBtn" class="secondary" type="button">Tutup Kamera</button>
             </div>
-            <p class="small-note">Kamera membutuhkan izin browser dan HTTPS atau localhost.</p>
+            <p class="note">Kamera membutuhkan izin browser dan koneksi HTTPS atau localhost.</p>
           </div>
-          <div class="confirm-actions">
+
+          <div class="actions" style="margin-top:12px">
             <button id="retakeBtn" class="secondary" type="button">↻ Retake</button>
-            <button id="okayBtn" class="primary" type="button">Okee ♡</button>
+            <button id="okayBtn" class="primary" type="button">Okee ✓</button>
             <button id="resetBtn" class="secondary" type="button">Reset</button>
           </div>
-          <p id="status" class="status" aria-live="polite">Pilih foto atau buka kamera untuk mengisi foto pertama.</p>
-          <p class="small-note">Periksa foto sebelum menekan Okee. Foto yang sudah dikunci tidak bisa diubah sampai Reset ditekan. ♡</p>
+          <p id="status" class="status" aria-live="polite">Pilih tema, lalu ambil atau upload foto.</p>
         </section>
       </div>
 
       <section class="panel preview-panel">
-        <div class="section-head" style="margin-bottom:4px">
-          <div class="eyebrow">live preview</div>
-          <h3 style="font-size:1.25rem;font-weight:400;font-style:italic;margin:7px 0">Your keepsake ♡</h3>
-        </div>
-
+        <h3>✧ Preview Photostrip</h3>
         <div class="preview-wrap">
+          <!-- HANYA ADA DUA STRIP DI SINI -->
           <div id="stripGallery">
-            <div id="strip" class="strip">
-              <div id="stripTitle" class="strip-title">Our Five Months ♡</div>
+            <div id="strip1" class="strip">
+              <div class="strip-title">Our Five Months ♡</div>
               <div class="strip-date">11 · 10 · 2026</div>
-              <div id="stripPhotos" class="strip-photos"></div>
-              <div id="stripFoot" class="strip-foot">♡ A LITTLE LOVE STORY ♡</div>
+              <div class="strip-photos" id="photos1"></div>
+              <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
+            </div>
+            <div id="strip2" class="strip">
+              <div class="strip-title">Our Five Months ♡</div>
+              <div class="strip-date">11 · 10 · 2026</div>
+              <div class="strip-photos" id="photos2"></div>
+              <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
             </div>
           </div>
         </div>
-
-        <p class="small-note" style="text-align:center">Delapan strip berdampingan, setiap strip memiliki urutan foto berbeda. Download PNG akan memuat semua strip.</p>
+        <p class="note center">Dua strip berdampingan. Setiap strip berisi 4 foto dengan urutan berbeda.</p>
 
         <div class="printer-area">
           <div id="printerStage" class="printer-stage">
@@ -302,446 +584,477 @@ h2{color:#a9506b;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;font-style:i
               <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
               <div class="printer-mouth"></div>
               <div id="printerOutput" class="printer-output">
-                <div id="printPaper" class="paper-holder"></div>
+                <div id="paperHolder" class="paper-holder"></div>
               </div>
               <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
-              <div class="printer-download">
-                <button id="downloadBtn" class="secondary hidden" type="button">♡ Download PNG</button>
-              </div>
             </div>
           </div>
-          <p id="printMessage" class="print-message">Setelah empat foto terkunci, tekan Print Photo. ♡</p>
-          <div class="print-actions"><button id="printBtn" class="primary" type="button" disabled>▤ Print Photo</button></div>
+          <p id="printMessage" class="print-message">Lengkapi empat foto, lalu tekan Cetak.</p>
+          <div class="actions print-actions">
+            <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
+            <button id="downloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
+          </div>
         </div>
       </section>
     </div>
   </section>
 </main>
 
-<footer class="footer">OUR LITTLE PHOTOBOOTH ♡<br>11 · 10 · 2026</footer>
+<footer>MADE WITH LOVE ♡ OUR LITTLE PHOTOBOOTH</footer>
 <div id="toast" class="toast hidden" role="status"></div>
+<audio id="music" loop preload="none"></audio>
 
-<audio id="music" loop preload="none" src="assets/Stephen Sanchez - Until You Found Me (Official Video).mp3"></audio>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
 <script>
 (() => {
 "use strict";
 const $ = id => document.getElementById(id);
 
-const themes = {
-  flower:{title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
-  letter:{title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
-  kawaii:{title:"Our Little Memories",foot:"LITTLE MOMENTS, ENDLESS LOVE"},
-  film:{title:"Our Little Moments",foot:"FRAME 05 · TAKE 11.10.26"},
-  coquette:{title:"My Darling ♡",foot:"୨୧ WITH LOVE, ALWAYS ୨୧"},
-  stars:{title:"You're My Universe",foot:"✦ WRITTEN IN THE STARS ✦"},
-  y2k:{title:"LOVE U 4EVER",foot:"XOXO · 4EVER ONLINE"},
-  botanical:{title:"A Love to Keep",foot:"GROWN WITH LOVE · MMXXVI"},
-  pixel:{title:"PLAYER 1 + PLAYER 2",foot:"♥ GAME SAVED ♥"},
-  sunset:{title:"Meet Me at Sunset",foot:"SAME SKY, SAME HEART"}
+const themeData = {
+  flower: {title:"Our Five Months ♡", foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
+  letter: {title:"Little Things, With You", foot:"SEALED WITH LOVE · 11.10.26"},
+  kawaii: {title:"Our Little Memories", foot:"LITTLE MOMENTS, ENDLESS LOVE"},
+  film: {title:"Our Little Moments", foot:"FRAME 05 · TAKE 11.10.26"},
+  coquette: {title:"My Darling ♡", foot:"WITH LOVE, ALWAYS"},
+  stars: {title:"You're My Universe", foot:"WRITTEN IN THE STARS"},
+  y2k: {title:"LOVE U 4EVER", foot:"XOXO · 4EVER ONLINE"},
+  botanical: {title:"A Love to Keep", foot:"GROWN WITH LOVE"},
+  pixel: {title:"PLAYER 1 + PLAYER 2", foot:"GAME SAVED"},
+  sunset: {title:"Meet Me at Sunset", foot:"SAME SKY, SAME HEART"}
 };
 
-/* Empat foto yang sama dipakai pada delapan strip dengan urutan berbeda. */
+/* Dua urutan strip, masing-masing empat foto. */
 const orders = [
-  [0,1,2,3], [1,0,3,2], [2,3,0,1], [3,2,1,0],
-  [0,2,1,3], [1,3,2,0], [2,0,3,1], [3,1,0,2]
+  [0,1,2,3],
+  [1,0,3,2]
 ];
 
-const photos = Array.from({length:4},()=>({src:null,locked:false}));
-let currentTheme="flower",activeIndex=0,stream=null;
-let toastTimer=null,musicOn=false,printed=false,printing=false;
+const photos = Array.from({length:4}, () => ({
+  src:null, locked:false
+}));
+let activeIndex = 0;
+let currentTheme = "flower";
+let stream = null;
+let printing = false;
+let printed = false;
+let toastTimer;
 
-function toast(message){
-  $("toast").textContent=message;
+function toast(message) {
+  $("toast").textContent = message;
   $("toast").classList.remove("hidden");
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2600);
+  toastTimer = setTimeout(() => $("toast").classList.add("hidden"), 2500);
 }
-function status(message){$("status").textContent=message}
-function allLocked(){return photos.every(p=>p.src&&p.locked)}
-function nextUnlocked(){return photos.findIndex(p=>!p.locked)}
-function updateActive(){
-  const next=nextUnlocked();
-  if(next!==-1) activeIndex=next;
+function setStatus(message) { $("status").textContent = message; }
+function complete() { return photos.every(p => p.src && p.locked); }
+function nextUnlocked() {
+  const index = photos.findIndex(p => !p.locked);
+  if (index !== -1) activeIndex = index;
 }
-function showScreen(id){
-  ["welcome","letterPage","booth"].forEach(s=>$(s).classList.toggle("hidden",s!==id));
+function showScreen(id) {
+  ["welcome","letterPage","booth"].forEach(screen =>
+    $(screen).classList.toggle("hidden", screen !== id)
+  );
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function setTheme(theme){
-  if(!themes[theme])return;
-  currentTheme=theme;
-  document.body.classList.remove(...Object.keys(themes).map(t=>"theme-"+t));
-  document.body.classList.add("theme-"+theme);
-  $("stripTitle").textContent=themes[theme].title;
-  $("stripFoot").textContent=themes[theme].foot;
+function resetPrinter() {
+  printed = false;
+  printing = false;
+  $("printerStage").classList.remove("printing","printed");
+  $("printerOutput").style.height = "0";
+  $("printerOutput").style.removeProperty("--paper-height");
+  $("paperHolder").innerHTML = "";
+  $("paperHolder").style.removeProperty("--paper-travel");
+  $("printBtn").disabled = !complete();
+  $("downloadBtn").disabled = !complete();
+  $("printBtn").textContent = "▣ Cetak";
+  $("printMessage").textContent = complete()
+    ? "Semua foto siap dicetak ♡"
+    : "Lengkapi empat foto, lalu tekan Cetak.";
+}
 
-  document.querySelectorAll(".theme-choice").forEach(b=>{
-    const selected=b.dataset.theme===theme;
-    b.classList.toggle("active",selected);
-    b.setAttribute("aria-pressed",String(selected));
+function setTheme(theme) {
+  if (!themeData[theme]) return;
+  currentTheme = theme;
+  document.body.className = "theme-" + theme;
+
+  document.querySelectorAll(".theme-btn").forEach(button => {
+    const active = button.dataset.theme === theme;
+    button.classList.toggle("active",active);
+    button.setAttribute("aria-pressed",String(active));
   });
 
+  document.querySelectorAll(".strip").forEach(strip => {
+    strip.querySelector(".strip-title").textContent = themeData[theme].title;
+    strip.querySelector(".strip-foot").textContent = themeData[theme].foot;
+  });
   resetPrinter();
   renderPhotos();
 }
 
-function makeFrame(photo,index,active=false){
-  const frame=document.createElement("div");
-  frame.className="strip-photo";
-  if(active)frame.classList.add("active-frame");
+function makeFrame(photo, number, active) {
+  const frame = document.createElement("div");
+  frame.className = "strip-photo";
+  if (active) frame.classList.add("active-frame");
 
-  if(photo&&photo.src){
-    const img=document.createElement("img");
-    img.src=photo.src;
-    img.alt="Foto "+(index+1);
-    img.draggable=false;
+  if (photo && photo.src) {
+    const img = document.createElement("img");
+    img.src = photo.src;
+    img.alt = "Foto " + (number+1);
     frame.appendChild(img);
-  }else{
-    const empty=document.createElement("div");
-    empty.className="empty";
-    empty.textContent="♡\nFoto "+(index+1);
-    frame.appendChild(empty);
+  } else {
+    const placeholder = document.createElement("div");
+    placeholder.className = "empty";
+    placeholder.textContent = "♡\nFoto " + (number+1);
+    frame.appendChild(placeholder);
   }
   return frame;
 }
 
-function renderPhotos(){
-  updateActive();
-  const root=$("stripPhotos");
-  root.innerHTML="";
+function renderPhotos() {
+  nextUnlocked();
+  const target1 = $("photos1");
+  const target2 = $("photos2");
+  target1.innerHTML = "";
+  target2.innerHTML = "";
 
-  photos.forEach((photo,i)=>{
-    root.appendChild(makeFrame(photo,i,i===activeIndex&&!photo.locked&&!allLocked()));
+  /* Strip pertama: Foto 1, 2, 3, 4. */
+  orders[0].forEach(index => {
+    target1.appendChild(makeFrame(
+      photos[index], index,
+      index === activeIndex && !photos[index].locked && !complete()
+    ));
   });
 
-  renderGallery();
+  /* Strip kedua: Foto 2, 1, 4, 3. */
+  orders[1].forEach(index => {
+    target2.appendChild(makeFrame(photos[index], index, false));
+  });
+
   updateControls();
 }
 
-function renderGallery(){
-  const gallery=$("stripGallery");
-  const original=$("strip");
-  gallery.querySelectorAll(".generated-strip").forEach(el=>el.remove());
-
-  const originalFrames=Array.from($("stripPhotos").children);
-
-  orders.slice(1).forEach((order,stripIndex)=>{
-    const copy=original.cloneNode(true);
-    copy.removeAttribute("id");
-    copy.classList.add("generated-strip");
-
-    const title=copy.querySelector(".strip-title");
-    const foot=copy.querySelector(".strip-foot");
-    const container=copy.querySelector(".strip-photos");
-
-    title.textContent=themes[currentTheme].title;
-    foot.textContent=themes[currentTheme].foot;
-    container.innerHTML="";
-
-    order.forEach(index=>{
-      const frame=originalFrames[index].cloneNode(true);
-      frame.classList.remove("active-frame");
-      container.appendChild(frame);
-    });
-    gallery.appendChild(copy);
+function updateControls() {
+  nextUnlocked();
+  $("progress").querySelectorAll("span").forEach((bar,index) => {
+    bar.classList.toggle("done",photos[index].locked);
+    bar.classList.toggle("current",index===activeIndex && !complete());
   });
+
+  const finished = complete();
+  $("stepText").textContent = finished
+    ? "4 dari 4 foto terkunci · siap dicetak ♡"
+    : `Foto ${activeIndex+1} dari 4 · ${photos[activeIndex].src ? "siap diperiksa" : "belum diisi"}`;
+
+  $("uploadBtn").disabled = finished || photos[activeIndex].locked;
+  $("cameraBtn").disabled = finished || photos[activeIndex].locked;
+  $("retakeBtn").disabled = finished || !photos[activeIndex].src || photos[activeIndex].locked;
+  $("okayBtn").disabled = finished || !photos[activeIndex].src || photos[activeIndex].locked;
+  $("captureBtn").disabled = finished || photos[activeIndex].locked;
+  $("printBtn").disabled = !finished || printed || printing;
+  $("downloadBtn").disabled = !finished;
 }
 
-function updateControls(){
-  updateActive();
-  $("progress").querySelectorAll("span").forEach((bar,i)=>{
-    bar.classList.toggle("done",photos[i].locked);
-    bar.classList.toggle("current",i===activeIndex&&!allLocked());
-  });
-
-  if(allLocked()){
-    $("stepText").textContent="4 dari 4 foto terkunci · siap dicetak ♡";
-    $("uploadBtn").disabled=true;
-    $("cameraOpenBtn").disabled=true;
-    $("retakeBtn").disabled=true;
-    $("okayBtn").disabled=true;
-    $("captureBtn").disabled=true;
-    $("printBtn").disabled=printed||printing;
+function loadFile(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    toast("Pilih file gambar ya ♡");
+    return;
+  }
+  if (complete() || photos[activeIndex].locked) {
+    toast("Foto ini sudah terkunci. Tekan Reset untuk mulai lagi.");
     return;
   }
 
-  const photo=photos[activeIndex];
-  $("stepText").textContent="Foto "+(activeIndex+1)+" dari 4 · "+(photo.src?"foto siap diperiksa":"belum diisi");
-  $("uploadBtn").disabled=photo.locked;
-  $("cameraOpenBtn").disabled=photo.locked;
-  $("retakeBtn").disabled=!photo.src||photo.locked;
-  $("okayBtn").disabled=!photo.src||photo.locked;
-  $("captureBtn").disabled=photo.locked;
-  $("printBtn").disabled=true;
-}
-
-function resetPrinter(){
-  printed=false;printing=false;
-  const stage=$("printerStage"),output=$("printerOutput"),paper=$("printPaper");
-  stage.classList.remove("printing","printed");
-  output.style.removeProperty("--paper-height");
-  output.style.height="0";
-  paper.style.removeProperty("--paper-travel");
-  paper.innerHTML="";
-  $("downloadBtn").classList.add("hidden");
-  $("printBtn").textContent="▤ Print Photo";
-  $("printBtn").disabled=!allLocked();
-  $("printMessage").textContent=allLocked()
-    ?"Semua foto siap dicetak. Tekan Print Photo ♡"
-    :"Photostrip akan keluar setelah empat foto terkunci. ♡";
-}
-
-function loadFile(file){
-  if(!file||!file.type.startsWith("image/")){toast("Pilih file gambar ya ♡");return}
-  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
-
-  const reader=new FileReader();
-  reader.onerror=()=>toast("Gambar tidak berhasil dibaca.");
-  reader.onload=()=>{
-    const img=new Image();
-    img.onload=()=>{
-      photos[activeIndex].src=reader.result;
-      resetPrinter();renderPhotos();
-      status("Foto masuk ke frame "+(activeIndex+1)+". Periksa lalu tekan Okee ♡");
+  const reader = new FileReader();
+  reader.onload = () => {
+    const image = new Image();
+    image.onload = () => {
+      photos[activeIndex].src = reader.result;
+      resetPrinter();
+      renderPhotos();
+      setStatus("Foto masuk ke frame " + (activeIndex+1) + ". Periksa lalu tekan Okee ♡");
     };
-    img.onerror=()=>toast("Gambar ini tidak bisa dibuka.");
-    img.src=reader.result;
+    image.onerror = () => toast("Foto tidak bisa dibuka.");
+    image.src = reader.result;
   };
+  reader.onerror = () => toast("Gambar tidak berhasil dibaca.");
   reader.readAsDataURL(file);
 }
 
-function retake(){
-  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
-  photos[activeIndex].src=null;
-  resetPrinter();renderPhotos();
-  status("Frame "+(activeIndex+1)+" siap diulang. Ambil atau pilih foto baru ♡");
-}
-
-function confirmPhoto(){
-  const photo=photos[activeIndex];
-  if(!photo||!photo.src){toast("Isi foto ini dulu ya ♡");return}
-  if(photo.locked)return;
-
-  const completed=activeIndex;
-  photo.locked=true;
-  resetPrinter();
-
-  if(allLocked()){
-    renderPhotos();
-    status("Yeay! Empat foto sudah terkunci. Sekarang tekan Print Photo ♡");
-    $("printBtn").disabled=false;
-    $("printMessage").textContent="Empat foto siap keluar dari printer! ♡";
-    toast("Semua foto selesai! Siap dicetak ♡");
+function retake() {
+  if (complete() || photos[activeIndex].locked) {
+    toast("Foto terkunci. Tekan Reset untuk mulai lagi.");
     return;
   }
-
-  updateActive();renderPhotos();
-  status("Foto "+(completed+1)+" terkunci ♡ Lanjut ke foto "+(activeIndex+1)+"!");
-  toast("Okee! Foto "+(completed+1)+" terkunci ♡");
+  photos[activeIndex].src = null;
+  resetPrinter();
+  renderPhotos();
+  setStatus("Frame " + (activeIndex+1) + " siap diulang ♡");
 }
 
-async function openCamera(){
-  if(allLocked()){toast("Semua foto sudah terkunci ♡");return}
-  if(!navigator.mediaDevices?.getUserMedia){
-    toast("Kamera membutuhkan HTTPS atau localhost. Kamu juga bisa upload foto.");return;
+function confirmPhoto() {
+  const photo = photos[activeIndex];
+  if (!photo || !photo.src) {
+    toast("Isi foto ini dulu ya ♡");
+    return;
   }
-  try{
+  if (photo.locked) return;
+
+  photo.locked = true;
+  if (complete()) {
+    renderPhotos();
+    resetPrinter();
+    setStatus("Empat foto terkunci. Tekan Cetak atau Download PNG ♡");
+    toast("Selesai! Siap dicetak ♡");
+  } else {
+    nextUnlocked();
+    renderPhotos();
+    setStatus("Okee! Lanjut ke foto " + (activeIndex+1) + " ♡");
+    toast("Foto tersimpan ♡");
+  }
+}
+
+async function openCamera() {
+  if (complete()) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    toast("Kamera membutuhkan HTTPS atau localhost. Kamu bisa upload foto.");
+    return;
+  }
+  try {
     closeCamera();
-    stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user"}});
-    $("video").srcObject=stream;
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio:false, video:{facingMode:"user"}
+    });
+    $("video").srcObject = stream;
     $("cameraPanel").classList.remove("hidden");
-    try{await $("video").play()}catch(_){}
-    status("Kamera aktif untuk foto "+(activeIndex+1)+". Pose dulu lalu ambil foto ♡");
-  }catch(error){
+    await $("video").play();
+    setStatus("Kamera aktif. Ambil foto, lalu tekan Okee ♡");
+  } catch (error) {
     console.error(error);
-    toast("Akses kamera gagal. Izinkan kamera atau gunakan upload foto.");
+    toast("Akses kamera gagal. Izinkan kamera atau upload foto.");
   }
 }
 
-function closeCamera(){
-  if(stream){stream.getTracks().forEach(track=>track.stop());stream=null}
-  if($("video"))$("video").srcObject=null;
+function closeCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  $("video").srcObject = null;
 }
-function hideCamera(){closeCamera();$("cameraPanel").classList.add("hidden")}
+function hideCamera() {
+  closeCamera();
+  $("cameraPanel").classList.add("hidden");
+}
+function capturePhoto() {
+  const video = $("video");
+  if (!stream || !video.videoWidth) {
+    toast("Tunggu kamera siap ya ♡");
+    return;
+  }
+  if (complete() || photos[activeIndex].locked) return;
 
-function capturePhoto(){
-  const video=$("video");
-  if(!stream||!video.videoWidth){toast("Tunggu sampai kamera siap ya ♡");return}
-  if(allLocked()||photos[activeIndex].locked){toast("Foto ini sudah terkunci ♡");return}
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const context = canvas.getContext("2d");
+  context.translate(canvas.width,0);
+  context.scale(-1,1);
+  context.drawImage(video,0,0,canvas.width,canvas.height);
 
-  const canvas=document.createElement("canvas");
-  canvas.width=video.videoWidth;canvas.height=video.videoHeight;
-  const ctx=canvas.getContext("2d");
-  ctx.translate(canvas.width,0);ctx.scale(-1,1);
-  ctx.drawImage(video,0,0,canvas.width,canvas.height);
-  photos[activeIndex].src=canvas.toDataURL("image/jpeg",.94);
-  resetPrinter();renderPhotos();
-  status("Foto berhasil diambil. Tekan Retake untuk ulang atau Okee untuk mengunci ♡");
+  photos[activeIndex].src = canvas.toDataURL("image/jpeg",0.94);
+  resetPrinter();
+  renderPhotos();
+  setStatus("Foto berhasil diambil. Tekan Retake atau Okee ♡");
 }
 
-function resetAll(){
-  photos.forEach(p=>{p.src=null;p.locked=false});
-  activeIndex=0;resetPrinter();renderPhotos();
-  status("Semua foto direset. Mulai lagi dari foto pertama ♡");
-  toast("Photobooth siap digunakan lagi ♡");
-}
-
-function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-
-async function printStrip(){
-  if(!allLocked()){toast("Lengkapi empat foto terlebih dahulu ya ♡");return}
-  if(printed||printing)return;
-
-  printing=true;
-  $("printBtn").disabled=true;
-  $("printBtn").textContent="Mencetak… ♡";
-  $("downloadBtn").classList.add("hidden");
-  $("printMessage").textContent="Photostrip sedang keluar dari celah printer… ♡";
-
-  const stage=$("printerStage"),output=$("printerOutput"),holder=$("printPaper");
-  holder.innerHTML="";
-
-  // Printer mengeluarkan preview delapan strip sekaligus.
-  const clone=$("stripGallery").cloneNode(true);
-  clone.style.width="100%";
-  clone.style.minWidth="0";
-  clone.style.gridTemplateColumns="repeat(8,minmax(0,1fr))";
-  clone.style.gap="3px";
-  clone.querySelectorAll(".strip").forEach(strip=>{
-    strip.style.width="100%";
-    strip.style.maxWidth="none";
+function resetAll() {
+  photos.forEach(photo => {
+    photo.src = null;
+    photo.locked = false;
   });
-  holder.style.width="100%";
-  holder.appendChild(clone);
+  activeIndex = 0;
+  resetPrinter();
+  renderPhotos();
+  setStatus("Semua foto direset. Mulai lagi dari foto pertama ♡");
+  toast("Photobooth siap lagi ♡");
+}
+const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
 
-  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-  const paperHeight=clone.getBoundingClientRect().height;
+async function printStrip() {
+  if (!complete()) {
+    toast("Lengkapi empat foto terlebih dahulu ♡");
+    return;
+  }
+  if (printing || printed) return;
 
-  // Travel dibatasi pada tinggi kertas agar berhenti tepat di ujung.
-  const travel=Math.max(0,paperHeight-12);
-  output.style.setProperty("--paper-height",Math.ceil(paperHeight)+"px");
-  output.style.height=Math.ceil(paperHeight)+"px";
-  holder.style.setProperty("--paper-travel",Math.ceil(travel)+"px");
+  printing = true;
+  $("printBtn").disabled = true;
+  $("downloadBtn").disabled = true;
+  $("printBtn").textContent = "Mencetak…";
+  $("printMessage").textContent = "Dua photostrip sedang keluar dari printer… ♡";
+
+  const stage = $("printerStage");
+  const output = $("printerOutput");
+  const holder = $("paperHolder");
+  holder.innerHTML = "";
+
+  const gallery = document.createElement("div");
+  gallery.id = "printGallery";
+
+  /* Salin tepat dua strip ke dalam printer. */
+  [$("strip1"),$("strip2")].forEach(strip => {
+    const copy = strip.cloneNode(true);
+    copy.removeAttribute("id");
+    copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+    gallery.appendChild(copy);
+  });
+  holder.appendChild(gallery);
+
+  await new Promise(resolve =>
+    requestAnimationFrame(() => requestAnimationFrame(resolve))
+  );
+
+  const height = Math.ceil(gallery.getBoundingClientRect().height + 16);
+  const travel = height;
+
+  output.style.setProperty("--paper-height",height+"px");
+  holder.style.setProperty("--paper-travel",travel+"px");
+  output.style.height = height+"px";
 
   stage.classList.remove("printed","printing");
   void stage.offsetWidth;
   stage.classList.add("printing");
-  await wait(2300);
+
+  await wait(2100);
   stage.classList.remove("printing");
   stage.classList.add("printed");
 
-  printing=false;printed=true;
-  $("printBtn").textContent="✓ Sudah dicetak";
-  $("printBtn").disabled=true;
-  $("downloadBtn").classList.remove("hidden");
-  $("printMessage").textContent="Tadaaa! Delapan photostrip sudah tercetak. Download PNG di bawah printer ♡";
-  toast("Delapan photostrip berhasil dicetak ♡");
+  printing = false;
+  printed = true;
+  $("printBtn").textContent = "✓ Sudah dicetak";
+  $("printBtn").disabled = true;
+  $("downloadBtn").disabled = false;
+  $("printMessage").textContent = "Dua photostrip selesai dicetak ♡";
+  toast("Photostrip berhasil dicetak ♡");
 }
 
-async function downloadStrip(){
-  if(!allLocked()){toast("Lengkapi empat foto dahulu ya ♡");return}
-  if(typeof window.html2canvas!=="function"){toast("Fitur PNG belum termuat. Periksa koneksi internet.");return}
+async function downloadPNG() {
+  if (!complete()) {
+    toast("Lengkapi empat foto dahulu ♡");
+    return;
+  }
+  if (typeof html2canvas !== "function") {
+    toast("Fitur PNG belum termuat. Periksa koneksi internet.");
+    return;
+  }
 
-  const button=$("downloadBtn");
-  button.disabled=true;button.textContent="Menyiapkan PNG…";
-  let staging=null;
+  const button = $("downloadBtn");
+  button.disabled = true;
+  button.textContent = "Menyiapkan PNG…";
+  let staging = null;
 
-  try{
-    const source=$("stripGallery");
-    const clone=source.cloneNode(true);
-    clone.style.width="1200px";
-    clone.style.minWidth="1200px";
-    clone.style.gridTemplateColumns="repeat(8,minmax(0,1fr))";
-    clone.style.gap="8px";
+  try {
+    staging = document.createElement("div");
+    staging.style.cssText =
+      "position:fixed;left:-20000px;top:0;width:1000px;padding:20px;background:#fffaf6";
 
-    staging=document.createElement("div");
-    staging.style.cssText="position:fixed;left:-20000px;top:0;width:1200px;background:#fffaf4;padding:18px;pointer-events:none";
-    staging.appendChild(clone);
+    const gallery = document.createElement("div");
+    gallery.style.cssText =
+      "display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%";
+
+    [$("strip1"),$("strip2")].forEach(strip => {
+      const copy = strip.cloneNode(true);
+      copy.removeAttribute("id");
+      copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+      gallery.appendChild(copy);
+    });
+
+    staging.appendChild(gallery);
     document.body.appendChild(staging);
 
-    await Promise.all([...clone.querySelectorAll("img")].map(img=>{
-      if(img.complete&&img.naturalWidth)return Promise.resolve();
-      return new Promise(resolve=>{img.onload=resolve;img.onerror=resolve});
-    }));
+    await Promise.all(
+      [...gallery.querySelectorAll("img")].map(img =>
+        img.complete ? Promise.resolve() :
+        new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        })
+      )
+    );
 
-    const canvas=await html2canvas(clone,{
-      backgroundColor:"#fffaf4",scale:2,useCORS:true,allowTaint:false,
-      logging:false,width:1200,windowWidth:1200,scrollX:0,scrollY:0
+    const canvas = await html2canvas(gallery,{
+      backgroundColor:"#fffaf6",
+      scale:2,
+      useCORS:true,
+      logging:false
     });
-    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
-    if(!blob)throw new Error("PNG gagal dibuat.");
 
-    const url=URL.createObjectURL(blob);
-    const link=document.createElement("a");
-    link.href=url;
-    link.download="our-little-photobooth-"+currentTheme+"-8-strips.png";
-    document.body.appendChild(link);link.click();link.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),4000);
-    status("Delapan photostrip berhasil disimpan sebagai PNG ♡");
-    toast("PNG tersimpan! Cek folder Download kamu ♡");
-  }catch(error){
+    const blob = await new Promise(resolve => canvas.toBlob(resolve,"image/png"));
+    if (!blob) throw new Error("PNG gagal dibuat.");
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "our-little-photobooth-" + currentTheme + ".png";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url),4000);
+    toast("PNG berisi 2 strip berhasil disimpan ♡");
+  } catch (error) {
     console.error(error);
-    toast(error.message||"PNG belum berhasil dibuat. Coba lagi.");
-  }finally{
-    if(staging)staging.remove();
-    button.disabled=false;button.textContent="♡ Download PNG";
+    toast(error.message || "PNG belum berhasil dibuat. Coba lagi.");
+  } finally {
+    if (staging) staging.remove();
+    button.disabled = false;
+    button.textContent = "⇩ Download PNG";
   }
 }
 
-function updateMusicButton(){
-  $("musicToggle").textContent=musicOn?"♫ Musik: diputar":"♫ Musik: mati";
-  $("musicToggle").setAttribute("aria-pressed",String(musicOn));
-}
-async function toggleMusic(){
-  const audio=$("music");
-  if(musicOn){audio.pause();musicOn=false;updateMusicButton();return}
-  try{await audio.play();musicOn=true;updateMusicButton()}
-  catch(_){toast("Pastikan file musik tersedia di folder assets ♡")}
-}
+$("startBtn").addEventListener("click",() => showScreen("letterPage"));
+$("toBoothBtn").addEventListener("click",() => showScreen("booth"));
+$("homeBtn").addEventListener("click",() => showScreen("welcome"));
 
-/* Navigasi */
-$("startBtn").addEventListener("click",()=>showScreen("letterPage"));
-$("toBoothBtn").addEventListener("click",()=>showScreen("booth"));
-$("homeBtn").addEventListener("click",()=>showScreen("welcome"));
-
-/* Tema */
-document.querySelectorAll(".theme-choice").forEach(button=>{
-  button.addEventListener("click",()=>setTheme(button.dataset.theme));
+document.querySelectorAll(".theme-btn").forEach(button => {
+  button.addEventListener("click",() => setTheme(button.dataset.theme));
 });
 
-/* Upload */
-$("uploadBtn").addEventListener("click",()=>{if(!allLocked())$("singleInput").click()});
-$("singleInput").addEventListener("change",event=>{
-  const file=event.target.files?.[0];
-  if(file)loadFile(file);
-  event.target.value="";
+$("uploadBtn").addEventListener("click",() => $("fileInput").click());
+$("fileInput").addEventListener("change",event => {
+  if (event.target.files && event.target.files[0]) loadFile(event.target.files[0]);
+  event.target.value = "";
 });
-
-/* Kamera dan kontrol foto */
 $("retakeBtn").addEventListener("click",retake);
 $("okayBtn").addEventListener("click",confirmPhoto);
 $("resetBtn").addEventListener("click",resetAll);
-$("cameraOpenBtn").addEventListener("click",openCamera);
-$("cameraCloseBtn").addEventListener("click",hideCamera);
+$("cameraBtn").addEventListener("click",openCamera);
+$("closeCameraBtn").addEventListener("click",hideCamera);
 $("captureBtn").addEventListener("click",capturePhoto);
-
-/* Printer dan download */
 $("printBtn").addEventListener("click",printStrip);
-$("downloadBtn").addEventListener("click",downloadStrip);
-$("musicToggle").addEventListener("click",toggleMusic);
-window.addEventListener("beforeunload",closeCamera);
+$("downloadBtn").addEventListener("click",downloadPNG);
 
-function init(){
-  setTheme(currentTheme);
-  renderPhotos();
-  updateMusicButton();
-}
-init();
+$("musicBtn").addEventListener("click",() => {
+  const audio = $("music");
+  if (!audio.src || audio.src === location.href) {
+    toast("Tambahkan file musik ke elemen audio jika ingin mengaktifkan musik ♡");
+    return;
+  }
+  if (audio.paused) {
+    audio.play().then(() => {
+      $("musicBtn").textContent = "♫ Musik: on";
+    }).catch(() => toast("Musik tidak bisa diputar."));
+  } else {
+    audio.pause();
+    $("musicBtn").textContent = "♫ Musik";
+  }
+});
+
+window.addEventListener("beforeunload",closeCamera);
+setTheme(currentTheme);
+renderPhotos();
 })();
 </script>
 </body>
 </html>
-```
