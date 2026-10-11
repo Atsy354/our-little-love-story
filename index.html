@@ -223,7 +223,7 @@ h1,h2,h3,p{margin-top:0}
 <div class="footer">OUR LITTLE PHOTOBOOTH ♡<br>11 · 10 · 2026</div>
 <div id="toast" class="toast hidden" role="status"></div>
 
-<audio id="music" loop preload="auto" src="assets/until-i-found-you.mp3"></audio>
+<audio id="music" loop preload="auto" src="assets/Stephen Sanchez - Until I Found You (Official Video).mp3"></audio>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" crossorigin="anonymous"></script>
 <script>
 (() => {
@@ -431,11 +431,13 @@ h1,h2,h3,p{margin-top:0}
       } else {
         audio.pause();
       }
-    } catch (error) {
-      musicOn = false;
-      updateMusicButton();
-      toast"Stephen Sanchez - Until I Found You (Official Video).mp3";
-    }
+    
+} catch (error) {
+  musicOn = false;
+  updateMusicButton();
+  toast("Musik belum bisa diputar. Periksa file MP3 di folder assets.");
+}
+
   });
   // Autoplay bersuara bisa diblokir browser. Tombol Musik tetap dapat memulainya.
   window.addEventListener("load",() => {
