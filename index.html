@@ -75,7 +75,7 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 .strip-photo.active-frame{outline:2px solid #d47795;outline-offset:2px}
 .strip-foot{position:relative;text-align:center;font-size:7px;font-weight:bold;letter-spacing:.6px;line-height:1.6;margin-top:12px;padding:7px 2px 0;border-top:1px dashed var(--decoration);overflow-wrap:anywhere}
 
-/* 10 TEMA AWAL TETAP ADA */
+/* 21 TEMA PHOTOSTRIP */
 .theme-flower .strip{--paper:#fffaf2;--ink:#9c5c6d;--edge:#d6a4a2;--decoration:#cb8c9d;background:radial-gradient(circle at 5% 7%,#f5dce1 0 3px,transparent 4px),radial-gradient(circle at 95% 92%,#f5dce1 0 4px,transparent 5px),#fffaf2}
 .theme-flower .strip:before{content:"✿ ♡ ❀"}
 .theme-flower .strip:after{content:"❀"}
@@ -124,8 +124,6 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 .theme-sunset .strip:after{content:"☼"}
 .theme-sunset .strip-title:before{content:"☼ "}
 .theme-sunset .strip-photo{border-color:#fff5e5}
-
-/* 11 TEMA TAMBAHAN DARI REFERENSI */
 .theme-beigeBlue .strip{--paper:#f3ead6;--ink:#263c60;--edge:#b8c4d1;--decoration:#315d86;background:linear-gradient(90deg,#d7e4e8 0 10%,#f8f0df 10% 90%,#d7e4e8 90%);border:2px solid #c6b99e}
 .theme-beigeBlue .strip:before{content:"✦ MEMORIES ✦"}
 .theme-beigeBlue .strip:after{content:"♡"}
@@ -178,37 +176,223 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 .theme-cartoon .strip-title{font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase}
 .theme-cartoon .strip-photo{border:4px solid #17418c;box-shadow:4px 4px 0 #ed8c26}
 
-/* POPUP PRINTER: KERTAS KELUAR DARI BALIK BADAN PRINTER */
-.print-modal{position:fixed;inset:0;z-index:1000;padding:18px;display:flex;align-items:center;justify-content:center;background:rgba(46,26,37,.68);backdrop-filter:blur(5px)}
-.print-dialog{width:min(520px,100%);max-height:92vh;overflow:auto;position:relative;padding:22px;border:1px solid #e7b7c7;border-radius:22px;background:#fffaf7;box-shadow:0 25px 80px #2b12244d;text-align:center}
-.modal-close{position:absolute;right:12px;top:10px;width:34px;height:34px;border:1px solid #eccbd5;border-radius:50%;background:white;color:#a04d6e;z-index:10}
+/* POPUP PRINTER */
+.print-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(46,26,37,.72);
+  backdrop-filter:blur(5px);
+  overflow-y:auto;
+}
+.print-dialog{
+  width:min(440px,100%);
+  max-height:94dvh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  position:relative;
+  padding:20px 18px 22px;
+  border:1px solid #e7b7c7;
+  border-radius:22px;
+  background:#fffaf7;
+  box-shadow:0 25px 80px #2b12244d;
+  text-align:center;
+}
+.modal-close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:34px;
+  height:34px;
+  border:1px solid #eccbd5;
+  border-radius:50%;
+  background:white;
+  color:#a04d6e;
+  z-index:10;
+}
 .print-dialog h3{margin:6px 30px 5px;color:#b54f73;font-weight:normal;font-style:italic}
-.modal-subtitle{color:#a17684;font:12px/1.6 Arial,sans-serif}
-.printer-stage{width:min(100%,340px);height:330px;margin:22px auto 0;position:relative;overflow:visible}
-.printer-machine{position:absolute;left:0;right:0;top:0;z-index:3;padding:0 12px 10px;background:linear-gradient(145deg,#f9dce3,#e6b9c7);border:1px solid #d9a4b4;border-radius:18px 18px 12px 12px;box-shadow:0 7px 16px #a15c7024}
-.printer-top{height:38px;display:grid;place-items:center;color:#94566b;font:bold 9px Arial,sans-serif;letter-spacing:2px}
-.printer-mouth{height:15px;border-radius:5px;background:#39262e;border:2px solid #b77f90;position:relative;z-index:4}
-.printer-front{position:relative;z-index:4;height:48px;display:grid;place-items:center;color:#94566b;font:bold 9px Arial,sans-serif;letter-spacing:1px;background:linear-gradient(145deg,#f3cbd6,#e6b9c7);border-top:1px solid #d9a4b4}
-.paper-holder{position:absolute;z-index:2;top:65px;left:12px;right:12px;opacity:0;pointer-events:none;transform:translateY(0);transform-origin:top center}
-.paper-holder #printGallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:6px;background:#fffaf6;box-shadow:0 8px 18px #6e344222}
-.paper-holder .strip{padding:5px 4px;box-shadow:none}
-.paper-holder .strip-title{font-size:7px;margin-top:13px}
-.paper-holder .strip-date{font-size:5px;margin-bottom:5px}
+.modal-subtitle{color:#a17684;font:12px/1.6 Arial,sans-serif;margin:8px 0}
+
+/*
+  PENTING:
+  Tinggi stage disediakan agar foto tidak menindih tombol.
+  Kertas berada di belakang bodi printer.
+  Bagian atas kertas mulai dari area mulut printer.
+*/
+.printer-stage{
+  width:min(100%,340px);
+  height:455px;
+  margin:20px auto 0;
+  position:relative;
+  overflow:visible;
+  isolation:isolate;
+}
+.printer-machine{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  z-index:3;
+  padding:0 12px 10px;
+  background:linear-gradient(145deg,#f9dce3,#e6b9c7);
+  border:1px solid #d9a4b4;
+  border-radius:18px 18px 12px 12px;
+  box-shadow:0 7px 16px #a15c7024;
+}
+.printer-top{
+  height:38px;
+  display:grid;
+  place-items:center;
+  color:#94566b;
+  font:bold 9px Arial,sans-serif;
+  letter-spacing:2px;
+}
+.printer-mouth{
+  height:19px;
+  border-radius:5px;
+  background:#39262e;
+  border:2px solid #b77f90;
+  position:relative;
+  z-index:4;
+  box-shadow:inset 0 2px 3px #0004;
+}
+.printer-front{
+  position:relative;
+  z-index:4;
+  height:48px;
+  display:grid;
+  place-items:center;
+  color:#94566b;
+  font:bold 9px Arial,sans-serif;
+  letter-spacing:1px;
+  background:linear-gradient(145deg,#f3cbd6,#e6b9c7);
+  border-top:1px solid #d9a4b4;
+}
+
+/* KERTAS BERGERAK KELUAR DARI SLOT */
+.paper-holder{
+  position:absolute;
+  z-index:2;
+  top:43px;
+  left:48px;
+  right:48px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(0);
+  transform-origin:top center;
+  will-change:transform,opacity;
+}
+#printGallery{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px;
+  padding:5px;
+  background:#fffaf6;
+  border:1px solid #ead4d9;
+  box-shadow:0 8px 18px #6e344222;
+}
+.paper-holder .strip{
+  padding:5px 4px;
+  border-width:1px;
+  border-radius:2px;
+  box-shadow:none;
+}
+.paper-holder .strip:before{font-size:5px;top:2px;letter-spacing:1px}
+.paper-holder .strip:after{font-size:8px;bottom:12px;right:2px}
+.paper-holder .strip-title{font-size:7px;line-height:1.2;margin:12px 0 4px;padding:0 1px}
+.paper-holder .strip-date{font-size:5px;letter-spacing:.3px;margin-bottom:5px}
 .paper-holder .strip-photos{gap:4px;padding:0 2px}
-.paper-holder .strip-photo{border-width:1px}
-.paper-holder .strip-foot{font-size:5px;margin-top:6px;padding-top:4px}
-.printer-stage.printing .paper-holder{animation:paperEmerge 2.35s cubic-bezier(.18,.72,.22,1) forwards}
-.printer-stage.printed .paper-holder{opacity:1;transform:translateY(205px)}
-@keyframes paperEmerge{0%{opacity:0;transform:translateY(0)}8%{opacity:1}25%{opacity:1;transform:translateY(25px)}72%{transform:translateY(165px)}100%{opacity:1;transform:translateY(205px)}}
-.print-message{text-align:center;font:12px/1.6 Arial,sans-serif;color:#a17681;margin:14px 0}
-.modal-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.modal-actions button{flex:1;min-width:130px}
+.paper-holder .strip-photo{
+  aspect-ratio:3/2.5;
+  border-width:1px;
+  box-shadow:none;
+}
+.paper-holder .strip-photo:nth-child(1),
+.paper-holder .strip-photo:nth-child(2),
+.paper-holder .strip-photo:nth-child(3){
+  width:100%;
+  transform:none;
+}
+.paper-holder .strip-foot{font-size:4px;letter-spacing:0;margin-top:6px;padding:4px 1px 0;line-height:1.35}
+
+/*
+  Kertas berhenti dekat slot:
+  posisi akhir = top 43px + translateY 57px.
+  Bodi printer menutupi bagian atas kertas sehingga kertas tampak
+  keluar dari lubang, bukan muncul dari belakang alat.
+*/
+.printer-stage.printing .paper-holder{
+  animation:paperEmerge 2.4s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.printer-stage.printed .paper-holder{
+  opacity:1;
+  transform:translateY(57px);
+}
+@keyframes paperEmerge{
+  0%{opacity:0;transform:translateY(0)}
+  8%{opacity:1;transform:translateY(0)}
+  38%{opacity:1;transform:translateY(25px)}
+  72%{opacity:1;transform:translateY(57px)}
+  86%{opacity:1;transform:translateY(53px)}
+  100%{opacity:1;transform:translateY(57px)}
+}
+.print-message{
+  text-align:center;
+  font:12px/1.6 Arial,sans-serif;
+  color:#a17681;
+  margin:8px 0 14px;
+  min-height:19px;
+}
+.modal-actions{
+  position:relative;
+  z-index:5;
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  width:100%;
+  margin:8px auto 0;
+}
+.modal-actions button{
+  flex:1 1 140px;
+  min-height:42px;
+}
 .modal-actions .download-ready{animation:buttonReveal .35s ease-out both}
-@keyframes buttonReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes buttonReveal{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
 /* EKSPOR: MASING-MASING STRIP 1080 × 2400 PX */
-#exportStage{position:fixed;left:-30000px;top:0;z-index:-10;width:2160px;display:flex;gap:0;background:#fffaf6}
-.export-strip{width:1080px!important;height:2400px!important;min-width:1080px!important;max-width:1080px!important;flex:0 0 1080px!important;padding:75px 75px 65px!important;border-width:8px!important;border-radius:8px!important;box-shadow:none!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+#exportStage{
+  position:fixed;
+  left:-30000px;
+  top:0;
+  z-index:-10;
+  width:2160px;
+  display:flex;
+  gap:0;
+  background:#fffaf6;
+}
+.export-strip{
+  width:1080px!important;
+  height:2400px!important;
+  min-width:1080px!important;
+  max-width:1080px!important;
+  flex:0 0 1080px!important;
+  padding:75px 75px 65px!important;
+  border-width:8px!important;
+  border-radius:8px!important;
+  box-shadow:none!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
 .export-strip:before{top:25px!important;font-size:28px!important;letter-spacing:12px!important}
 .export-strip:after{bottom:50px!important;right:30px!important;font-size:52px!important}
 .export-strip .strip-title{flex:0 0 auto;font-size:55px!important;line-height:1.25!important;margin:70px 15px 25px!important;padding:0 20px!important}
@@ -223,9 +407,43 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 #exportStage .strip-photo img{width:100%!important;height:100%!important;object-fit:cover!important}
 footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 .toast{position:fixed;z-index:1200;bottom:20px;left:50%;transform:translateX(-50%);background:#674652;color:white;border-radius:25px;padding:11px 17px;font:12px Arial,sans-serif;max-width:90vw;text-align:center}
-@media(max-width:760px){header{flex-wrap:wrap;padding:14px}.tagline{display:none}main{width:calc(100% - 16px);margin:14px auto}.layout{grid-template-columns:1fr}.preview-panel{order:-1}#stripGallery{width:min(100%,460px);gap:10px}.strip{padding:9px 6px 10px}.strip-title{font-size:clamp(10px,2.7vw,15px)}.strip-photos{gap:6px}.print-dialog{padding:18px 13px}.printer-stage{width:min(100%,320px)}}
-@media(max-width:380px){#stripGallery{gap:6px}.strip{padding:8px 4px}.strip-photos{gap:5px;padding:0 1px}.strip-title{font-size:10px}.strip-foot{font-size:6px}.panel{padding:13px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+@media(max-width:760px){
+  header{flex-wrap:wrap;padding:14px}
+  .tagline{display:none}
+  main{width:calc(100% - 16px);margin:14px auto}
+  .layout{grid-template-columns:1fr}
+  .preview-panel{order:-1}
+  #stripGallery{width:min(100%,460px);gap:10px}
+  .strip{padding:9px 6px 10px}
+  .strip-title{font-size:clamp(10px,2.7vw,15px)}
+  .strip-photos{gap:6px}
+  .print-modal{padding:10px}
+  .print-dialog{width:min(420px,100%);padding:18px 12px 20px;max-height:94dvh}
+  .printer-stage{width:min(100%,320px);height:clamp(370px,58vh,455px);margin-top:16px}
+  .paper-holder{left:43px;right:43px}
+  #printGallery{gap:4px;padding:4px}
+  .paper-holder .strip{padding:4px 3px}
+  .paper-holder .strip-title{font-size:6px}
+  .paper-holder .strip-date{font-size:4px}
+  .paper-holder .strip-foot{font-size:3.5px}
+  .modal-actions button{flex:1 1 120px}
+}
+@media(max-width:380px){
+  #stripGallery{gap:6px}
+  .strip{padding:8px 4px}
+  .strip-photos{gap:5px;padding:0 1px}
+  .strip-title{font-size:10px}
+  .strip-foot{font-size:6px}
+  .panel{padding:13px}
+  .printer-stage{height:clamp(350px,55vh,420px)}
+  .paper-holder{left:38px;right:38px}
+  .modal-actions{gap:6px}
+  .modal-actions button{font-size:13px;padding:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body class="theme-flower">
@@ -360,14 +578,16 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 
 <footer>MADE WITH LOVE ♡ OUR LITTLE PHOTOBOOTH</footer>
 
-<!-- POPUP CETAK -->
+<!-- POPUP PRINTER -->
 <div id="printModal" class="print-modal hidden" role="dialog" aria-modal="true" aria-labelledby="printTitle">
   <div class="print-dialog">
     <button id="modalCloseBtn" class="modal-close" type="button" aria-label="Tutup popup">×</button>
     <div style="font-size:24px;color:#d58ba3">୨୧ ♡ ✧</div>
     <h3 id="printTitle">Little Love Printer</h3>
     <p class="modal-subtitle" id="printMessage">Printer akan mulai dalam 3 detik… ♡</p>
+
     <div id="printerStage" class="printer-stage">
+      <!-- Kertas ada di belakang badan printer -->
       <div class="paper-holder" id="paperHolder"></div>
       <div class="printer-machine">
         <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
@@ -375,6 +595,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
         <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
       </div>
     </div>
+
     <p id="printMessageBottom" class="print-message">Menyiapkan kenangan kecilmu…</p>
     <div class="modal-actions">
       <button id="modalDownloadBtn" class="primary hidden" type="button" disabled>⇩ Download PNG</button>
@@ -384,7 +605,12 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 </div>
 
 <div id="toast" class="toast hidden" role="status"></div>
-<audio id="music" loop preload="none"></audio>
+
+<!-- Letakkan file MP3 dalam folder yang sama dengan HTML ini -->
+<audio id="music" preload="metadata" loop>
+  <source src="Stephen Sanchez - Until I Found You (Official Video).mp3" type="audio/mpeg">
+</audio>
+
 <div id="exportStage" aria-hidden="true"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -392,6 +618,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 (()=>{
 "use strict";
 const $=id=>document.getElementById(id);
+
 const themeData={
 flower:{title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
 letter:{title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
@@ -415,6 +642,7 @@ purpleVintage:{title:"Night Movie",foot:"EST. 11.10.26 · FOREVER"},
 redFloral:{title:"Your Story",foot:"EVERY PETAL, EVERY MEMORY"},
 cartoon:{title:"HEY! HELLO!",foot:"EXPERIMENTAL FRIENDSHIP"}
 };
+
 const orders=[[0,1,2],[1,2,0]];
 const photos=Array.from({length:3},()=>({src:null,locked:false}));
 let activeIndex=0,currentTheme="flower",stream=null,printing=false,printed=false,toastTimer;
@@ -427,22 +655,27 @@ function toast(message){
 }
 function setStatus(message){$("status").textContent=message}
 function complete(){return photos.every(p=>p.src&&p.locked)}
+
 function nextUnlocked(){
   const i=photos.findIndex(p=>!p.locked);
   if(i!==-1)activeIndex=i;
 }
+
 function showScreen(id){
   ["welcome","letterPage","booth"].forEach(s=>$(s).classList.toggle("hidden",s!==id));
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function showPrintModal(){
   $("printModal").classList.remove("hidden");
   $("modalCloseBtn").focus();
 }
+
 function closePrintModal(){
   if(printing)return;
   $("printModal").classList.add("hidden");
 }
+
 function resetPrinter(){
   printed=false;
   printing=false;
@@ -459,26 +692,32 @@ function resetPrinter(){
   $("printMessage").textContent="Printer akan mulai dalam 3 detik… ♡";
   $("printMessageBottom").textContent="Menyiapkan kenangan kecilmu…";
 }
+
 function setTheme(theme){
   if(!themeData[theme])return;
   currentTheme=theme;
   document.body.className="theme-"+theme;
+
   document.querySelectorAll(".theme-btn").forEach(b=>{
     const active=b.dataset.theme===theme;
     b.classList.toggle("active",active);
     b.setAttribute("aria-pressed",String(active));
   });
+
   document.querySelectorAll("#strip1,#strip2").forEach(s=>{
     s.querySelector(".strip-title").textContent=themeData[theme].title;
     s.querySelector(".strip-foot").textContent=themeData[theme].foot;
   });
+
   resetPrinter();
   renderPhotos();
 }
+
 function makeFrame(photo,index,active){
   const f=document.createElement("div");
   f.className="strip-photo";
   if(active)f.classList.add("active-frame");
+
   if(photo&&photo.src){
     const img=document.createElement("img");
     img.src=photo.src;
@@ -492,6 +731,7 @@ function makeFrame(photo,index,active){
   }
   return f;
 }
+
 function renderPhotos(){
   nextUnlocked();
   $("photos1").innerHTML="";
@@ -500,16 +740,19 @@ function renderPhotos(){
   orders[1].forEach(i=>$("photos2").appendChild(makeFrame(photos[i],i,false)));
   updateControls();
 }
+
 function updateControls(){
   nextUnlocked();
   $("progress").querySelectorAll("span").forEach((b,i)=>{
     b.classList.toggle("done",photos[i].locked);
     b.classList.toggle("current",i===activeIndex&&!complete());
   });
+
   const done=complete();
   $("stepText").textContent=done
     ?"3 dari 3 foto terkunci · siap dicetak ♡"
     :`Foto ${activeIndex+1} dari 3 · ${photos[activeIndex].src?"siap diperiksa":"belum diisi"}`;
+
   $("uploadBtn").disabled=done||photos[activeIndex].locked;
   $("cameraBtn").disabled=done||photos[activeIndex].locked;
   $("retakeBtn").disabled=done||!photos[activeIndex].src||photos[activeIndex].locked;
@@ -519,9 +762,17 @@ function updateControls(){
   $("downloadBtn").disabled=!done;
   $("modalDownloadBtn").disabled=!done;
 }
+
 function loadFile(file){
-  if(!file||!file.type.startsWith("image/")){toast("Pilih file gambar ya ♡");return}
-  if(complete()||photos[activeIndex].locked){toast("Foto ini sudah terkunci. Tekan Reset untuk mulai lagi.");return}
+  if(!file||!file.type.startsWith("image/")){
+    toast("Pilih file gambar ya ♡");
+    return;
+  }
+  if(complete()||photos[activeIndex].locked){
+    toast("Foto ini sudah terkunci. Tekan Reset untuk mulai lagi.");
+    return;
+  }
+
   const reader=new FileReader();
   reader.onload=()=>{
     const image=new Image();
@@ -537,17 +788,26 @@ function loadFile(file){
   reader.onerror=()=>toast("Gambar tidak berhasil dibaca.");
   reader.readAsDataURL(file);
 }
+
 function retake(){
-  if(complete()||photos[activeIndex].locked){toast("Foto terkunci. Tekan Reset untuk mulai lagi.");return}
+  if(complete()||photos[activeIndex].locked){
+    toast("Foto terkunci. Tekan Reset untuk mulai lagi.");
+    return;
+  }
   photos[activeIndex].src=null;
   resetPrinter();
   renderPhotos();
   setStatus("Frame "+(activeIndex+1)+" siap diulang ♡");
 }
+
 function confirmPhoto(){
   const p=photos[activeIndex];
-  if(!p||!p.src){toast("Isi foto ini dulu ya ♡");return}
+  if(!p||!p.src){
+    toast("Isi foto ini dulu ya ♡");
+    return;
+  }
   if(p.locked)return;
+
   p.locked=true;
   if(complete()){
     renderPhotos();
@@ -561,12 +821,15 @@ function confirmPhoto(){
     toast("Foto tersimpan ♡");
   }
 }
+
 async function openCamera(){
   if(complete())return;
+
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
     toast("Kamera membutuhkan HTTPS atau localhost. Kamu bisa upload foto.");
     return;
   }
+
   try{
     closeCamera();
     stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user"}});
@@ -579,38 +842,58 @@ async function openCamera(){
     toast("Akses kamera gagal. Izinkan kamera atau upload foto.");
   }
 }
+
 function closeCamera(){
-  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
+  if(stream){
+    stream.getTracks().forEach(t=>t.stop());
+    stream=null;
+  }
   $("video").srcObject=null;
 }
+
 function hideCamera(){
   closeCamera();
   $("cameraPanel").classList.add("hidden");
 }
+
 function capturePhoto(){
   const v=$("video");
-  if(!stream||!v.videoWidth){toast("Tunggu kamera siap ya ♡");return}
+  if(!stream||!v.videoWidth){
+    toast("Tunggu kamera siap ya ♡");
+    return;
+  }
   if(complete()||photos[activeIndex].locked)return;
+
   const c=document.createElement("canvas");
-  c.width=v.videoWidth;c.height=v.videoHeight;
+  c.width=v.videoWidth;
+  c.height=v.videoHeight;
   const ctx=c.getContext("2d");
-  ctx.translate(c.width,0);ctx.scale(-1,1);
+  ctx.translate(c.width,0);
+  ctx.scale(-1,1);
   ctx.drawImage(v,0,0,c.width,c.height);
   photos[activeIndex].src=c.toDataURL("image/jpeg",.94);
+
   resetPrinter();
   renderPhotos();
   setStatus("Foto berhasil diambil. Tekan Retake atau Okee ♡");
 }
+
 function resetAll(){
-  photos.forEach(p=>{p.src=null;p.locked=false});
+  photos.forEach(p=>{
+    p.src=null;
+    p.locked=false;
+  });
   activeIndex=0;
   resetPrinter();
+  $("printModal").classList.add("hidden");
   renderPhotos();
   setStatus("Semua foto direset. Mulai lagi dari foto pertama ♡");
   toast("Photobooth siap lagi ♡");
 }
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-function makeStripCopies(target){
+
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+
+function cloneStripsInto(target){
   target.innerHTML="";
   [$("strip1"),$("strip2")].forEach(s=>{
     const c=s.cloneNode(true);
@@ -620,82 +903,138 @@ function makeStripCopies(target){
     target.appendChild(c);
   });
 }
-async function printStrip(){
-  if(!complete()){toast("Lengkapi tiga foto terlebih dahulu ♡");return}
-  if(printing||printed)return;
-  printing=true;
-  $("printBtn").disabled=true;
-  $("downloadBtn").disabled=true;
-  $("modalDownloadBtn").classList.add("hidden");
-  $("modalDownloadBtn").disabled=true;
-  $("modalDoneBtn").disabled=true;
-  $("modalCloseBtn").disabled=true;
-  $("printMessage").textContent="Printer mulai bekerja dalam 3 detik… ♡";
-  $("printMessageBottom").textContent="Tunggu sebentar, ya ♡";
-  showPrintModal();
 
-  const stage=$("printerStage"),holder=$("paperHolder");
-  stage.classList.remove("printing","printed");
+function makePrintGallery(){
+  const holder=$("paperHolder");
   holder.innerHTML="";
   const gallery=document.createElement("div");
   gallery.id="printGallery";
+
   [$("strip1"),$("strip2")].forEach(s=>{
     const c=s.cloneNode(true);
     c.removeAttribute("id");
     c.querySelectorAll("[id]").forEach(n=>n.removeAttribute("id"));
     gallery.appendChild(c);
   });
-  holder.appendChild(gallery);
 
-  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+  holder.appendChild(gallery);
+}
+
+async function printStrip(){
+  if(!complete()){
+    toast("Lengkapi tiga foto terlebih dahulu ♡");
+    return;
+  }
+  if(printing||printed)return;
+
+  printing=true;
+  $("printBtn").disabled=true;
+  $("downloadBtn").disabled=true;
+  $("modalDownloadBtn").classList.add("hidden");
+  $("modalDownloadBtn").classList.remove("download-ready");
+  $("modalDownloadBtn").disabled=true;
+  $("modalDoneBtn").disabled=true;
+  $("modalCloseBtn").disabled=true;
+
+  $("printMessage").textContent="Printer mulai bekerja dalam 3 detik… ♡";
+  $("printMessageBottom").textContent="Menyiapkan kertas foto…";
+
+  const stage=$("printerStage");
+  stage.classList.remove("printing","printed");
+  makePrintGallery();
+  showPrintModal();
+
+  // Pastikan browser menyelesaikan layout sebelum animasi dimulai.
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   await wait(3000);
 
-  $("printMessage").textContent="Photostrip sedang keluar perlahan dari printer… ♡";
-  $("printMessageBottom").textContent="Mencetak kenanganmu…";
+  $("printMessage").textContent="Photostrip sedang keluar dari lubang printer… ♡";
+  $("printMessageBottom").textContent="Kertas foto sedang dicetak…";
+
+  stage.classList.remove("printed");
+  void stage.offsetWidth;
   stage.classList.add("printing");
-  await wait(2400);
+
+  // Durasi disamakan dengan animasi CSS.
+  await wait(2450);
 
   stage.classList.remove("printing");
   stage.classList.add("printed");
+
   printing=false;
   printed=true;
+
   $("printBtn").textContent="✓ Sudah dicetak";
   $("printBtn").disabled=true;
   $("downloadBtn").disabled=false;
+
+  // Tombol muncul di bawah stage, sesudah animasi selesai.
   $("modalDownloadBtn").classList.remove("hidden");
   $("modalDownloadBtn").classList.add("download-ready");
   $("modalDownloadBtn").disabled=false;
   $("modalDoneBtn").disabled=false;
   $("modalCloseBtn").disabled=false;
+
   $("printMessage").textContent="Dua photostrip selesai dicetak ♡";
-  $("printMessageBottom").textContent="Selesai! Download PNG kamu di bawah foto.";
+  $("printMessageBottom").textContent="Selesai! Tombol download ada tepat di bawah foto.";
   toast("Photostrip berhasil dicetak ♡");
 }
+
 async function downloadPNG(){
-  if(!complete()){toast("Lengkapi tiga foto dahulu ♡");return}
-  if(typeof html2canvas!=="function"){toast("Fitur PNG belum termuat. Periksa koneksi internet.");return}
+  if(!complete()){
+    toast("Lengkapi tiga foto dahulu ♡");
+    return;
+  }
+  if(typeof html2canvas!=="function"){
+    toast("Fitur PNG belum termuat. Periksa koneksi internet.");
+    return;
+  }
+
   const buttons=[$("downloadBtn"),$("modalDownloadBtn")];
-  buttons.forEach(b=>{b.disabled=true;b.textContent="Menyiapkan PNG…"});
+  buttons.forEach(b=>{
+    b.disabled=true;
+    b.textContent="Menyiapkan PNG…";
+  });
+
   const stage=$("exportStage");
+
   try{
-    makeStripCopies(stage);
+    cloneStripsInto(stage);
+
     await Promise.all([...stage.querySelectorAll("img")].map(img=>
       img.complete&&img.naturalWidth
         ?Promise.resolve()
-        :new Promise(resolve=>{img.onload=resolve;img.onerror=resolve})
+        :new Promise(resolve=>{
+          img.onload=resolve;
+          img.onerror=resolve;
+        })
     ));
+
     const canvas=await html2canvas(stage,{
-      backgroundColor:"#fffaf6",scale:1,width:2160,height:2400,
-      windowWidth:2160,useCORS:true,logging:false
+      backgroundColor:"#fffaf6",
+      scale:1,
+      width:2160,
+      height:2400,
+      windowWidth:2160,
+      useCORS:true,
+      logging:false
     });
-    if(canvas.width!==2160||canvas.height!==2400)throw new Error("Ukuran hasil tidak sesuai. Silakan coba lagi.");
+
+    if(canvas.width!==2160||canvas.height!==2400){
+      throw new Error("Ukuran hasil tidak sesuai. Silakan coba lagi.");
+    }
+
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
     if(!blob)throw new Error("PNG gagal dibuat.");
+
     const url=URL.createObjectURL(blob);
     const a=document.createElement("a");
     a.href=url;
     a.download="our-little-photobooth-"+currentTheme+"-2-strips-1080x2400-each.png";
-    document.body.appendChild(a);a.click();a.remove();
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
     setTimeout(()=>URL.revokeObjectURL(url),5000);
     toast("PNG tersimpan: 2 strip, masing-masing 1080 × 2400 px ♡");
   }catch(e){
@@ -703,7 +1042,10 @@ async function downloadPNG(){
     toast(e.message||"PNG belum berhasil dibuat. Coba lagi.");
   }finally{
     stage.innerHTML="";
-    buttons.forEach(b=>{b.disabled=!complete();b.textContent="⇩ Download PNG"});
+    buttons.forEach(b=>{
+      b.disabled=!complete();
+      b.textContent="⇩ Download PNG";
+    });
     $("modalDownloadBtn").disabled=!complete();
     $("downloadBtn").disabled=!complete();
   }
@@ -712,17 +1054,24 @@ async function downloadPNG(){
 /* NAVIGASI DAN EVENT */
 $("startBtn").addEventListener("click",()=>showScreen("letterPage"));
 $("toBoothBtn").addEventListener("click",()=>showScreen("booth"));
+
 $("homeBtn").addEventListener("click",()=>{
   if(printing)return;
   $("printModal").classList.add("hidden");
   showScreen("welcome");
 });
-document.querySelectorAll(".theme-btn").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.theme)));
+
+document.querySelectorAll(".theme-btn").forEach(b=>
+  b.addEventListener("click",()=>setTheme(b.dataset.theme))
+);
+
 $("uploadBtn").addEventListener("click",()=>$("fileInput").click());
+
 $("fileInput").addEventListener("change",e=>{
   if(e.target.files&&e.target.files[0])loadFile(e.target.files[0]);
   e.target.value="";
 });
+
 $("retakeBtn").addEventListener("click",retake);
 $("okayBtn").addEventListener("click",confirmPhoto);
 $("resetBtn").addEventListener("click",resetAll);
@@ -734,22 +1083,40 @@ $("downloadBtn").addEventListener("click",downloadPNG);
 $("modalDownloadBtn").addEventListener("click",downloadPNG);
 $("modalCloseBtn").addEventListener("click",closePrintModal);
 $("modalDoneBtn").addEventListener("click",closePrintModal);
-$("printModal").addEventListener("click",e=>{if(e.target===$("printModal"))closePrintModal()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!printing)closePrintModal()});
-$("musicBtn").addEventListener("click",()=>{
-  const a=$("music");
-  if(!a.src||a.src===location.href){
-    toast("Tambahkan file musik ke elemen audio jika ingin mengaktifkan musik ♡");
-    return;
-  }
-  if(a.paused){
-    a.play().then(()=>{$("musicBtn").textContent="♫ Musik: on"}).catch(()=>toast("Musik tidak bisa diputar."));
+
+$("printModal").addEventListener("click",e=>{
+  if(e.target===$("printModal"))closePrintModal();
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&!printing)closePrintModal();
+});
+
+/* MUSIK: Stephen Sanchez - Until I Found You */
+$("musicBtn").addEventListener("click",async()=>{
+  const audio=$("music");
+  const button=$("musicBtn");
+
+  if(audio.paused){
+    try{
+      await audio.play();
+      button.textContent="♫ Musik: ON";
+    }catch(e){
+      console.error(e);
+      toast("Musik belum bisa diputar. Pastikan file MP3 berada di folder yang sama dengan HTML.");
+    }
   }else{
-    a.pause();
-    $("musicBtn").textContent="♫ Musik";
+    audio.pause();
+    button.textContent="♫ Musik";
   }
 });
+
+$("music").addEventListener("error",()=>{
+  $("musicBtn").title="Pastikan file MP3 ada di folder yang sama dengan file HTML.";
+});
+
 window.addEventListener("beforeunload",closeCamera);
+
 setTheme(currentTheme);
 renderPhotos();
 })();
