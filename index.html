@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,786 +8,414 @@
 
 <style>
 :root {
-  --pink: #d45d83;
-  --pink-light: #fff0f4;
-  --border: #f0c5d2;
-  --cream: #fffaf6;
-  --text: #795764;
+  --pink:#d45d83;
+  --pink-light:#fff0f4;
+  --border:#f0c5d2;
+  --cream:#fffaf6;
+  --text:#795764;
 }
-
-* { box-sizing: border-box; }
-
+* { box-sizing:border-box; }
 body {
-  margin: 0;
-  background: linear-gradient(135deg,#fffaf6,#fff0f4);
-  color: var(--text);
-  font-family: Georgia, "Times New Roman", serif;
+  margin:0;
+  background:linear-gradient(135deg,#fffaf6,#fff0f4);
+  color:var(--text);
+  font-family:Georgia,"Times New Roman",serif;
 }
-
-button, input { font: inherit; }
-button { cursor: pointer; }
-button:disabled { opacity: .45; cursor: not-allowed; }
-.hidden { display: none !important; }
+button,input { font:inherit; }
+button { cursor:pointer; transition:transform .15s,filter .15s; }
+button:hover:not(:disabled) { filter:brightness(.97); transform:translateY(-1px); }
+button:disabled { opacity:.45; cursor:not-allowed; }
+.hidden { display:none!important; }
 
 header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 20px 4%;
-  border-bottom: 1px solid var(--border);
-  background: #fffaf6;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:20px 4%;
+  border-bottom:1px solid var(--border); background:#fffaf6;
 }
-
-.brand {
-  font-size: clamp(24px,3vw,40px);
-  font-style: italic;
-  color: var(--pink);
+.brand { font-size:clamp(24px,3vw,40px); font-style:italic; color:var(--pink); }
+.tagline { text-align:center; font-style:italic; color:#b66c84; font-size:14px; }
+.header-buttons { display:flex; gap:8px; }
+.pill,.secondary {
+  border:1px solid #e5a5b8; border-radius:30px; padding:10px 15px;
+  background:#fffaf8; color:#b84e73;
 }
-
-.tagline {
-  text-align: center;
-  font-style: italic;
-  color: #b66c84;
-  font-size: 14px;
-}
-
-.header-buttons { display: flex; gap: 8px; }
-
-button {
-  transition: transform .15s, filter .15s;
-}
-
-button:hover:not(:disabled) {
-  filter: brightness(.97);
-  transform: translateY(-1px);
-}
-
-.pill, .secondary {
-  border: 1px solid #e5a5b8;
-  border-radius: 30px;
-  padding: 10px 15px;
-  background: #fffaf8;
-  color: #b84e73;
-}
-
 .primary {
-  border: 0;
-  border-radius: 30px;
-  padding: 12px 18px;
-  background: linear-gradient(135deg,#d96d92,#c34d77);
-  color: white;
+  border:0; border-radius:30px; padding:12px 18px;
+  background:linear-gradient(135deg,#d96d92,#c34d77); color:white;
 }
-
-main {
-  width: min(1200px, calc(100% - 28px));
-  margin: 25px auto;
+main { width:min(1200px,calc(100% - 28px)); margin:25px auto; }
+.card,.panel {
+  background:var(--cream); border:1px solid var(--border);
+  border-radius:17px; padding:20px;
 }
-
-.card, .panel {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  padding: 20px;
-}
-
-.center { text-align: center; }
-
-.welcome {
-  min-height: 70vh;
-  display: grid;
-  place-items: center;
-}
-
+.center { text-align:center; }
+.welcome { min-height:70vh; display:grid; place-items:center; }
 .welcome .card {
-  width: min(760px,100%);
-  padding: clamp(28px,6vw,65px);
-  outline: 1px dashed #eac0ce;
-  outline-offset: -10px;
+  width:min(760px,100%); padding:clamp(28px,6vw,65px);
+  outline:1px dashed #eac0ce; outline-offset:-10px;
 }
-
 .eyebrow {
-  font: 600 11px Arial,sans-serif;
-  letter-spacing: 3px;
-  color: #ad6079;
-  text-transform: uppercase;
+  font:600 11px Arial,sans-serif; letter-spacing:3px;
+  color:#ad6079; text-transform:uppercase;
 }
-
 h1 {
-  color: var(--pink);
-  font-size: clamp(42px,8vw,75px);
-  line-height: 1.05;
-  font-weight: normal;
-  font-style: italic;
-  margin: 18px 0;
+  color:var(--pink); font-size:clamp(42px,8vw,75px);
+  line-height:1.05; font-weight:normal; font-style:italic; margin:18px 0;
 }
-
-h2 {
-  color: #b54f73;
-  font-size: clamp(27px,5vw,42px);
-  font-weight: normal;
-  font-style: italic;
-}
-
-.copy {
-  line-height: 1.8;
-  max-width: 530px;
-  margin: 20px auto;
-}
-
-.letter p { line-height: 1.85; }
-.letter .signoff { color: #b54f73; font-style: italic; }
-
-.booth-heading {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.booth-heading p {
-  color: #aa7c8a;
-  line-height: 1.6;
-}
-
+h2 { color:#b54f73; font-size:clamp(27px,5vw,42px); font-weight:normal; font-style:italic; }
+.copy { line-height:1.8; max-width:530px; margin:20px auto; }
+.letter p { line-height:1.85; }
+.letter .signoff { color:#b54f73; font-style:italic; }
+.booth-heading { text-align:center; margin-bottom:20px; }
+.booth-heading p { color:#aa7c8a; line-height:1.6; }
 .layout {
-  display: grid;
-  grid-template-columns: minmax(270px,.85fr) minmax(0,1.35fr);
-  gap: 16px;
-  align-items: start;
+  display:grid; grid-template-columns:minmax(270px,.85fr) minmax(0,1.35fr);
+  gap:16px; align-items:start;
 }
-
-.panel {
-  min-width: 0;
-  margin-bottom: 14px;
-}
-
-.panel h3 {
-  color: #b54f73;
-  font-weight: normal;
-  font-style: italic;
-  margin: 0 0 14px;
-}
-
+.panel { min-width:0; margin-bottom:14px; }
+.panel h3 { color:#b54f73; font-weight:normal; font-style:italic; margin:0 0 14px; }
 .label {
-  display: block;
-  margin-bottom: 12px;
-  font: bold 12px Arial,sans-serif;
-  color: #a54e70;
+  display:block; margin-bottom:12px;
+  font:bold 12px Arial,sans-serif; color:#a54e70;
 }
-
-.theme-grid {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 7px;
-}
-
+.theme-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
 .theme-btn {
-  padding: 10px;
-  text-align: left;
-  line-height: 1.4;
-  border: 1px solid #ecd3dc;
-  background: white;
-  color: #805968;
-  border-radius: 9px;
-  font-size: 12px;
+  padding:10px; text-align:left; line-height:1.4; border:1px solid #ecd3dc;
+  background:white; color:#805968; border-radius:9px; font-size:12px;
 }
-
-.theme-btn small {
-  display: block;
-  color: #b28a96;
-  margin-top: 4px;
-}
-
-.theme-btn.active {
-  background: #f8e2eb;
-  border-color: #c65d82;
-  box-shadow: inset 0 0 0 1px #c65d82;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.actions button { flex: 1; }
-
-.progress {
-  display: flex;
-  gap: 5px;
-  margin: 12px 0;
-}
-
-.progress span {
-  flex: 1;
-  height: 5px;
-  background: #eedde2;
-  border-radius: 5px;
-}
-
-.progress .done { background: #c3547b; }
-.progress .current { background: #e9a4b9; }
-
-.status, .note, .step {
-  font: 12px/1.6 Arial,sans-serif;
-  color: #a17684;
-}
-
-.camera {
-  background: #211a20;
-  overflow: hidden;
-  border-radius: 10px;
-  margin-top: 12px;
-}
-
+.theme-btn small { display:block; color:#b28a96; margin-top:4px; }
+.theme-btn.active { background:#f8e2eb; border-color:#c65d82; box-shadow:inset 0 0 0 1px #c65d82; }
+.actions { display:flex; flex-wrap:wrap; gap:8px; }
+.actions button { flex:1; }
+.progress { display:flex; gap:5px; margin:12px 0; }
+.progress span { flex:1; height:5px; background:#eedde2; border-radius:5px; }
+.progress .done { background:#c3547b; }
+.progress .current { background:#e9a4b9; }
+.status,.note,.step { font:12px/1.6 Arial,sans-serif; color:#a17684; }
+.camera { background:#211a20; overflow:hidden; border-radius:10px; margin-top:12px; }
 video {
-  width: 100%;
-  max-height: 350px;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  display: block;
-  transform: scaleX(-1);
+  width:100%; max-height:350px; aspect-ratio:3/4;
+  object-fit:cover; display:block; transform:scaleX(-1);
 }
+.camera-actions { display:flex; gap:8px; margin-top:8px; }
+.camera-actions button { flex:1; }
 
-.camera-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.camera-actions button { flex: 1; }
-
-/* =====================================================
-   PHOTOSTRIP — BAGIAN YANG DIPERBARUI
-   Dua strip berdampingan, masing-masing 3 frame.
-   ===================================================== */
-
+/* PREVIEW PHOTOSTRIP */
 .preview-panel {
-  position: relative;
-  overflow: hidden;
+  position:relative; overflow:hidden;
   background:
     radial-gradient(ellipse at 10% 4%,#ffe4ec 0,transparent 27%),
     radial-gradient(ellipse at 95% 85%,#fce8ed 0,transparent 28%),
     #fffaf6;
 }
-
-.preview-panel:before,
-.preview-panel:after {
-  content: "✿";
-  position: absolute;
-  color: #e9b1c1;
-  opacity: .65;
-  pointer-events: none;
-  font-size: 29px;
+.preview-panel:before,.preview-panel:after {
+  content:"✿"; position:absolute; color:#e9b1c1; opacity:.65;
+  pointer-events:none; font-size:29px;
 }
-
-.preview-panel:before {
-  top: 8px;
-  right: 15px;
-  transform: rotate(18deg);
-}
-
-.preview-panel:after {
-  bottom: 180px;
-  left: 10px;
-  font-size: 22px;
-}
-
-.preview-wrap {
-  width: 100%;
-  overflow-x: auto;
-  padding: 12px 5px 20px;
-  position: relative;
-}
-
+.preview-panel:before { top:8px; right:15px; transform:rotate(18deg); }
+.preview-panel:after { bottom:180px; left:10px; font-size:22px; }
+.preview-wrap { width:100%; overflow-x:auto; padding:12px 5px 20px; position:relative; }
 #stripGallery {
-  width: min(100%,520px);
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: clamp(10px,2vw,20px);
-  align-items: start;
+  width:min(100%,520px); margin:auto; display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(10px,2vw,20px);
+  align-items:start;
 }
-
 .strip {
-  --paper: #fffaf2;
-  --ink: #956275;
-  --edge: #d9a8a8;
-
-  position: relative;
-  isolation: isolate;
-  background: var(--paper);
-  color: var(--ink);
-  width: 100%;
-  min-width: 0;
-  padding: 11px 9px 12px;
-  border: 2px solid var(--edge);
-  border-radius: 4px;
-  box-shadow: 0 7px 17px #84506022;
-  overflow: hidden;
-  transition: transform .25s, box-shadow .25s;
+  --paper:#fffaf2; --ink:#956275; --edge:#d9a8a8; --decoration:#d18aa1;
+  position:relative; isolation:isolate; background:var(--paper); color:var(--ink);
+  width:100%; min-width:0; padding:11px 9px 12px;
+  border:2px solid var(--edge); border-radius:4px;
+  box-shadow:0 7px 17px #84506022; overflow:hidden;
 }
-
-/* Ornamen sudut kertas */
 .strip:before {
-  content: "✧  ♡  ✧";
-  position: absolute;
-  top: 4px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 9px;
-  letter-spacing: 3px;
-  color: var(--decoration,#d18aa1);
-  opacity: .9;
-  pointer-events: none;
+  content:"✧ ♡ ✧"; position:absolute; top:4px; left:0; right:0;
+  text-align:center; font-size:9px; letter-spacing:3px;
+  color:var(--decoration); pointer-events:none;
 }
-
 .strip:after {
-  content: "✿";
-  position: absolute;
-  bottom: 29px;
-  right: 5px;
-  font-size: 17px;
-  color: var(--decoration,#d18aa1);
-  opacity: .65;
-  pointer-events: none;
-  z-index: 2;
+  content:"✿"; position:absolute; bottom:29px; right:5px;
+  font-size:17px; color:var(--decoration); opacity:.65;
+  pointer-events:none; z-index:2;
 }
-
 .strip-title {
-  position: relative;
-  text-align: center;
-  font-size: clamp(10px,1.4vw,15px);
-  line-height: 1.3;
-  font-style: italic;
-  overflow-wrap: anywhere;
-  margin: 18px 0 5px;
-  padding: 0 2px;
+  position:relative; text-align:center; font-size:clamp(10px,1.4vw,15px);
+  line-height:1.3; font-style:italic; overflow-wrap:anywhere;
+  margin:18px 0 5px; padding:0 2px;
 }
-
 .strip-date {
-  text-align: center;
-  font: bold 8px Arial,sans-serif;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-  opacity: .8;
+  text-align:center; font:bold 8px Arial,sans-serif;
+  letter-spacing:1px; margin-bottom:10px; opacity:.8;
 }
-
 .strip-photos {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 0 3px;
+  position:relative; display:flex; flex-direction:column;
+  gap:8px; padding:0 3px;
 }
-
-/* Tiga frame dengan variasi posisi */
 .strip-photo {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3/3.15;
-  overflow: hidden;
-  background: #f8e9ec;
-  border: 3px solid rgba(255,255,255,.96);
-  box-shadow: 0 2px 6px #6c43501c;
-  transition: outline .2s;
+  position:relative; width:100%; aspect-ratio:3/3.15;
+  overflow:hidden; background:#f8e9ec;
+  border:3px solid rgba(255,255,255,.96);
+  box-shadow:0 2px 6px #6c43501c;
 }
-
-.strip-photo:nth-child(1) {
-  width: 94%;
-  align-self: flex-start;
-  transform: rotate(-1.4deg);
-}
-
-.strip-photo:nth-child(2) {
-  width: 91%;
-  align-self: flex-end;
-  transform: rotate(1.7deg);
-}
-
-.strip-photo:nth-child(3) {
-  width: 95%;
-  align-self: flex-start;
-  transform: rotate(-.8deg);
-}
-
-.strip-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+.strip-photo:nth-child(1) { width:94%; align-self:flex-start; transform:rotate(-1.4deg); }
+.strip-photo:nth-child(2) { width:91%; align-self:flex-end; transform:rotate(1.7deg); }
+.strip-photo:nth-child(3) { width:95%; align-self:flex-start; transform:rotate(-.8deg); }
+.strip-photo img { display:block; width:100%; height:100%; object-fit:cover; }
 .strip-photo .empty {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  white-space: pre-line;
-  color: #bc929f;
-  font-size: 11px;
-  line-height: 1.6;
+  width:100%; height:100%; display:flex; justify-content:center; align-items:center;
+  text-align:center; white-space:pre-line; color:#bc929f; font-size:11px; line-height:1.6;
   background:
     radial-gradient(circle at 20% 20%,#ffffffb0 0 2px,transparent 3px),
     radial-gradient(circle at 80% 75%,#ffffffb0 0 2px,transparent 3px),
     linear-gradient(135deg,#fff4f6,#f8e5eb);
 }
-
-.strip-photo.active-frame {
-  outline: 2px solid #d47795;
-  outline-offset: 2px;
-}
-
+.strip-photo.active-frame { outline:2px solid #d47795; outline-offset:2px; }
 .strip-foot {
-  position: relative;
-  text-align: center;
-  font-size: 7px;
-  font-weight: bold;
-  letter-spacing: .6px;
-  line-height: 1.6;
-  margin-top: 12px;
-  padding: 7px 2px 0;
-  border-top: 1px dashed var(--decoration,#d18aa1);
-  overflow-wrap: anywhere;
+  position:relative; text-align:center; font-size:7px; font-weight:bold;
+  letter-spacing:.6px; line-height:1.6; margin-top:12px;
+  padding:7px 2px 0; border-top:1px dashed var(--decoration); overflow-wrap:anywhere;
 }
 
-/* Sepuluh desain tema */
+/* 10 TEMA */
 .theme-flower .strip {
-  --paper: #fffaf2;
-  --ink: #9c5c6d;
-  --edge: #d6a4a2;
-  --decoration: #cb8c9d;
+  --paper:#fffaf2; --ink:#9c5c6d; --edge:#d6a4a2; --decoration:#cb8c9d;
   background:
     radial-gradient(circle at 5% 7%,#f5dce1 0 3px,transparent 4px),
-    radial-gradient(circle at 95% 92%,#f5dce1 0 4px,transparent 5px),
-    #fffaf2;
+    radial-gradient(circle at 95% 92%,#f5dce1 0 4px,transparent 5px),#fffaf2;
 }
-.theme-flower .strip:before { content: "✿  ♡  ❀"; }
-.theme-flower .strip:after { content: "❀"; }
+.theme-flower .strip:before { content:"✿ ♡ ❀"; }
+.theme-flower .strip:after { content:"❀"; }
 
 .theme-letter .strip {
-  --paper: #f8eddb;
-  --ink: #8f6b48;
-  --edge: #c9a87e;
-  --decoration: #b48b5d;
-  background:
-    repeating-linear-gradient(0deg,transparent 0 21px,#d9c3a233 22px),
-    #f8eddb;
-  box-shadow: inset 0 0 0 3px #d4b78d,0 7px 17px #84506022;
+  --paper:#f8eddb; --ink:#8f6b48; --edge:#c9a87e; --decoration:#b48b5d;
+  background:repeating-linear-gradient(0deg,transparent 0 21px,#d9c3a233 22px),#f8eddb;
+  box-shadow:inset 0 0 0 3px #d4b78d,0 7px 17px #84506022;
 }
-.theme-letter .strip:before { content: "✉  WITH LOVE  ✉"; }
-.theme-letter .strip:after { content: "♡"; }
-.theme-letter .strip-photo { border-radius: 2px; }
+.theme-letter .strip:before { content:"✉ WITH LOVE ✉"; }
+.theme-letter .strip:after { content:"♡"; }
+.theme-letter .strip-photo { border-radius:2px; }
 
 .theme-kawaii .strip {
-  --paper: #fff0f5;
-  --ink: #b35f87;
-  --edge: #e3a3bf;
-  --decoration: #df8fb2;
-  border-style: dotted;
-  border-width: 3px;
-  border-radius: 13px;
-  background:
-    radial-gradient(circle,#f4c2d6 1px,transparent 2px) 0 0/15px 15px,
-    #fff0f5;
+  --paper:#fff0f5; --ink:#b35f87; --edge:#e3a3bf; --decoration:#df8fb2;
+  border:3px dotted #e3a3bf; border-radius:13px;
+  background:radial-gradient(circle,#f4c2d6 1px,transparent 2px) 0 0/15px 15px,#fff0f5;
 }
-.theme-kawaii .strip:before { content: "૮ ˶ᵔ ᵕ ᵔ˶ ა"; }
-.theme-kawaii .strip:after { content: "୨୧"; }
-.theme-kawaii .strip-photo { border-radius: 8px; }
+.theme-kawaii .strip:before { content:"૮ ˶ᵔ ᵕ ᵔ˶ ა"; }
+.theme-kawaii .strip:after { content:"୨୧"; }
+.theme-kawaii .strip-photo { border-radius:8px; }
 
 .theme-film .strip {
-  --paper: #242326;
-  --ink: #fff0d7;
-  --edge: #4a4147;
-  --decoration: #f3d6b3;
-  background: #242326;
-  border: 5px solid #242326;
-  box-shadow: 0 6px 15px #0002;
+  --paper:#242326; --ink:#fff0d7; --edge:#4a4147; --decoration:#f3d6b3;
+  background:#242326; border:5px solid #242326; box-shadow:0 6px 15px #0002;
 }
-.theme-film .strip:before {
-  content: "•  •  •  FILM  •  •  •";
-  color: #fff0d7;
-}
-.theme-film .strip:after { content: "✦"; }
-.theme-film .strip-title {
-  font-family: Arial,sans-serif;
-  letter-spacing: 1px;
-}
-.theme-film .strip-photo {
-  border: 2px solid #fff4df;
-  border-radius: 1px;
-}
-.theme-film .strip-photos { gap: 7px; }
+.theme-film .strip:before { content:"• • • FILM • • •"; color:#fff0d7; }
+.theme-film .strip:after { content:"✦"; }
+.theme-film .strip-title { font-family:Arial,sans-serif; letter-spacing:1px; }
+.theme-film .strip-photo { border:2px solid #fff4df; border-radius:1px; }
+.theme-film .strip-photos { gap:7px; }
 
 .theme-coquette .strip {
-  --paper: #fff7fa;
-  --ink: #a9577c;
-  --edge: #e5b8c7;
-  --decoration: #cf82a0;
-  border: 2px solid #e5b8c7;
-  background:
-    radial-gradient(ellipse at 0 0,#f9e0e8 0,transparent 40%),
-    #fff7fa;
+  --paper:#fff7fa; --ink:#a9577c; --edge:#e5b8c7; --decoration:#cf82a0;
+  border:2px solid #e5b8c7;
+  background:radial-gradient(ellipse at 0 0,#f9e0e8 0,transparent 40%),#fff7fa;
 }
-.theme-coquette .strip:before { content: "୨୧  ♡  ୨୧"; }
-.theme-coquette .strip:after { content: "🎀"; font-size: 13px; }
-.theme-coquette .strip-title:before { content: "୨୧ "; }
-.theme-coquette .strip-photo {
-  border-radius: 12px 3px 12px 3px;
-}
-.theme-coquette .strip-photo:nth-child(2) {
-  border-radius: 3px 12px 3px 12px;
-}
+.theme-coquette .strip:before { content:"୨୧ ♡ ୨୧"; }
+.theme-coquette .strip:after { content:"🎀"; font-size:13px; }
+.theme-coquette .strip-title:before { content:"୨୧ "; }
+.theme-coquette .strip-photo { border-radius:12px 3px 12px 3px; }
+.theme-coquette .strip-photo:nth-child(2) { border-radius:3px 12px 3px 12px; }
 
 .theme-stars .strip {
-  --paper: #20223e;
-  --ink: #f4e5ff;
-  --edge: #7775a8;
-  --decoration: #d6c8ff;
+  --paper:#20223e; --ink:#f4e5ff; --edge:#7775a8; --decoration:#d6c8ff;
   background:
     radial-gradient(circle at 12% 17%,#fff 0 1px,transparent 2px),
     radial-gradient(circle at 85% 29%,#e4c9ff 0 1px,transparent 2px),
     radial-gradient(circle at 77% 76%,#fff 0 1px,transparent 2px),
-    radial-gradient(circle at 18% 85%,#e4c9ff 0 1px,transparent 2px),
-    #20223e;
-  border-color: #8d8ab8;
+    radial-gradient(circle at 18% 85%,#e4c9ff 0 1px,transparent 2px),#20223e;
+  border-color:#8d8ab8;
 }
-.theme-stars .strip:before { content: "✦  ☾  ✧  ★"; }
-.theme-stars .strip:after { content: "☾"; }
-.theme-stars .strip-photo { border-color: #d9d4ef; }
-.theme-stars .strip-title:before { content: "✦ "; }
+.theme-stars .strip:before { content:"✦ ☾ ✧ ★"; }
+.theme-stars .strip:after { content:"☾"; }
+.theme-stars .strip-photo { border-color:#d9d4ef; }
+.theme-stars .strip-title:before { content:"✦ "; }
 
 .theme-y2k .strip {
-  --paper: #ffe0f0;
-  --ink: #87569b;
-  --edge: #d59de4;
-  --decoration: #b86cce;
-  background:
-    linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff);
-  border-radius: 10px;
+  --paper:#ffe0f0; --ink:#87569b; --edge:#d59de4; --decoration:#b86cce;
+  background:linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff); border-radius:10px;
 }
-.theme-y2k .strip:before {
-  content: "♡  XOXO  ♡";
-  font-family: Arial,sans-serif;
-  font-weight: bold;
-}
-.theme-y2k .strip:after { content: "✧"; }
-.theme-y2k .strip-title {
-  font-family: Arial,sans-serif;
-  font-weight: bold;
-}
-.theme-y2k .strip-photo {
-  border-radius: 7px;
-  border: 3px solid white;
-  box-shadow: 3px 3px 0 #ce9be0;
-}
+.theme-y2k .strip:before { content:"♡ XOXO ♡"; font-family:Arial,sans-serif; font-weight:bold; }
+.theme-y2k .strip:after { content:"✧"; }
+.theme-y2k .strip-title { font-family:Arial,sans-serif; font-weight:bold; }
+.theme-y2k .strip-photo { border-radius:7px; border:3px solid white; box-shadow:3px 3px 0 #ce9be0; }
 
 .theme-botanical .strip {
-  --paper: #eee5d2;
-  --ink: #647359;
-  --edge: #b4a17e;
-  --decoration: #748a68;
-  background:
-    radial-gradient(ellipse at 0 0,#d4ddc2 0,transparent 45%),
-    radial-gradient(ellipse at 100% 100%,#d4ddc2 0,transparent 40%),
-    #eee5d2;
-  border-style: double;
-  border-width: 4px;
+  --paper:#eee5d2; --ink:#647359; --edge:#b4a17e; --decoration:#748a68;
+  background:radial-gradient(ellipse at 0 0,#d4ddc2 0,transparent 45%),
+    radial-gradient(ellipse at 100% 100%,#d4ddc2 0,transparent 40%),#eee5d2;
+  border-style:double; border-width:4px;
 }
-.theme-botanical .strip:before { content: "❦  FOLIAGE  ❦"; }
-.theme-botanical .strip:after { content: "❧"; }
-.theme-botanical .strip-title:before { content: "❦ "; }
-.theme-botanical .strip-photo { border-color: #f8f2e4; }
+.theme-botanical .strip:before { content:"❦ FOLIAGE ❦"; }
+.theme-botanical .strip:after { content:"❧"; }
+.theme-botanical .strip-title:before { content:"❦ "; }
+.theme-botanical .strip-photo { border-color:#f8f2e4; }
 
 .theme-pixel .strip {
-  --paper: #f4f0ff;
-  --ink: #7566a5;
-  --edge: #8374b4;
-  --decoration: #9282c6;
-  background:
-    linear-gradient(90deg,#e6ddff 1px,transparent 1px),
-    linear-gradient(#e6ddff 1px,transparent 1px),
-    #f4f0ff;
-  background-size: 12px 12px;
-  border: 3px dashed #8374b4;
-  border-radius: 0;
+  --paper:#f4f0ff; --ink:#7566a5; --edge:#8374b4; --decoration:#9282c6;
+  background:linear-gradient(90deg,#e6ddff 1px,transparent 1px),
+    linear-gradient(#e6ddff 1px,transparent 1px),#f4f0ff;
+  background-size:12px 12px; border:3px dashed #8374b4; border-radius:0;
 }
-.theme-pixel .strip:before {
-  content: "♥ ♥ ♥ ♥ ♥";
-  font-family: monospace;
-}
-.theme-pixel .strip:after { content: "★"; }
-.theme-pixel .strip-title {
-  font-family: monospace;
-  font-weight: bold;
-}
-.theme-pixel .strip-photo {
-  border: 3px solid #b6a6dc;
-  border-radius: 0;
-  box-shadow: 3px 3px 0 #cfc4ee;
-}
+.theme-pixel .strip:before { content:"♥ ♥ ♥ ♥ ♥"; font-family:monospace; }
+.theme-pixel .strip:after { content:"★"; }
+.theme-pixel .strip-title { font-family:monospace; font-weight:bold; }
+.theme-pixel .strip-photo { border:3px solid #b6a6dc; border-radius:0; box-shadow:3px 3px 0 #cfc4ee; }
 
 .theme-sunset .strip {
-  --paper: #ffe7c7;
-  --ink: #9d594b;
-  --edge: #dc987f;
-  --decoration: #c87563;
-  background:
-    radial-gradient(ellipse at 50% 0,#f4b2a3 0,transparent 50%),
+  --paper:#ffe7c7; --ink:#9d594b; --edge:#dc987f; --decoration:#c87563;
+  background:radial-gradient(ellipse at 50% 0,#f4b2a3 0,transparent 50%),
     linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df);
 }
-.theme-sunset .strip:before { content: "☼  GOLDEN HOUR  ☼"; }
-.theme-sunset .strip:after { content: "☼"; }
-.theme-sunset .strip-title:before { content: "☼ "; }
-.theme-sunset .strip-photo { border-color: #fff5e5; }
+.theme-sunset .strip:before { content:"☼ GOLDEN HOUR ☼"; }
+.theme-sunset .strip:after { content:"☼"; }
+.theme-sunset .strip-title:before { content:"☼ "; }
+.theme-sunset .strip-photo { border-color:#fff5e5; }
 
-/* Printer */
-.printer-area { margin-top: 22px; }
-.printer-stage { width: min(100%,420px); margin: auto; }
-
+/* PRINTING MODAL: animasi tidak berada di halaman utama */
+.print-modal {
+  position:fixed; inset:0; z-index:1000; padding:18px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(46,26,37,.62); backdrop-filter:blur(5px);
+}
+.print-dialog {
+  width:min(520px,100%); max-height:92vh; overflow:auto;
+  position:relative; padding:22px; border:1px solid #e7b7c7;
+  border-radius:22px; background:#fffaf7;
+  box-shadow:0 25px 80px #2b12244d; text-align:center;
+}
+.modal-close {
+  position:absolute; right:12px; top:10px; width:34px; height:34px;
+  border:1px solid #eccbd5; border-radius:50%; background:white; color:#a04d6e;
+}
+.print-dialog h3 { margin:6px 30px 5px; color:#b54f73; font-weight:normal; font-style:italic; }
+.modal-subtitle { color:#a17684; font:12px/1.6 Arial,sans-serif; }
+.printer-stage {
+  width:min(100%,340px); margin:22px auto 0;
+  position:relative; padding:0 12px;
+}
 .printer-machine {
-  position: relative;
-  z-index: 3;
-  padding: 0 12px 10px;
-  background: linear-gradient(145deg,#f9dce3,#e6b9c7);
-  border: 1px solid #d9a4b4;
-  border-radius: 18px 18px 12px 12px;
-  box-shadow: 0 7px 16px #a15c7024;
+  position:relative; z-index:3; padding:0 12px 10px;
+  background:linear-gradient(145deg,#f9dce3,#e6b9c7);
+  border:1px solid #d9a4b4; border-radius:18px 18px 12px 12px;
+  box-shadow:0 7px 16px #a15c7024;
 }
-
 .printer-top {
-  height: 38px;
-  display: grid;
-  place-items: center;
-  color: #94566b;
-  font: bold 9px Arial,sans-serif;
-  letter-spacing: 2px;
+  height:38px; display:grid; place-items:center; color:#94566b;
+  font:bold 9px Arial,sans-serif; letter-spacing:2px;
 }
-
 .printer-mouth {
-  height: 15px;
-  border-radius: 5px;
-  background: #39262e;
-  border: 2px solid #b77f90;
-  position: relative;
-  z-index: 5;
+  height:15px; border-radius:5px; background:#39262e;
+  border:2px solid #b77f90; position:relative; z-index:5;
 }
-
-.printer-output {
-  height: 0;
-  position: relative;
-  z-index: 2;
-}
-
+.printer-output { height:0; position:relative; z-index:2; }
 .paper-holder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 0;
-  pointer-events: none;
+  position:absolute; top:0; left:0; width:100%; opacity:0;
+  pointer-events:none; transform-origin:top center;
 }
-
 #printGallery {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 8px;
-  padding: 8px;
-  background: #fffaf6;
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px; padding:6px; background:#fffaf6;
 }
-
-#printGallery .strip { padding: 7px 5px; }
-
+#printGallery .strip { padding:5px 4px; }
+#printGallery .strip-title { font-size:7px; margin-top:13px; }
+#printGallery .strip-date { font-size:5px; margin-bottom:5px; }
+#printGallery .strip-photos { gap:4px; padding:0 2px; }
+#printGallery .strip-photo { border-width:1px; }
+#printGallery .strip-foot { font-size:5px; margin-top:6px; padding-top:4px; }
 .printer-front {
-  position: relative;
-  z-index: 4;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  color: #94566b;
-  font: bold 9px Arial,sans-serif;
-  letter-spacing: 1px;
-  background: linear-gradient(145deg,#f3cbd6,#e6b9c7);
-  border-top: 1px solid #d9a4b4;
+  position:relative; z-index:4; height:48px; display:grid; place-items:center;
+  color:#94566b; font:bold 9px Arial,sans-serif; letter-spacing:1px;
+  background:linear-gradient(145deg,#f3cbd6,#e6b9c7); border-top:1px solid #d9a4b4;
 }
-
 .printer-stage.printing .printer-output,
-.printer-stage.printed .printer-output {
-  height: var(--paper-height,200px);
-}
-
-.printer-stage.printing .paper-holder {
-  animation: paperOut 2s cubic-bezier(.22,.68,.28,1) forwards;
-}
-
-.printer-stage.printed .paper-holder {
-  opacity: 1;
-  top: var(--paper-travel,200px);
-}
-
+.printer-stage.printed .printer-output { height:190px; }
+.printer-stage.printing .paper-holder { animation:paperOut 2.1s cubic-bezier(.22,.68,.28,1) forwards; }
+.printer-stage.printed .paper-holder { opacity:1; top:190px; }
 @keyframes paperOut {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 1; }
-  100% { top: var(--paper-travel,200px); opacity: 1; }
+  0% { top:0; opacity:0; }
+  10% { opacity:1; }
+  100% { top:190px; opacity:1; }
 }
+.print-message { text-align:center; font:12px/1.6 Arial,sans-serif; color:#a17681; margin:14px 0; }
+.modal-actions { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.modal-actions button { flex:1; min-width:130px; }
 
-.print-message {
-  text-align: center;
-  font: 12px/1.6 Arial,sans-serif;
-  color: #a17681;
-  margin: 12px 0;
+/* AREA KHUSUS EKSPOR: SETIAP STRIP TEPAT 1080 × 2400 PX */
+#exportStage {
+  position:fixed; left:-30000px; top:0; z-index:-10;
+  width:2160px; display:flex; gap:0; background:#fffaf6;
 }
-
-.print-actions { width: min(100%,420px); margin: auto; }
-.print-actions button { width: 100%; }
-
-footer {
-  text-align: center;
-  color: #b28c94;
-  font-size: 12px;
-  padding: 25px 12px;
+.export-strip {
+  width:1080px!important; height:2400px!important; min-width:1080px!important;
+  max-width:1080px!important; flex:0 0 1080px!important;
+  padding:75px 75px 65px!important; border-width:8px!important;
+  border-radius:8px!important; box-shadow:none!important;
+  display:flex!important; flex-direction:column!important; overflow:hidden!important;
 }
+.export-strip:before { top:25px!important; font-size:28px!important; letter-spacing:12px!important; }
+.export-strip:after { bottom:50px!important; right:30px!important; font-size:52px!important; }
+.export-strip .strip-title {
+  flex:0 0 auto; font-size:55px!important; line-height:1.25!important;
+  margin:70px 15px 25px!important; padding:0 20px!important;
+}
+.export-strip .strip-date {
+  flex:0 0 auto; font-size:25px!important; letter-spacing:5px!important;
+  margin-bottom:35px!important;
+}
+.export-strip .strip-photos {
+  flex:1 1 auto!important; min-height:0!important; padding:0 20px!important;
+  gap:28px!important; justify-content:space-evenly!important;
+}
+.export-strip .strip-photo {
+  flex:1 1 0!important; min-height:0!important; max-height:none!important;
+  width:100%!important; aspect-ratio:auto!important; border-width:8px!important;
+}
+.export-strip .strip-photo:nth-child(1) { width:96%!important; }
+.export-strip .strip-photo:nth-child(2) { width:93%!important; }
+.export-strip .strip-photo:nth-child(3) { width:96%!important; }
+.export-strip .strip-photo .empty { font-size:32px!important; }
+.export-strip .strip-foot {
+  flex:0 0 auto; font-size:22px!important; letter-spacing:3px!important;
+  line-height:1.5!important; margin-top:35px!important; padding:25px 10px 0!important;
+  border-top-width:3px!important;
+}
+#exportStage .strip-photo img { width:100%!important; height:100%!important; object-fit:cover!important; }
 
+footer { text-align:center; color:#b28c94; font-size:12px; padding:25px 12px; }
 .toast {
-  position: fixed;
-  z-index: 100;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #674652;
-  color: white;
-  border-radius: 25px;
-  padding: 11px 17px;
-  font: 12px Arial,sans-serif;
-  max-width: 90vw;
-  text-align: center;
+  position:fixed; z-index:1200; bottom:20px; left:50%; transform:translateX(-50%);
+  background:#674652; color:white; border-radius:25px; padding:11px 17px;
+  font:12px Arial,sans-serif; max-width:90vw; text-align:center;
 }
-
 @media(max-width:760px) {
-  header { flex-wrap: wrap; padding: 14px; }
-  .tagline { display: none; }
-  main { width: calc(100% - 16px); margin: 14px auto; }
-  .layout { grid-template-columns: 1fr; }
-  .preview-panel { order: -1; }
-  #stripGallery { width: min(100%,460px); gap: 10px; }
-  .strip { padding: 9px 6px 10px; }
-  .strip-title { font-size: clamp(10px,2.7vw,15px); }
-  .strip-photos { gap: 6px; }
+  header { flex-wrap:wrap; padding:14px; }
+  .tagline { display:none; }
+  main { width:calc(100% - 16px); margin:14px auto; }
+  .layout { grid-template-columns:1fr; }
+  .preview-panel { order:-1; }
+  #stripGallery { width:min(100%,460px); gap:10px; }
+  .strip { padding:9px 6px 10px; }
+  .strip-title { font-size:clamp(10px,2.7vw,15px); }
+  .strip-photos { gap:6px; }
 }
-
 @media(max-width:380px) {
-  #stripGallery { gap: 6px; }
-  .strip { padding: 8px 4px; }
-  .strip-photos { gap: 5px; padding: 0 1px; }
-  .strip-title { font-size: 10px; }
-  .strip-foot { font-size: 6px; }
-  .panel { padding: 13px; }
+  #stripGallery { gap:6px; }
+  .strip { padding:8px 4px; }
+  .strip-photos { gap:5px; padding:0 1px; }
+  .strip-title { font-size:10px; }
+  .strip-foot { font-size:6px; }
+  .panel { padding:13px; }
 }
-
 @media print {
-  header,.controls,.booth-heading,.printer-area,footer { display:none !important; }
+  header,.controls,.booth-heading,.print-modal,footer { display:none!important; }
   body { background:white; }
   main { width:100%; margin:0; }
   .layout { display:block; }
@@ -797,7 +425,6 @@ footer {
 </head>
 
 <body class="theme-flower">
-
 <header>
   <div class="brand">Our Little Photobooth ♡</div>
   <div class="tagline">Same person, different moments,<br>always you ♡</div>
@@ -841,7 +468,7 @@ footer {
     </article>
   </section>
 
-  <!-- HALAMAN 3: PHOTObooth -->
+  <!-- HALAMAN 3: PHOTOBOOTH -->
   <section id="booth" class="hidden">
     <div class="booth-heading">
       <div class="eyebrow">Choose · Pose · Print</div>
@@ -869,16 +496,12 @@ footer {
 
         <section class="panel">
           <label class="label">2. Ambil 3 Foto</label>
-          <div class="progress" id="progress">
-            <span></span><span></span><span></span>
-          </div>
+          <div class="progress" id="progress"><span></span><span></span><span></span></div>
           <p id="stepText" class="step">Foto 1 dari 3 · belum diisi</p>
-
           <div class="actions">
             <button id="uploadBtn" class="secondary" type="button">♧ Upload Foto</button>
             <button id="cameraBtn" class="primary" type="button">📷 Kamera Langsung</button>
           </div>
-
           <input id="fileInput" class="hidden" type="file" accept="image/*">
 
           <div id="cameraPanel" class="hidden">
@@ -895,14 +518,12 @@ footer {
             <button id="okayBtn" class="primary" type="button">Okee ✓</button>
             <button id="resetBtn" class="secondary" type="button">Reset</button>
           </div>
-
           <p id="status" class="status" aria-live="polite">Pilih tema, lalu ambil atau upload foto.</p>
         </section>
       </div>
 
       <section class="panel preview-panel">
         <h3>✧ Preview Photostrip</h3>
-
         <div class="preview-wrap">
           <div id="stripGallery">
             <div id="strip1" class="strip">
@@ -911,7 +532,6 @@ footer {
               <div class="strip-photos" id="photos1"></div>
               <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
             </div>
-
             <div id="strip2" class="strip">
               <div class="strip-title">Our Five Months ♡</div>
               <div class="strip-date">11 · 10 · 2026</div>
@@ -920,27 +540,11 @@ footer {
             </div>
           </div>
         </div>
-
         <p class="note center">Dua strip berdampingan. Setiap strip berisi 3 foto dengan susunan berbeda.</p>
-
-        <div class="printer-area">
-          <div id="printerStage" class="printer-stage">
-            <div class="printer-machine">
-              <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
-              <div class="printer-mouth"></div>
-              <div id="printerOutput" class="printer-output">
-                <div id="paperHolder" class="paper-holder"></div>
-              </div>
-              <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
-            </div>
-          </div>
-
-          <p id="printMessage" class="print-message">Lengkapi tiga foto, lalu tekan Cetak.</p>
-
-          <div class="actions print-actions">
-            <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
-            <button id="downloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
-          </div>
+        <p class="note center">Ukuran ekspor: 1080 × 2400 piksel per strip.</p>
+        <div class="actions">
+          <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
+          <button id="downloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
         </div>
       </section>
     </div>
@@ -948,11 +552,36 @@ footer {
 </main>
 
 <footer>MADE WITH LOVE ♡ OUR LITTLE PHOTOBOOTH</footer>
+
+<!-- POPUP PRINTING -->
+<div id="printModal" class="print-modal hidden" role="dialog" aria-modal="true" aria-labelledby="printTitle">
+  <div class="print-dialog">
+    <button id="modalCloseBtn" class="modal-close" type="button" aria-label="Tutup popup">×</button>
+    <div style="font-size:24px;color:#d58ba3">୨୧ ♡ ✧</div>
+    <h3 id="printTitle">Little Love Printer</h3>
+    <p class="modal-subtitle" id="printMessage">Photostrip kamu sedang disiapkan ♡</p>
+    <div id="printerStage" class="printer-stage">
+      <div class="printer-machine">
+        <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
+        <div class="printer-mouth"></div>
+        <div id="printerOutput" class="printer-output">
+          <div id="paperHolder" class="paper-holder"></div>
+        </div>
+        <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
+      </div>
+    </div>
+    <div class="modal-actions" style="margin-top:18px">
+      <button id="modalDownloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
+      <button id="modalDoneBtn" class="secondary" type="button">Tutup</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast" class="toast hidden" role="status"></div>
 <audio id="music" loop preload="none"></audio>
+<div id="exportStage" aria-hidden="true"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
 <script>
 (() => {
 "use strict";
@@ -960,485 +589,347 @@ footer {
 const $ = id => document.getElementById(id);
 
 const themeData = {
-  flower: {title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
-  letter: {title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
-  kawaii: {title:"Our Little Memories",foot:"LITTLE MOMENTS, ENDLESS LOVE"},
-  film: {title:"Our Little Moments",foot:"FRAME 05 · TAKE 11.10.26"},
-  coquette: {title:"My Darling ♡",foot:"WITH LOVE, ALWAYS"},
-  stars: {title:"You're My Universe",foot:"WRITTEN IN THE STARS"},
-  y2k: {title:"LOVE U 4EVER",foot:"XOXO · 4EVER ONLINE"},
-  botanical: {title:"A Love to Keep",foot:"GROWN WITH LOVE"},
-  pixel: {title:"PLAYER 1 + PLAYER 2",foot:"GAME SAVED"},
-  sunset: {title:"Meet Me at Sunset",foot:"SAME SKY, SAME HEART"}
+  flower:{title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
+  letter:{title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
+  kawaii:{title:"Our Little Memories",foot:"LITTLE MOMENTS, ENDLESS LOVE"},
+  film:{title:"Our Little Moments",foot:"FRAME 05 · TAKE 11.10.26"},
+  coquette:{title:"My Darling ♡",foot:"WITH LOVE, ALWAYS"},
+  stars:{title:"You're My Universe",foot:"WRITTEN IN THE STARS"},
+  y2k:{title:"LOVE U 4EVER",foot:"XOXO · 4EVER ONLINE"},
+  botanical:{title:"A Love to Keep",foot:"GROWN WITH LOVE"},
+  pixel:{title:"PLAYER 1 + PLAYER 2",foot:"GAME SAVED"},
+  sunset:{title:"Meet Me at Sunset",foot:"SAME SKY, SAME HEART"}
 };
 
-/* Dua photostrip dengan tiga frame per strip. */
-const orders = [
-  [0,1,2],
-  [1,2,0]
-];
-
-const photos = Array.from({length:3},() => ({
-  src:null,
-  locked:false
-}));
-
-let activeIndex = 0;
-let currentTheme = "flower";
-let stream = null;
-let printing = false;
-let printed = false;
-let toastTimer;
+const orders = [[0,1,2],[1,2,0]];
+const photos = Array.from({length:3},() => ({src:null,locked:false}));
+let activeIndex=0,currentTheme="flower",stream=null,printing=false,printed=false,toastTimer;
 
 function toast(message) {
-  $("toast").textContent = message;
+  $("toast").textContent=message;
   $("toast").classList.remove("hidden");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => $("toast").classList.add("hidden"),2500);
+  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2600);
 }
-
-function setStatus(message) {
-  $("status").textContent = message;
-}
-
-function complete() {
-  return photos.every(photo => photo.src && photo.locked);
-}
-
+function setStatus(message) { $("status").textContent=message; }
+function complete() { return photos.every(photo=>photo.src&&photo.locked); }
 function nextUnlocked() {
-  const index = photos.findIndex(photo => !photo.locked);
-  if (index !== -1) activeIndex = index;
+  const index=photos.findIndex(photo=>!photo.locked);
+  if(index!==-1) activeIndex=index;
 }
-
 function showScreen(id) {
-  ["welcome","letterPage","booth"].forEach(screen => {
-    $(screen).classList.toggle("hidden",screen !== id);
+  ["welcome","letterPage","booth"].forEach(screen=>{
+    $(screen).classList.toggle("hidden",screen!==id);
   });
   window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function resetPrinter() {
-  printed = false;
-  printing = false;
-  $("printerStage").classList.remove("printing","printed");
-  $("printerOutput").style.height = "0";
-  $("printerOutput").style.removeProperty("--paper-height");
-  $("paperHolder").innerHTML = "";
-  $("paperHolder").style.removeProperty("--paper-travel");
-  $("printBtn").disabled = !complete();
-  $("downloadBtn").disabled = !complete();
-  $("printBtn").textContent = "▣ Cetak";
-  $("printMessage").textContent = complete()
-    ? "Semua foto siap dicetak ♡"
-    : "Lengkapi tiga foto, lalu tekan Cetak.";
+function showPrintModal() {
+  $("printModal").classList.remove("hidden");
+  $("modalCloseBtn").focus();
 }
-
+function closePrintModal() {
+  if(printing) return;
+  $("printModal").classList.add("hidden");
+}
+function resetPrinter() {
+  printed=false;
+  printing=false;
+  $("printerStage").classList.remove("printing","printed");
+  $("printerOutput").style.height="0";
+  $("paperHolder").innerHTML="";
+  $("modalDownloadBtn").disabled=!complete();
+  $("printBtn").disabled=!complete();
+  $("downloadBtn").disabled=!complete();
+  $("modalDownloadBtn").textContent="⇩ Download PNG";
+  $("printMessage").textContent=complete()?"Photostrip siap dicetak ♡":"Siapkan tiga foto untuk mulai mencetak.";
+}
 function setTheme(theme) {
-  if (!themeData[theme]) return;
-
-  currentTheme = theme;
-  document.body.className = "theme-" + theme;
-
-  document.querySelectorAll(".theme-btn").forEach(button => {
-    const active = button.dataset.theme === theme;
+  if(!themeData[theme]) return;
+  currentTheme=theme;
+  document.body.className="theme-"+theme;
+  document.querySelectorAll(".theme-btn").forEach(button=>{
+    const active=button.dataset.theme===theme;
     button.classList.toggle("active",active);
     button.setAttribute("aria-pressed",String(active));
   });
-
-  document.querySelectorAll(".strip").forEach(strip => {
-    strip.querySelector(".strip-title").textContent = themeData[theme].title;
-    strip.querySelector(".strip-foot").textContent = themeData[theme].foot;
+  document.querySelectorAll("#strip1,#strip2").forEach(strip=>{
+    strip.querySelector(".strip-title").textContent=themeData[theme].title;
+    strip.querySelector(".strip-foot").textContent=themeData[theme].foot;
   });
-
   resetPrinter();
   renderPhotos();
 }
-
 function makeFrame(photo,number,active) {
-  const frame = document.createElement("div");
-  frame.className = "strip-photo";
-
-  if (active) frame.classList.add("active-frame");
-
-  if (photo && photo.src) {
-    const img = document.createElement("img");
-    img.src = photo.src;
-    img.alt = "Foto " + (number+1);
+  const frame=document.createElement("div");
+  frame.className="strip-photo";
+  if(active) frame.classList.add("active-frame");
+  if(photo&&photo.src) {
+    const img=document.createElement("img");
+    img.src=photo.src;
+    img.alt="Foto "+(number+1);
     frame.appendChild(img);
   } else {
-    const placeholder = document.createElement("div");
-    placeholder.className = "empty";
-    placeholder.textContent = "♡\nFoto " + (number+1) + "\n✧";
+    const placeholder=document.createElement("div");
+    placeholder.className="empty";
+    placeholder.textContent="♡\nFoto "+(number+1)+"\n✧";
     frame.appendChild(placeholder);
   }
-
   return frame;
 }
-
 function renderPhotos() {
   nextUnlocked();
-
-  const target1 = $("photos1");
-  const target2 = $("photos2");
-
-  target1.innerHTML = "";
-  target2.innerHTML = "";
-
-  orders[0].forEach(index => {
-    target1.appendChild(makeFrame(
-      photos[index],
-      index,
-      index === activeIndex && !photos[index].locked && !complete()
-    ));
-  });
-
-  orders[1].forEach(index => {
-    target2.appendChild(makeFrame(photos[index],index,false));
-  });
-
+  $("photos1").innerHTML="";
+  $("photos2").innerHTML="";
+  orders[0].forEach(index=>$("photos1").appendChild(
+    makeFrame(photos[index],index,index===activeIndex&&!photos[index].locked&&!complete())
+  ));
+  orders[1].forEach(index=>$("photos2").appendChild(makeFrame(photos[index],index,false)));
   updateControls();
 }
-
 function updateControls() {
   nextUnlocked();
-
-  $("progress").querySelectorAll("span").forEach((bar,index) => {
+  $("progress").querySelectorAll("span").forEach((bar,index)=>{
     bar.classList.toggle("done",photos[index].locked);
-    bar.classList.toggle("current",index === activeIndex && !complete());
+    bar.classList.toggle("current",index===activeIndex&&!complete());
   });
-
-  const finished = complete();
-
-  $("stepText").textContent = finished
-    ? "3 dari 3 foto terkunci · siap dicetak ♡"
-    : `Foto ${activeIndex+1} dari 3 · ${photos[activeIndex].src ? "siap diperiksa" : "belum diisi"}`;
-
-  $("uploadBtn").disabled = finished || photos[activeIndex].locked;
-  $("cameraBtn").disabled = finished || photos[activeIndex].locked;
-  $("retakeBtn").disabled = finished || !photos[activeIndex].src || photos[activeIndex].locked;
-  $("okayBtn").disabled = finished || !photos[activeIndex].src || photos[activeIndex].locked;
-  $("captureBtn").disabled = finished || photos[activeIndex].locked;
-  $("printBtn").disabled = !finished || printed || printing;
-  $("downloadBtn").disabled = !finished;
+  const finished=complete();
+  $("stepText").textContent=finished
+    ?"3 dari 3 foto terkunci · siap dicetak ♡"
+    :`Foto ${activeIndex+1} dari 3 · ${photos[activeIndex].src?"siap diperiksa":"belum diisi"}`;
+  $("uploadBtn").disabled=finished||photos[activeIndex].locked;
+  $("cameraBtn").disabled=finished||photos[activeIndex].locked;
+  $("retakeBtn").disabled=finished||!photos[activeIndex].src||photos[activeIndex].locked;
+  $("okayBtn").disabled=finished||!photos[activeIndex].src||photos[activeIndex].locked;
+  $("captureBtn").disabled=finished||photos[activeIndex].locked;
+  $("printBtn").disabled=!finished||printed||printing;
+  $("downloadBtn").disabled=!finished;
+  $("modalDownloadBtn").disabled=!finished;
 }
-
 function loadFile(file) {
-  if (!file || !file.type.startsWith("image/")) {
-    toast("Pilih file gambar ya ♡");
-    return;
-  }
-
-  if (complete() || photos[activeIndex].locked) {
+  if(!file||!file.type.startsWith("image/")) { toast("Pilih file gambar ya ♡"); return; }
+  if(complete()||photos[activeIndex].locked) {
     toast("Foto ini sudah terkunci. Tekan Reset untuk mulai lagi.");
     return;
   }
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const image = new Image();
-
-    image.onload = () => {
-      photos[activeIndex].src = reader.result;
-      resetPrinter();
-      renderPhotos();
-      setStatus("Foto masuk ke frame " + (activeIndex+1) + ". Periksa lalu tekan Okee ♡");
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const image=new Image();
+    image.onload=()=>{
+      photos[activeIndex].src=reader.result;
+      resetPrinter(); renderPhotos();
+      setStatus("Foto masuk ke frame "+(activeIndex+1)+". Periksa lalu tekan Okee ♡");
     };
-
-    image.onerror = () => toast("Foto tidak bisa dibuka.");
-    image.src = reader.result;
+    image.onerror=()=>toast("Foto tidak bisa dibuka.");
+    image.src=reader.result;
   };
-
-  reader.onerror = () => toast("Gambar tidak berhasil dibaca.");
+  reader.onerror=()=>toast("Gambar tidak berhasil dibaca.");
   reader.readAsDataURL(file);
 }
-
 function retake() {
-  if (complete() || photos[activeIndex].locked) {
-    toast("Foto terkunci. Tekan Reset untuk mulai lagi.");
-    return;
+  if(complete()||photos[activeIndex].locked) {
+    toast("Foto terkunci. Tekan Reset untuk mulai lagi."); return;
   }
-
-  photos[activeIndex].src = null;
-  resetPrinter();
-  renderPhotos();
-  setStatus("Frame " + (activeIndex+1) + " siap diulang ♡");
+  photos[activeIndex].src=null;
+  resetPrinter(); renderPhotos();
+  setStatus("Frame "+(activeIndex+1)+" siap diulang ♡");
 }
-
 function confirmPhoto() {
-  const photo = photos[activeIndex];
-
-  if (!photo || !photo.src) {
-    toast("Isi foto ini dulu ya ♡");
-    return;
-  }
-
-  if (photo.locked) return;
-
-  photo.locked = true;
-
-  if (complete()) {
-    renderPhotos();
-    resetPrinter();
+  const photo=photos[activeIndex];
+  if(!photo||!photo.src) { toast("Isi foto ini dulu ya ♡"); return; }
+  if(photo.locked) return;
+  photo.locked=true;
+  if(complete()) {
+    renderPhotos(); resetPrinter();
     setStatus("Tiga foto terkunci. Tekan Cetak atau Download PNG ♡");
     toast("Selesai! Siap dicetak ♡");
   } else {
-    nextUnlocked();
-    renderPhotos();
-    setStatus("Okee! Lanjut ke foto " + (activeIndex+1) + " ♡");
+    nextUnlocked(); renderPhotos();
+    setStatus("Okee! Lanjut ke foto "+(activeIndex+1)+" ♡");
     toast("Foto tersimpan ♡");
   }
 }
-
 async function openCamera() {
-  if (complete()) return;
-
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    toast("Kamera membutuhkan HTTPS atau localhost. Kamu bisa upload foto.");
-    return;
+  if(complete()) return;
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) {
+    toast("Kamera membutuhkan HTTPS atau localhost. Kamu bisa upload foto."); return;
   }
-
   try {
     closeCamera();
-
-    stream = await navigator.mediaDevices.getUserMedia({
-      audio:false,
-      video:{facingMode:"user"}
-    });
-
-    $("video").srcObject = stream;
+    stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user"}});
+    $("video").srcObject=stream;
     $("cameraPanel").classList.remove("hidden");
     await $("video").play();
-
     setStatus("Kamera aktif. Ambil foto, lalu tekan Okee ♡");
-  } catch (error) {
+  } catch(error) {
     console.error(error);
     toast("Akses kamera gagal. Izinkan kamera atau upload foto.");
   }
 }
-
 function closeCamera() {
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-    stream = null;
-  }
-
-  $("video").srcObject = null;
+  if(stream) { stream.getTracks().forEach(track=>track.stop()); stream=null; }
+  $("video").srcObject=null;
 }
-
 function hideCamera() {
   closeCamera();
   $("cameraPanel").classList.add("hidden");
 }
-
 function capturePhoto() {
-  const video = $("video");
-
-  if (!stream || !video.videoWidth) {
-    toast("Tunggu kamera siap ya ♡");
-    return;
-  }
-
-  if (complete() || photos[activeIndex].locked) return;
-
-  const canvas = document.createElement("canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  const context = canvas.getContext("2d");
-  context.translate(canvas.width,0);
-  context.scale(-1,1);
+  const video=$("video");
+  if(!stream||!video.videoWidth) { toast("Tunggu kamera siap ya ♡"); return; }
+  if(complete()||photos[activeIndex].locked) return;
+  const canvas=document.createElement("canvas");
+  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+  const context=canvas.getContext("2d");
+  context.translate(canvas.width,0); context.scale(-1,1);
   context.drawImage(video,0,0,canvas.width,canvas.height);
-
-  photos[activeIndex].src = canvas.toDataURL("image/jpeg",0.94);
-
-  resetPrinter();
-  renderPhotos();
+  photos[activeIndex].src=canvas.toDataURL("image/jpeg",.94);
+  resetPrinter(); renderPhotos();
   setStatus("Foto berhasil diambil. Tekan Retake atau Okee ♡");
 }
-
 function resetAll() {
-  photos.forEach(photo => {
-    photo.src = null;
-    photo.locked = false;
-  });
-
-  activeIndex = 0;
-  resetPrinter();
-  renderPhotos();
+  photos.forEach(photo=>{photo.src=null;photo.locked=false;});
+  activeIndex=0; resetPrinter(); renderPhotos();
   setStatus("Semua foto direset. Mulai lagi dari foto pertama ♡");
   toast("Photobooth siap lagi ♡");
 }
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
-const wait = ms => new Promise(resolve => setTimeout(resolve,ms));
+function makeStripCopies(target) {
+  target.innerHTML="";
+  [$("strip1"),$("strip2")].forEach(strip=>{
+    const copy=strip.cloneNode(true);
+    copy.removeAttribute("id");
+    copy.classList.add("export-strip");
+    copy.querySelectorAll("[id]").forEach(node=>node.removeAttribute("id"));
+    target.appendChild(copy);
+  });
+}
 
 async function printStrip() {
-  if (!complete()) {
-    toast("Lengkapi tiga foto terlebih dahulu ♡");
-    return;
-  }
+  if(!complete()) { toast("Lengkapi tiga foto terlebih dahulu ♡"); return; }
+  if(printing||printed) return;
 
-  if (printing || printed) return;
+  printing=true;
+  $("printBtn").disabled=true;
+  $("downloadBtn").disabled=true;
+  $("modalDownloadBtn").disabled=true;
+  $("printMessage").textContent="Dua photostrip sedang keluar dari printer… ♡";
+  $("modalDoneBtn").disabled=true;
+  $("modalCloseBtn").disabled=true;
+  showPrintModal();
 
-  printing = true;
-  $("printBtn").disabled = true;
-  $("downloadBtn").disabled = true;
-  $("printBtn").textContent = "Mencetak…";
-  $("printMessage").textContent = "Dua photostrip sedang keluar dari printer… ♡";
+  const stage=$("printerStage");
+  const output=$("printerOutput");
+  const holder=$("paperHolder");
+  holder.innerHTML="";
 
-  const stage = $("printerStage");
-  const output = $("printerOutput");
-  const holder = $("paperHolder");
-
-  holder.innerHTML = "";
-
-  const gallery = document.createElement("div");
-  gallery.id = "printGallery";
-
-  [$("strip1"),$("strip2")].forEach(strip => {
-    const copy = strip.cloneNode(true);
+  const gallery=document.createElement("div");
+  gallery.id="printGallery";
+  [$("strip1"),$("strip2")].forEach(strip=>{
+    const copy=strip.cloneNode(true);
     copy.removeAttribute("id");
-    copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+    copy.querySelectorAll("[id]").forEach(node=>node.removeAttribute("id"));
     gallery.appendChild(copy);
   });
-
   holder.appendChild(gallery);
 
-  await new Promise(resolve =>
-    requestAnimationFrame(() => requestAnimationFrame(resolve))
-  );
-
-  const height = Math.ceil(gallery.getBoundingClientRect().height + 16);
-  const travel = height;
-
-  output.style.setProperty("--paper-height",height+"px");
-  holder.style.setProperty("--paper-travel",travel+"px");
-  output.style.height = height+"px";
-
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   stage.classList.remove("printed","printing");
   void stage.offsetWidth;
   stage.classList.add("printing");
-
-  await wait(2100);
-
+  await wait(2150);
   stage.classList.remove("printing");
   stage.classList.add("printed");
 
-  printing = false;
-  printed = true;
-
-  $("printBtn").textContent = "✓ Sudah dicetak";
-  $("printBtn").disabled = true;
-  $("downloadBtn").disabled = false;
-  $("printMessage").textContent = "Dua photostrip selesai dicetak ♡";
-
+  printing=false;
+  printed=true;
+  $("printBtn").textContent="✓ Sudah dicetak";
+  $("printBtn").disabled=true;
+  $("downloadBtn").disabled=false;
+  $("modalDownloadBtn").disabled=false;
+  $("modalDoneBtn").disabled=false;
+  $("modalCloseBtn").disabled=false;
+  $("printMessage").textContent="Dua photostrip selesai dicetak ♡";
   toast("Photostrip berhasil dicetak ♡");
 }
 
 async function downloadPNG() {
-  if (!complete()) {
-    toast("Lengkapi tiga foto dahulu ♡");
-    return;
+  if(!complete()) { toast("Lengkapi tiga foto dahulu ♡"); return; }
+  if(typeof html2canvas!=="function") {
+    toast("Fitur PNG belum termuat. Periksa koneksi internet."); return;
   }
 
-  if (typeof html2canvas !== "function") {
-    toast("Fitur PNG belum termuat. Periksa koneksi internet.");
-    return;
-  }
+  const buttons=[$("downloadBtn"),$("modalDownloadBtn")];
+  buttons.forEach(button=>{button.disabled=true;button.textContent="Menyiapkan PNG…";});
 
-  const button = $("downloadBtn");
-  button.disabled = true;
-  button.textContent = "Menyiapkan PNG…";
-
-  let staging = null;
-
+  const staging=$("exportStage");
   try {
-    staging = document.createElement("div");
+    makeStripCopies(staging);
+    await Promise.all([...staging.querySelectorAll("img")].map(img=>{
+      if(img.complete&&img.naturalWidth) return Promise.resolve();
+      return new Promise(resolve=>{
+        img.onload=resolve;
+        img.onerror=resolve;
+      });
+    }));
 
-    staging.style.cssText =
-      "position:fixed;left:-20000px;top:0;width:1000px;padding:20px;background:#fffaf6";
-
-    const gallery = document.createElement("div");
-
-    gallery.style.cssText =
-      "display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%";
-
-    [$("strip1"),$("strip2")].forEach(strip => {
-      const copy = strip.cloneNode(true);
-      copy.removeAttribute("id");
-      copy.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
-      gallery.appendChild(copy);
-    });
-
-    staging.appendChild(gallery);
-    document.body.appendChild(staging);
-
-    await Promise.all(
-      [...gallery.querySelectorAll("img")].map(img =>
-        img.complete
-          ? Promise.resolve()
-          : new Promise(resolve => {
-              img.onload = resolve;
-              img.onerror = resolve;
-            })
-      )
-    );
-
-    const canvas = await html2canvas(gallery,{
+    const canvas=await html2canvas(staging,{
       backgroundColor:"#fffaf6",
-      scale:2,
+      scale:1,
+      width:2160,
+      height:2400,
+      windowWidth:2160,
       useCORS:true,
       logging:false
     });
 
-    const blob = await new Promise(resolve =>
-      canvas.toBlob(resolve,"image/png")
-    );
+    if(canvas.width!==2160||canvas.height!==2400) {
+      throw new Error("Ukuran hasil tidak sesuai. Silakan coba lagi.");
+    }
 
-    if (!blob) throw new Error("PNG gagal dibuat.");
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+    if(!blob) throw new Error("PNG gagal dibuat.");
 
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "our-little-photobooth-" + currentTheme + ".png";
-
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+    link.href=url;
+    link.download="our-little-photobooth-"+currentTheme+"-2-strips-1080x2400-each.png";
     document.body.appendChild(link);
     link.click();
     link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
 
-    setTimeout(() => URL.revokeObjectURL(url),4000);
-
-    toast("PNG berisi 2 strip berhasil disimpan ♡");
-  } catch (error) {
+    toast("PNG berhasil disimpan: 2 strip, masing-masing 1080 × 2400 px ♡");
+  } catch(error) {
     console.error(error);
-    toast(error.message || "PNG belum berhasil dibuat. Coba lagi.");
+    toast(error.message||"PNG belum berhasil dibuat. Coba lagi.");
   } finally {
-    if (staging) staging.remove();
-
-    button.disabled = !complete();
-    button.textContent = "⇩ Download PNG";
+    staging.innerHTML="";
+    buttons.forEach(button=>{
+      button.disabled=!complete();
+      button.textContent="⇩ Download PNG";
+    });
+    $("modalDownloadBtn").disabled=!complete();
+    $("downloadBtn").disabled=!complete();
   }
 }
 
-/* Navigasi halaman — tetap seperti kode sebelumnya. */
-$("startBtn").addEventListener("click",() => showScreen("letterPage"));
-$("toBoothBtn").addEventListener("click",() => showScreen("booth"));
-$("homeBtn").addEventListener("click",() => showScreen("welcome"));
-
-document.querySelectorAll(".theme-btn").forEach(button => {
-  button.addEventListener("click",() => setTheme(button.dataset.theme));
+/* NAVIGASI */
+$("startBtn").addEventListener("click",()=>showScreen("letterPage"));
+$("toBoothBtn").addEventListener("click",()=>showScreen("booth"));
+$("homeBtn").addEventListener("click",()=>{
+  if(printing) return;
+  $("printModal").classList.add("hidden");
+  showScreen("welcome");
 });
-
-$("uploadBtn").addEventListener("click",() => $("fileInput").click());
-
-$("fileInput").addEventListener("change",event => {
-  if (event.target.files && event.target.files[0]) {
-    loadFile(event.target.files[0]);
-  }
-  event.target.value = "";
+document.querySelectorAll(".theme-btn").forEach(button=>{
+  button.addEventListener("click",()=>setTheme(button.dataset.theme));
 });
-
+$("uploadBtn").addEventListener("click",()=>$("fileInput").click());
+$("fileInput").addEventListener("change",event=>{
+  if(event.target.files&&event.target.files[0]) loadFile(event.target.files[0]);
+  event.target.value="";
+});
 $("retakeBtn").addEventListener("click",retake);
 $("okayBtn").addEventListener("click",confirmPhoto);
 $("resetBtn").addEventListener("click",resetAll);
@@ -1447,32 +938,35 @@ $("closeCameraBtn").addEventListener("click",hideCamera);
 $("captureBtn").addEventListener("click",capturePhoto);
 $("printBtn").addEventListener("click",printStrip);
 $("downloadBtn").addEventListener("click",downloadPNG);
+$("modalDownloadBtn").addEventListener("click",downloadPNG);
+$("modalCloseBtn").addEventListener("click",closePrintModal);
+$("modalDoneBtn").addEventListener("click",closePrintModal);
+$("printModal").addEventListener("click",event=>{
+  if(event.target===$("printModal")) closePrintModal();
+});
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape"&&!printing) closePrintModal();
+});
 
-$("musicBtn").addEventListener("click",() => {
-  const audio = $("music");
-
-  if (!audio.src || audio.src === location.href) {
+$("musicBtn").addEventListener("click",()=>{
+  const audio=$("music");
+  if(!audio.src||audio.src===location.href) {
     toast("Tambahkan file musik ke elemen audio jika ingin mengaktifkan musik ♡");
     return;
   }
-
-  if (audio.paused) {
-    audio.play().then(() => {
-      $("musicBtn").textContent = "♫ Musik: on";
-    }).catch(() => toast("Musik tidak bisa diputar."));
+  if(audio.paused) {
+    audio.play().then(()=>{$("musicBtn").textContent="♫ Musik: on";})
+      .catch(()=>toast("Musik tidak bisa diputar."));
   } else {
     audio.pause();
-    $("musicBtn").textContent = "♫ Musik";
+    $("musicBtn").textContent="♫ Musik";
   }
 });
 
 window.addEventListener("beforeunload",closeCamera);
-
 setTheme(currentTheme);
 renderPhotos();
-
 })();
 </script>
 </body>
 </html>
-```
