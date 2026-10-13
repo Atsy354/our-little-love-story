@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Our Little Photobooth ♡</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
 :root {
   --pink:#d45d83;
@@ -22,213 +23,523 @@ body {
   font-family:Georgia,"Times New Roman",serif;
 }
 button,input { font:inherit; }
-button { cursor:pointer; transition:transform .15s,filter .15s; }
-button:hover:not(:disabled) { filter:brightness(.97); transform:translateY(-1px); }
-button:disabled { opacity:.5; cursor:not-allowed; }
-.hidden { display:none!important; }
-header {
-  display:flex; align-items:center; justify-content:space-between;
-  gap:14px; padding:18px 4%;
-  border-bottom:1px solid var(--border); background:#fffaf6;
+button {
+  cursor:pointer;
+  transition:filter .15s,transform .15s;
 }
-.brand { font-size:clamp(22px,3vw,38px); font-style:italic; color:var(--pink); }
-.tagline { text-align:center; font-style:italic; color:#b66c84; font-size:14px; }
+button:hover:not(:disabled) {
+  filter:brightness(.97);
+  transform:translateY(-1px);
+}
+button:disabled { opacity:.48; cursor:not-allowed; }
+.hidden { display:none!important; }
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:17px 4%;
+  background:#fffaf6;
+  border-bottom:1px solid var(--border);
+}
+.brand {
+  color:var(--pink);
+  font-size:clamp(22px,4vw,36px);
+  font-style:italic;
+}
 .header-buttons { display:flex; gap:8px; }
-.pill,.secondary {
-  border:1px solid #e5a5b8; border-radius:30px;
-  padding:10px 15px; background:#fffaf8; color:#b84e73;
+.primary,.secondary,.pill {
+  padding:11px 17px;
+  border-radius:30px;
 }
 .primary {
-  border:0; border-radius:30px; padding:12px 18px;
-  background:linear-gradient(135deg,#d96d92,#c34d77); color:white;
+  color:white;
+  border:0;
+  background:linear-gradient(135deg,#d96d92,#c34d77);
+}
+.secondary,.pill {
+  background:#fffaf8;
+  border:1px solid #e5a5b8;
+  color:#b84e73;
 }
 main { width:min(1200px,calc(100% - 28px)); margin:25px auto; }
 .card,.panel {
-  background:var(--cream); border:1px solid var(--border);
-  border-radius:17px; padding:20px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
 }
 .center { text-align:center; }
-.welcome { min-height:70vh; display:grid; place-items:center; }
+.welcome {
+  min-height:68vh;
+  display:grid;
+  place-items:center;
+}
 .welcome .card {
-  width:min(760px,100%); padding:clamp(28px,6vw,65px);
-  outline:1px dashed #eac0ce; outline-offset:-10px;
+  width:min(760px,100%);
+  padding:clamp(28px,6vw,65px);
+  outline:1px dashed #eac0ce;
+  outline-offset:-10px;
 }
 .eyebrow {
-  font:600 11px Arial,sans-serif; letter-spacing:3px;
-  color:#ad6079; text-transform:uppercase;
+  color:#ad6079;
+  font:600 11px Arial,sans-serif;
+  letter-spacing:3px;
+  text-transform:uppercase;
 }
 h1 {
-  color:var(--pink); font-size:clamp(42px,8vw,75px);
-  line-height:1.05; font-weight:normal; font-style:italic; margin:18px 0;
+  color:var(--pink);
+  font-size:clamp(42px,8vw,75px);
+  line-height:1.05;
+  font-weight:normal;
+  font-style:italic;
 }
-h2 { color:#b54f73; font-size:clamp(27px,5vw,42px); font-weight:normal; font-style:italic; }
-.copy { line-height:1.8; max-width:530px; margin:20px auto; }
+h2 {
+  color:#b54f73;
+  font-size:clamp(27px,5vw,42px);
+  font-weight:normal;
+  font-style:italic;
+}
+.copy { line-height:1.85; max-width:540px; margin:20px auto; }
 .letter p { line-height:1.85; }
-.letter .signoff { color:#b54f73; font-style:italic; }
+.signoff { color:#b54f73; font-style:italic; }
 .booth-heading { text-align:center; margin-bottom:20px; }
-.booth-heading p { color:#aa7c8a; line-height:1.6; }
+.booth-heading p { color:#aa7c8a; line-height:1.7; }
 .layout {
-  display:grid; grid-template-columns:minmax(270px,.85fr) minmax(0,1.35fr);
-  gap:16px; align-items:start;
+  display:grid;
+  grid-template-columns:minmax(270px,.85fr) minmax(0,1.35fr);
+  gap:16px;
+  align-items:start;
 }
 .panel { min-width:0; margin-bottom:14px; }
-.panel h3 { color:#b54f73; font-weight:normal; font-style:italic; margin:0 0 14px; }
-.label { display:block; margin-bottom:12px; font:bold 12px Arial,sans-serif; color:#a54e70; }
-.theme-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
-.theme-btn {
-  padding:10px; text-align:left; line-height:1.4;
-  border:1px solid #ecd3dc; background:white; color:#805968;
-  border-radius:9px; font-size:12px;
+.panel h3 {
+  color:#b54f73;
+  font-weight:normal;
+  font-style:italic;
+  margin:0 0 14px;
 }
-.theme-btn small { display:block; color:#b28a96; margin-top:4px; }
-.theme-btn.active { background:#f8e2eb; border-color:#c65d82; box-shadow:inset 0 0 0 1px #c65d82; }
+.label {
+  display:block;
+  margin-bottom:12px;
+  color:#a54e70;
+  font:bold 12px Arial,sans-serif;
+}
+.theme-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+}
+.theme-btn {
+  padding:10px;
+  text-align:left;
+  line-height:1.4;
+  border:1px solid #ecd3dc;
+  background:white;
+  color:#805968;
+  border-radius:9px;
+  font-size:12px;
+}
+.theme-btn small {
+  display:block;
+  color:#b28a96;
+  margin-top:4px;
+}
+.theme-btn.active {
+  background:#f8e2eb;
+  border-color:#c65d82;
+  box-shadow:inset 0 0 0 1px #c65d82;
+}
 .actions { display:flex; flex-wrap:wrap; gap:8px; }
-.actions button { flex:1; }
+.actions button { flex:1; min-width:100px; }
 .progress { display:flex; gap:5px; margin:12px 0; }
 .progress span { flex:1; height:5px; background:#eedde2; border-radius:5px; }
 .progress .done { background:#c3547b; }
 .progress .current { background:#e9a4b9; }
-.status,.note,.step { font:12px/1.6 Arial,sans-serif; color:#a17684; }
-.camera { background:#211a20; overflow:hidden; border-radius:10px; margin-top:12px; }
-video { width:100%; max-height:350px; aspect-ratio:3/4; object-fit:cover; display:block; transform:scaleX(-1); }
+.status,.note,.step {
+  font:12px/1.6 Arial,sans-serif;
+  color:#a17684;
+}
+.camera {
+  background:#211a20;
+  overflow:hidden;
+  border-radius:10px;
+  margin-top:12px;
+}
+video {
+  display:block;
+  width:100%;
+  max-height:350px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  transform:scaleX(-1);
+}
 .camera-actions { display:flex; gap:8px; margin-top:8px; }
 .camera-actions button { flex:1; }
 
-/* PREVIEW */
+/* AREA PREVIEW */
 .preview-panel {
-  position:relative; overflow:hidden;
-  background:radial-gradient(ellipse at 10% 4%,#ffe4ec 0,transparent 27%),
-  radial-gradient(ellipse at 95% 85%,#fce8ed 0,transparent 28%),#fffaf6;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 10% 4%,#ffe4ec 0,transparent 27%),
+    radial-gradient(ellipse at 95% 85%,#fce8ed 0,transparent 28%),
+    #fffaf6;
 }
-.preview-wrap { width:100%; overflow-x:auto; padding:12px 5px 20px; }
+.preview-wrap { width:100%; overflow-x:auto; padding:12px 2px 18px; }
 #stripGallery {
-  width:min(100%,520px); margin:auto;
-  display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(8px,2vw,18px); align-items:start;
+  width:min(100%,520px);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  align-items:start;
 }
 .strip {
-  --paper:#fffaf2; --ink:#956275; --edge:#d9a8a8; --decoration:#d18aa1;
-  position:relative; isolation:isolate; background:var(--paper); color:var(--ink);
-  width:100%; min-width:0; padding:11px 9px 12px;
-  border:2px solid var(--edge); border-radius:4px;
-  box-shadow:0 7px 17px #84506022; overflow:hidden;
+  --paper:#fffaf2;
+  --ink:#956275;
+  --edge:#d9a8a8;
+  --decoration:#d18aa1;
+  position:relative;
+  isolation:isolate;
+  background:var(--paper);
+  color:var(--ink);
+  width:100%;
+  min-width:0;
+  padding:11px 9px 12px;
+  border:2px solid var(--edge);
+  border-radius:4px;
+  box-shadow:0 7px 17px #84506022;
+  overflow:hidden;
 }
 .strip:before {
-  content:"✧ ♡ ✧"; position:absolute; top:4px; left:0; right:0;
-  text-align:center; font-size:9px; letter-spacing:3px;
-  color:var(--decoration); pointer-events:none;
+  content:"✧ ♡ ✧";
+  position:absolute;
+  top:4px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-size:9px;
+  letter-spacing:3px;
+  color:var(--decoration);
+  pointer-events:none;
 }
 .strip:after {
-  content:"✿"; position:absolute; bottom:29px; right:5px;
-  font-size:17px; color:var(--decoration); opacity:.65; pointer-events:none;
+  content:"✿";
+  position:absolute;
+  bottom:27px;
+  right:5px;
+  font-size:17px;
+  color:var(--decoration);
+  opacity:.65;
+  pointer-events:none;
 }
 .strip-title {
-  position:relative; text-align:center; font-size:clamp(10px,1.4vw,15px);
-  line-height:1.3; font-style:italic; overflow-wrap:anywhere;
-  margin:18px 0 5px; padding:0 2px;
+  position:relative;
+  text-align:center;
+  font-size:clamp(10px,1.4vw,15px);
+  line-height:1.3;
+  font-style:italic;
+  overflow-wrap:anywhere;
+  margin:18px 0 5px;
+  padding:0 2px;
 }
 .strip-date {
-  text-align:center; font:bold 8px Arial,sans-serif;
-  letter-spacing:1px; margin-bottom:10px; opacity:.8;
+  text-align:center;
+  font:bold 8px Arial,sans-serif;
+  letter-spacing:1px;
+  margin-bottom:10px;
+  opacity:.8;
 }
-.strip-photos { position:relative; display:flex; flex-direction:column; gap:8px; padding:0 3px; }
+.strip-photos {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:0 3px;
+}
 .strip-photo {
-  position:relative; width:100%; aspect-ratio:3/3.15; overflow:hidden;
-  background:#f8e9ec; border:3px solid rgba(255,255,255,.96);
+  position:relative;
+  width:100%;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  flex:none;
+  background:#f8e9ec;
+  border:3px solid rgba(255,255,255,.96);
   box-shadow:0 2px 6px #6c43501c;
 }
-.strip-photo:nth-child(1) { width:94%; align-self:flex-start; transform:rotate(-1deg); }
-.strip-photo:nth-child(2) { width:91%; align-self:flex-end; transform:rotate(1deg); }
-.strip-photo:nth-child(3) { width:95%; align-self:flex-start; transform:rotate(-.6deg); }
-.strip-photo img { display:block; width:100%; height:100%; object-fit:cover; }
-.strip-photo .empty {
-  width:100%; height:100%; display:flex; justify-content:center; align-items:center;
-  text-align:center; white-space:pre-line; color:#bc929f; font-size:11px;
-  line-height:1.6; background:linear-gradient(135deg,#fff4f6,#f8e5eb);
+.strip-photo:nth-child(1) {
+  width:96%;
+  align-self:flex-start;
+  transform:rotate(-.6deg);
 }
-.strip-photo.active-frame { outline:2px solid #d47795; outline-offset:2px; }
+.strip-photo:nth-child(2) {
+  width:94%;
+  align-self:flex-end;
+  transform:rotate(.6deg);
+}
+.strip-photo:nth-child(3) {
+  width:96%;
+  align-self:flex-start;
+  transform:rotate(-.3deg);
+}
+.strip-photo img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.strip-photo .empty {
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  white-space:pre-line;
+  color:#bc929f;
+  font-size:11px;
+  line-height:1.6;
+  background:linear-gradient(135deg,#fff4f6,#f8e5eb);
+}
+.strip-photo.active-frame {
+  outline:2px solid #d47795;
+  outline-offset:2px;
+}
 .strip-foot {
-  position:relative; text-align:center; font-size:7px; font-weight:bold;
-  letter-spacing:.6px; line-height:1.6; margin-top:12px; padding:7px 2px 0;
-  border-top:1px dashed var(--decoration); overflow-wrap:anywhere;
+  position:relative;
+  text-align:center;
+  font-size:7px;
+  font-weight:bold;
+  letter-spacing:.6px;
+  line-height:1.6;
+  margin-top:12px;
+  padding:7px 2px 0;
+  border-top:1px dashed var(--decoration);
+  overflow-wrap:anywhere;
 }
 
-/* TEMA */
-.theme-flower .strip { --paper:#fffaf2;--ink:#9c5c6d;--edge:#d6a4a2;--decoration:#cb8c9d; }
+/* 21 TEMA */
+.theme-flower .strip {
+  --paper:#fffaf2;--ink:#9c5c6d;--edge:#d6a4a2;--decoration:#cb8c9d;
+}
 .theme-flower .strip:before { content:"✿ ♡ ❀"; }
 .theme-flower .strip:after { content:"❀"; }
-.theme-letter .strip { --paper:#f8eddb;--ink:#8f6b48;--edge:#c9a87e;--decoration:#b48b5d;background:repeating-linear-gradient(0deg,transparent 0 21px,#d9c3a233 22px),#f8eddb;box-shadow:inset 0 0 0 3px #d4b78d; }
+
+.theme-letter .strip {
+  --paper:#f8eddb;--ink:#8f6b48;--edge:#c9a87e;--decoration:#b48b5d;
+  background:repeating-linear-gradient(0deg,transparent 0 21px,#d9c3a233 22px),#f8eddb;
+  box-shadow:inset 0 0 0 3px #d4b78d;
+}
 .theme-letter .strip:before { content:"✉ WITH LOVE ✉"; }
-.theme-kawaii .strip { --paper:#fff0f5;--ink:#b35f87;--edge:#e3a3bf;--decoration:#df8fb2;background:radial-gradient(circle,#f4c2d6 1px,transparent 2px) 0 0/15px 15px,#fff0f5;border:3px dotted #e3a3bf;border-radius:13px; }
+
+.theme-kawaii .strip {
+  --paper:#fff0f5;--ink:#b35f87;--edge:#e3a3bf;--decoration:#df8fb2;
+  background:radial-gradient(circle,#f4c2d6 1px,transparent 2px) 0 0/15px 15px,#fff0f5;
+  border:3px dotted #e3a3bf;
+  border-radius:13px;
+}
 .theme-kawaii .strip:before { content:"૮ ˶ᵔ ᵕ ᵔ˶ ა"; }
-.theme-film .strip { --paper:#242326;--ink:#fff0d7;--edge:#4a4147;--decoration:#f3d6b3;background:#242326;border:5px solid #242326; }
+
+.theme-film .strip {
+  --paper:#242326;--ink:#fff0d7;--edge:#4a4147;--decoration:#f3d6b3;
+  background:#242326;
+  border:5px solid #242326;
+}
 .theme-film .strip:before { content:"• • • FILM • • •"; }
-.theme-film .strip-title { font-family:Arial,sans-serif;letter-spacing:1px; }
-.theme-coquette .strip { --paper:#fff7fa;--ink:#a9577c;--edge:#e5b8c7;--decoration:#cf82a0;background:radial-gradient(ellipse at 0 0,#f9e0e8 0,transparent 40%),#fff7fa; }
+.theme-film .strip-title { font-family:Arial,sans-serif; letter-spacing:1px; }
+
+.theme-coquette .strip {
+  --paper:#fff7fa;--ink:#a9577c;--edge:#e5b8c7;--decoration:#cf82a0;
+  background:radial-gradient(ellipse at 0 0,#f9e0e8 0,transparent 40%),#fff7fa;
+}
 .theme-coquette .strip:before { content:"୨୧ ♡ ୨୧"; }
-.theme-coquette .strip:after { content:"🎀";font-size:13px; }
+.theme-coquette .strip:after { content:"🎀"; font-size:13px; }
 .theme-coquette .strip-photo { border-radius:12px 3px 12px 3px; }
-.theme-stars .strip { --paper:#20223e;--ink:#f4e5ff;--edge:#7775a8;--decoration:#d6c8ff;background:radial-gradient(circle at 12% 17%,#fff 0 1px,transparent 2px),radial-gradient(circle at 85% 29%,#e4c9ff 0 1px,transparent 2px),#20223e; }
+
+.theme-stars .strip {
+  --paper:#20223e;--ink:#f4e5ff;--edge:#7775a8;--decoration:#d6c8ff;
+  background:radial-gradient(circle at 12% 17%,#fff 0 1px,transparent 2px),radial-gradient(circle at 85% 29%,#e4c9ff 0 1px,transparent 2px),#20223e;
+}
 .theme-stars .strip:before { content:"✦ ☾ ✧ ★"; }
-.theme-y2k .strip { --paper:#ffe0f0;--ink:#87569b;--edge:#d59de4;--decoration:#b86cce;background:linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff);border-radius:10px; }
+
+.theme-y2k .strip {
+  --paper:#ffe0f0;--ink:#87569b;--edge:#d59de4;--decoration:#b86cce;
+  background:linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff);
+  border-radius:10px;
+}
 .theme-y2k .strip:before { content:"♡ XOXO ♡"; }
-.theme-y2k .strip-title { font-family:Arial,sans-serif;font-weight:bold; }
-.theme-botanical .strip { --paper:#eee5d2;--ink:#647359;--edge:#b4a17e;--decoration:#748a68;background:radial-gradient(ellipse at 0 0,#d4ddc2 0,transparent 45%),#eee5d2;border-style:double;border-width:4px; }
+.theme-y2k .strip-title { font-family:Arial,sans-serif; font-weight:bold; }
+
+.theme-botanical .strip {
+  --paper:#eee5d2;--ink:#647359;--edge:#b4a17e;--decoration:#748a68;
+  background:radial-gradient(ellipse at 0 0,#d4ddc2 0,transparent 45%),#eee5d2;
+  border-style:double;
+  border-width:4px;
+}
 .theme-botanical .strip:before { content:"❦ FOLIAGE ❦"; }
-.theme-pixel .strip { --paper:#f4f0ff;--ink:#7566a5;--edge:#8374b4;--decoration:#9282c6;background:linear-gradient(90deg,#e6ddff 1px,transparent 1px),linear-gradient(#e6ddff 1px,transparent 1px),#f4f0ff;background-size:12px 12px;border:3px dashed #8374b4;border-radius:0; }
-.theme-pixel .strip:before { content:"♥ ♥ ♥ ♥ ♥";font-family:monospace; }
-.theme-sunset .strip { --paper:#ffe7c7;--ink:#9d594b;--edge:#dc987f;--decoration:#c87563;background:radial-gradient(ellipse at 50% 0,#f4b2a3 0,transparent 50%),linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df); }
+
+.theme-pixel .strip {
+  --paper:#f4f0ff;--ink:#7566a5;--edge:#8374b4;--decoration:#9282c6;
+  background:linear-gradient(90deg,#e6ddff 1px,transparent 1px),linear-gradient(#e6ddff 1px,transparent 1px),#f4f0ff;
+  background-size:12px 12px;
+  border:3px dashed #8374b4;
+  border-radius:0;
+}
+.theme-pixel .strip:before { content:"♥ ♥ ♥ ♥ ♥"; font-family:monospace; }
+
+.theme-sunset .strip {
+  --paper:#ffe7c7;--ink:#9d594b;--edge:#dc987f;--decoration:#c87563;
+  background:radial-gradient(ellipse at 50% 0,#f4b2a3 0,transparent 50%),linear-gradient(#f7c5b0,#ffe7c7 55%,#fff4df);
+}
 .theme-sunset .strip:before { content:"☼ GOLDEN HOUR ☼"; }
-.theme-beigeBlue .strip { --paper:#f3ead6;--ink:#263c60;--edge:#b8c4d1;--decoration:#315d86;background:linear-gradient(90deg,#d7e4e8 0 10%,#f8f0df 10% 90%,#d7e4e8 90%); }
+
+.theme-beigeBlue .strip {
+  --paper:#f3ead6;--ink:#263c60;--edge:#b8c4d1;--decoration:#315d86;
+  background:linear-gradient(90deg,#d7e4e8 0 10%,#f8f0df 10% 90%,#d7e4e8 90%);
+}
 .theme-beigeBlue .strip:before { content:"✦ MEMORIES ✦"; }
-.theme-captured .strip { --paper:#1263b7;--ink:#fff;--edge:#0b4d9d;--decoration:#d6efff;background:linear-gradient(135deg,#1675cf,#07428c);border:0;border-radius:0; }
+
+.theme-captured .strip {
+  --paper:#1263b7;--ink:#fff;--edge:#0b4d9d;--decoration:#d6efff;
+  background:linear-gradient(135deg,#1675cf,#07428c);
+  border:0;border-radius:0;
+}
 .theme-captured .strip:before { content:"CAPTURED MOMENTS";color:white; }
 .theme-captured .strip-photo { border-radius:8px; }
-.theme-streetwear .strip { --paper:#081b51;--ink:#fff;--edge:#2975ff;--decoration:#51baff;background:linear-gradient(135deg,#07133d,#123a91);border:3px solid #0a102a;border-radius:0; }
-.theme-streetwear .strip:before { content:"HUMAN BEING";color:white;font-family:Arial,sans-serif;font-weight:900; }
-.theme-streetwear .strip-title { font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase; }
-.theme-retroFriends .strip { --paper:#f4e5bc;--ink:#6b4931;--edge:#b7a16b;--decoration:#68805a;background:radial-gradient(circle at 10% 10%,#d7dc9a 0 8%,transparent 9%),#f4e5bc;border:3px solid #9b8a53; }
+
+.theme-streetwear .strip {
+  --paper:#081b51;--ink:#fff;--edge:#2975ff;--decoration:#51baff;
+  background:linear-gradient(135deg,#07133d,#123a91);
+  border:3px solid #0a102a;border-radius:0;
+}
+.theme-streetwear .strip:before {
+  content:"HUMAN BEING";color:white;font-family:Arial,sans-serif;font-weight:900;
+}
+.theme-streetwear .strip-title {
+  font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;
+}
+
+.theme-retroFriends .strip {
+  --paper:#f4e5bc;--ink:#6b4931;--edge:#b7a16b;--decoration:#68805a;
+  background:radial-gradient(circle at 10% 10%,#d7dc9a 0 8%,transparent 9%),#f4e5bc;
+  border:3px solid #9b8a53;
+}
 .theme-retroFriends .strip:before { content:"GOOD VIBES ONLY"; }
-.theme-greenPlayer .strip { --paper:#16594d;--ink:#efffea;--edge:#75b89c;--decoration:#b7e7c6;background:linear-gradient(160deg,#174f48,#28715e);border:4px solid #d4e7d6;border-radius:5px; }
+
+.theme-greenPlayer .strip {
+  --paper:#16594d;--ink:#efffea;--edge:#75b89c;--decoration:#b7e7c6;
+  background:linear-gradient(160deg,#174f48,#28715e);
+  border:4px solid #d4e7d6;border-radius:5px;
+}
 .theme-greenPlayer .strip:before { content:"♡ OUR MOMENTS ♡";color:#eaffef; }
 .theme-greenPlayer .strip:after { content:"♫";color:#d6f5d9; }
 .theme-greenPlayer .strip-title { font-family:Arial,sans-serif;font-weight:bold; }
 .theme-greenPlayer .strip-photo { border:3px solid #bce2cc;border-radius:3px; }
-.theme-redCheck .strip { --paper:#fff5e9;--ink:#8d1d28;--edge:#a51f2b;--decoration:#a51f2b;background:repeating-conic-gradient(#bd2832 0 25%,#fff5e9 0 50%) 0 0/18px 18px;border:3px solid #a51f2b;border-radius:0; }
+
+.theme-redCheck .strip {
+  --paper:#fff5e9;--ink:#8d1d28;--edge:#a51f2b;--decoration:#a51f2b;
+  background:repeating-conic-gradient(#bd2832 0 25%,#fff5e9 0 50%) 0 0/18px 18px;
+  border:3px solid #a51f2b;border-radius:0;
+}
 .theme-redCheck .strip:before { content:"♥ CHERISHED ♥";color:white; }
-.theme-blackDoodle .strip { --paper:#101010;--ink:#fff;--edge:#f2d75d;--decoration:#f2d75d;background:#101010;border:3px solid #222;border-radius:0; }
+
+.theme-blackDoodle .strip {
+  --paper:#101010;--ink:#fff;--edge:#f2d75d;--decoration:#f2d75d;
+  background:#101010;border:3px solid #222;border-radius:0;
+}
 .theme-blackDoodle .strip:before { content:"✦ FRIENDS FOREVER ✦";color:#f2d75d; }
-.theme-groovy .strip { --paper:#ffbd65;--ink:#e34b20;--edge:#f36e28;--decoration:#e34b20;background:linear-gradient(135deg,#ffb24f,#ffe18b 50%,#ff9d62);border:4px solid #fff1c7; }
+
+.theme-groovy .strip {
+  --paper:#ffbd65;--ink:#e34b20;--edge:#f36e28;--decoration:#e34b20;
+  background:linear-gradient(135deg,#ffb24f,#ffe18b 50%,#ff9d62);
+  border:4px solid #fff1c7;
+}
 .theme-groovy .strip:before { content:"GROOVY ♡";font-family:Arial,sans-serif;font-weight:900; }
-.theme-purpleVintage .strip { --paper:#f1e5ce;--ink:#674f45;--edge:#b9a184;--decoration:#9a7564;background:repeating-linear-gradient(0deg,#f1e5ce 0 24px,#e5d6bd 25px 26px);border:4px double #9f8266;border-radius:0; }
+
+.theme-purpleVintage .strip {
+  --paper:#f1e5ce;--ink:#674f45;--edge:#b9a184;--decoration:#9a7564;
+  background:repeating-linear-gradient(0deg,#f1e5ce 0 24px,#e5d6bd 25px 26px);
+  border:4px double #9f8266;border-radius:0;
+}
 .theme-purpleVintage .strip:before { content:"NIGHT MOVIE"; }
-.theme-redFloral .strip { --paper:#fff1ed;--ink:#a83c42;--edge:#dc7e7c;--decoration:#c84f59;background:radial-gradient(circle at 8% 8%,#c9454d 0 4px,transparent 5px),#fff1ed;border:3px solid #d46c6d;border-radius:12px; }
+
+.theme-redFloral .strip {
+  --paper:#fff1ed;--ink:#a83c42;--edge:#dc7e7c;--decoration:#c84f59;
+  background:radial-gradient(circle at 8% 8%,#c9454d 0 4px,transparent 5px),#fff1ed;
+  border:3px solid #d46c6d;border-radius:12px;
+}
 .theme-redFloral .strip:before { content:"❀ YOUR STORY ❀"; }
-.theme-cartoon .strip { --paper:#ffe56d;--ink:#173d83;--edge:#f09b2c;--decoration:#ed6e27;background:linear-gradient(135deg,#ffe86e,#ffd65c 55%,#fff1a6);border:4px solid #17418c;border-radius:0; }
-.theme-cartoon .strip:before { content:"HEY! HELLO!";font-family:Arial,sans-serif;font-weight:900;color:#17418c; }
-.theme-cartoon .strip-title { font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase; }
+
+.theme-cartoon .strip {
+  --paper:#ffe56d;--ink:#173d83;--edge:#f09b2c;--decoration:#ed6e27;
+  background:linear-gradient(135deg,#ffe86e,#ffd65c 55%,#fff1a6);
+  border:4px solid #17418c;border-radius:0;
+}
+.theme-cartoon .strip:before {
+  content:"HEY! HELLO!";font-family:Arial,sans-serif;font-weight:900;color:#17418c;
+}
+.theme-cartoon .strip-title {
+  font-family:Arial,sans-serif;font-weight:900;text-transform:uppercase;
+}
 
 /* POPUP PRINTER */
 .print-modal {
-  position:fixed; inset:0; z-index:1000; padding:12px;
-  display:flex; align-items:center; justify-content:center;
-  background:rgba(46,26,37,.72); backdrop-filter:blur(5px); overflow-y:auto;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(46,26,37,.74);
+  backdrop-filter:blur(5px);
+  overflow-y:auto;
 }
 .print-dialog {
-  width:min(440px,100%); max-height:96dvh; overflow-y:auto;
-  overscroll-behavior:contain; position:relative; padding:20px 16px 22px;
-  border:1px solid #e7b7c7; border-radius:22px; background:#fffaf7;
-  box-shadow:0 25px 80px #2b12244d; text-align:center;
+  width:min(460px,100%);
+  max-height:96dvh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  position:relative;
+  padding:18px 16px 20px;
+  border:1px solid #e7b7c7;
+  border-radius:22px;
+  background:#fffaf7;
+  box-shadow:0 25px 80px #2b12244d;
+  text-align:center;
 }
 .modal-close {
-  position:absolute; right:12px; top:10px; width:34px; height:34px;
-  border:1px solid #eccbd5; border-radius:50%; background:white; color:#a04d6e; z-index:10;
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:34px;
+  height:34px;
+  border:1px solid #eccbd5;
+  border-radius:50%;
+  background:white;
+  color:#a04d6e;
+  z-index:10;
 }
-.print-dialog h3 { margin:6px 30px 5px; color:#b54f73; font-weight:normal; font-style:italic; }
-.modal-subtitle { color:#a17684; font:12px/1.6 Arial,sans-serif; margin:8px 0; min-height:20px; }
+.print-dialog h3 {
+  margin:6px 30px 5px;
+  color:#b54f73;
+  font-weight:normal;
+  font-style:italic;
+  font-size:25px;
+}
+.modal-subtitle {
+  color:#a17684;
+  font:12px/1.6 Arial,sans-serif;
+  margin:8px 0;
+  min-height:20px;
+}
 .countdown {
-  min-height:46px; display:grid; place-items:center;
-  font:bold 36px Arial,sans-serif; color:#d45d83;
+  min-height:43px;
+  display:grid;
+  place-items:center;
+  font:bold 36px Arial,sans-serif;
+  color:#d45d83;
 }
 .countdown.pop { animation:countPop .55s ease-out; }
 @keyframes countPop {
@@ -236,63 +547,166 @@ video { width:100%; max-height:350px; aspect-ratio:3/4; object-fit:cover; displa
   65% { transform:scale(1.18); opacity:1; }
   100% { transform:scale(1); opacity:1; }
 }
+
+/*
+  Area animasi dibuat tinggi.
+  Kertas bergerak ke bawah dari slot, tetapi bagian atas kertas
+  tetap terlihat dan seluruh hasil tidak dipotong oleh wadah.
+*/
 .printer-stage {
-  width:min(100%,340px); height:500px; margin:10px auto 0;
-  position:relative; overflow:hidden; isolation:isolate;
+  width:min(100%,350px);
+  height:610px;
+  margin:8px auto 0;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
 }
 .printer-machine {
-  position:absolute; top:0; left:0; right:0; z-index:3;
-  padding:0 12px 12px; background:linear-gradient(145deg,#f9dce3,#e6b9c7);
-  border:1px solid #d9a4b4; border-radius:18px 18px 12px 12px;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:4;
+  padding:0 12px 12px;
+  background:linear-gradient(145deg,#f9dce3,#e6b9c7);
+  border:1px solid #d9a4b4;
+  border-radius:18px 18px 12px 12px;
   box-shadow:0 7px 16px #a15c7024;
 }
 .printer-top {
-  height:38px; display:grid; place-items:center; color:#94566b;
-  font:bold 9px Arial,sans-serif; letter-spacing:1.5px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  color:#94566b;
+  font:bold 9px Arial,sans-serif;
+  letter-spacing:1.5px;
 }
 .printer-front {
-  height:30px; display:grid; place-items:center; color:#94566b;
-  font:bold 9px Arial,sans-serif; letter-spacing:1px;
-  background:linear-gradient(145deg,#f3cbd6,#e6b9c7); border-top:1px solid #d9a4b4;
+  height:30px;
+  display:grid;
+  place-items:center;
+  color:#94566b;
+  font:bold 9px Arial,sans-serif;
+  letter-spacing:1px;
+  background:linear-gradient(145deg,#f3cbd6,#e6b9c7);
+  border-top:1px solid #d9a4b4;
 }
 .printer-mouth {
-  height:22px; margin:0; position:relative; z-index:5;
-  border:2px solid #b77f90; border-radius:5px; background:#39262e;
+  height:22px;
+  margin:0;
+  position:relative;
+  z-index:6;
+  border:2px solid #b77f90;
+  border-radius:5px;
+  background:#39262e;
   box-shadow:inset 0 2px 3px #0004;
 }
 .paper-holder {
-  position:absolute; z-index:2; top:98px; left:38px; right:38px;
-  opacity:0; pointer-events:none; transform:translateY(-360px);
-  transform-origin:top center; will-change:transform,opacity;
+  position:absolute;
+  z-index:2;
+  top:103px;
+  left:26px;
+  right:26px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(-620px);
+  will-change:transform,opacity;
 }
 #printGallery {
-  width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:4px; padding:4px; background:#fffaf6;
-  border:1px solid #ead4d9; box-shadow:0 8px 18px #6e344222;
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:4px;
+  padding:4px;
+  background:#fffaf6;
+  border:1px solid #ead4d9;
+  box-shadow:0 8px 18px #6e344222;
 }
 .paper-holder .strip {
-  min-width:0; height:330px; padding:5px 4px; border-width:1px;
-  border-radius:2px; box-shadow:none; display:flex; flex-direction:column;
+  min-width:0;
+  height:480px;
+  padding:7px 5px 6px;
+  border-width:1px;
+  border-radius:2px;
+  box-shadow:none;
+  display:flex;
+  flex-direction:column;
 }
-.paper-holder .strip:before { top:2px; font-size:5px; letter-spacing:1px; }
-.paper-holder .strip:after { bottom:10px; right:2px; font-size:8px; }
-.paper-holder .strip-title { font-size:7px; line-height:1.2; margin:12px 0 4px; padding:0 1px; }
-.paper-holder .strip-date { font-size:5px; letter-spacing:.3px; margin-bottom:5px; }
-.paper-holder .strip-photos { flex:1; min-height:0; gap:4px; padding:0 2px; }
+.paper-holder .strip:before {
+  top:2px;
+  font-size:5px;
+  letter-spacing:.5px;
+}
+.paper-holder .strip:after {
+  bottom:10px;
+  right:2px;
+  font-size:8px;
+}
+.paper-holder .strip-title {
+  font-size:7px;
+  line-height:1.2;
+  margin:12px 0 4px;
+  padding:0 1px;
+}
+.paper-holder .strip-date {
+  font-size:5px;
+  letter-spacing:.3px;
+  margin-bottom:5px;
+}
+.paper-holder .strip-photos {
+  flex:1;
+  min-height:0;
+  gap:4px;
+  padding:0 2px;
+}
 .paper-holder .strip-photo {
-  flex:1; min-height:0; width:100%!important; aspect-ratio:auto!important;
-  border-width:1px; box-shadow:none; transform:none!important;
+  flex:1;
+  min-height:0;
+  width:100%!important;
+  aspect-ratio:4/5!important;
+  border-width:1px;
+  box-shadow:none;
+  transform:none!important;
 }
-.paper-holder .strip-foot { font-size:4px; letter-spacing:0; margin-top:6px; padding:4px 1px 0; line-height:1.35; }
-.printer-stage.printing .paper-holder { animation:paperEmerge 2.4s cubic-bezier(.2,.7,.2,1) forwards; }
-.printer-stage.printed .paper-holder { opacity:1; transform:translateY(0); }
+.paper-holder .strip-photo img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.paper-holder .strip-foot {
+  font-size:4px;
+  letter-spacing:0;
+  margin-top:6px;
+  padding:4px 1px 0;
+  line-height:1.35;
+}
+.printer-stage.printing .paper-holder {
+  animation:paperEmerge 2.6s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.printer-stage.printed .paper-holder {
+  opacity:1;
+  transform:translateY(0);
+}
 @keyframes paperEmerge {
-  0% { opacity:0; transform:translateY(-360px); }
-  12% { opacity:1; transform:translateY(-360px); }
+  0% { opacity:0; transform:translateY(-620px); }
+  10% { opacity:1; transform:translateY(-620px); }
   100% { opacity:1; transform:translateY(0); }
 }
-.print-message { text-align:center; font:12px/1.6 Arial,sans-serif; color:#a17681; margin:4px 0 10px; min-height:19px; }
-.modal-actions { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; width:100%; margin:8px auto 0; }
+.print-message {
+  text-align:center;
+  font:12px/1.6 Arial,sans-serif;
+  color:#a17681;
+  margin:4px 0 10px;
+  min-height:19px;
+}
+.modal-actions {
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  width:100%;
+  margin:8px auto 0;
+}
 .modal-actions button { flex:1 1 140px; min-height:42px; }
 .modal-actions .download-ready { animation:buttonReveal .35s ease-out both; }
 @keyframes buttonReveal {
@@ -300,90 +714,138 @@ video { width:100%; max-height:350px; aspect-ratio:3/4; object-fit:cover; displa
   to { opacity:1; transform:translateY(0); }
 }
 
-/* EKSPOR: GABUNGAN DUA STRIP = 1080 x 2400 PX */
+/*
+  EKSPOR FINAL:
+  SATU PNG GABUNGAN 1080 x 2400 PX.
+  Dua strip masing-masing 540 x 2400 PX.
+  Frame foto memakai ukuran tetap agar tidak memanjang mengikuti sisa tinggi.
+*/
 #exportStage {
-  position:fixed; left:-30000px; top:0; z-index:-10;
-  width:1080px; height:2400px; display:flex; gap:0;
-  background:#fffaf6; overflow:hidden;
+  position:fixed;
+  left:-30000px;
+  top:0;
+  z-index:-10;
+  width:1080px;
+  height:2400px;
+  display:flex;
+  gap:0;
+  background:#fffaf6;
+  overflow:hidden;
 }
 .export-strip {
-  width:540px!important; height:2400px!important;
-  min-width:540px!important; max-width:540px!important;
-  flex:0 0 540px!important; padding:75px 34px 65px!important;
-  border-width:6px!important; border-radius:4px!important;
-  box-shadow:none!important; display:flex!important;
-  flex-direction:column!important; overflow:hidden!important;
+  width:540px!important;
+  height:2400px!important;
+  min-width:540px!important;
+  max-width:540px!important;
+  flex:0 0 540px!important;
+  padding:55px 35px 42px!important;
+  border-width:5px!important;
+  border-radius:4px!important;
+  box-shadow:none!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
 }
-.export-strip:before { top:25px!important; font-size:19px!important; letter-spacing:5px!important; }
-.export-strip:after { bottom:40px!important; right:20px!important; font-size:36px!important; }
+.export-strip:before {
+  top:17px!important;
+  font-size:17px!important;
+  letter-spacing:4px!important;
+}
+.export-strip:after {
+  bottom:25px!important;
+  right:15px!important;
+  font-size:30px!important;
+}
 .export-strip .strip-title {
-  flex:0 0 auto; font-size:34px!important; line-height:1.25!important;
-  margin:55px 8px 18px!important; padding:0 10px!important;
+  flex:0 0 auto;
+  font-size:30px!important;
+  line-height:1.2!important;
+  margin:33px 5px 12px!important;
+  padding:0 8px!important;
 }
 .export-strip .strip-date {
-  flex:0 0 auto; font-size:17px!important; letter-spacing:3px!important; margin-bottom:24px!important;
+  flex:0 0 auto;
+  font-size:15px!important;
+  letter-spacing:2.5px!important;
+  margin-bottom:20px!important;
 }
 .export-strip .strip-photos {
-  flex:1 1 auto!important; min-height:0!important; padding:0 8px!important;
-  gap:20px!important; justify-content:space-evenly!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  padding:0 8px!important;
+  gap:15px!important;
+  justify-content:space-evenly!important;
+  align-items:stretch!important;
 }
 .export-strip .strip-photo {
-  flex:1 1 0!important; min-height:0!important; max-height:none!important;
-  width:100%!important; aspect-ratio:auto!important; border-width:5px!important;
+  flex:0 0 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  width:100%!important;
+  aspect-ratio:4/5!important;
+  height:auto!important;
+  border-width:4px!important;
+  transform:none!important;
+  overflow:hidden!important;
 }
-.export-strip .strip-photo:nth-child(1) { width:96%!important; }
-.export-strip .strip-photo:nth-child(2) { width:93%!important; }
-.export-strip .strip-photo:nth-child(3) { width:96%!important; }
+.export-strip .strip-photo:nth-child(1),
+.export-strip .strip-photo:nth-child(2),
+.export-strip .strip-photo:nth-child(3) {
+  width:100%!important;
+  align-self:stretch!important;
+}
+.export-strip .strip-photo img {
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
 .export-strip .strip-photo .empty { font-size:22px!important; }
 .export-strip .strip-foot {
-  flex:0 0 auto; font-size:13px!important; letter-spacing:1.5px!important;
-  line-height:1.5!important; margin-top:24px!important; padding:18px 5px 0!important;
+  flex:0 0 auto;
+  font-size:12px!important;
+  letter-spacing:1px!important;
+  line-height:1.5!important;
+  margin-top:20px!important;
+  padding:15px 5px 0!important;
   border-top-width:2px!important;
 }
-#exportStage .strip-photo img { width:100%!important; height:100%!important; object-fit:cover!important; }
-footer { text-align:center; color:#b28c94; font-size:12px; padding:25px 12px; }
+footer {
+  text-align:center;
+  color:#b28c94;
+  font-size:12px;
+  padding:25px 12px;
+}
 .toast {
-  position:fixed; z-index:1200; bottom:20px; left:50%; transform:translateX(-50%);
-  background:#674652; color:white; border-radius:25px; padding:11px 17px;
-  font:12px Arial,sans-serif; max-width:90vw; text-align:center;
+  position:fixed;
+  z-index:1200;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#674652;
+  color:white;
+  border-radius:25px;
+  padding:11px 17px;
+  font:12px Arial,sans-serif;
+  max-width:90vw;
+  text-align:center;
 }
 @media(max-width:760px) {
   header { flex-wrap:wrap; padding:14px; }
-  .tagline { display:none; }
-  main { width:calc(100% - 16px); margin:14px auto; }
   .layout { grid-template-columns:1fr; }
-  .preview-panel { order:-1; }
-  #stripGallery { width:min(100%,460px); gap:10px; }
-  .strip { padding:9px 6px 10px; }
-  .strip-title { font-size:clamp(10px,2.7vw,15px); }
-  .strip-photos { gap:6px; }
-  .print-modal { padding:8px; }
-  .print-dialog { width:min(420px,100%); padding:18px 12px 20px; max-height:96dvh; }
-  .printer-stage { width:min(100%,320px); height:450px; }
-  .paper-holder { left:30px; right:30px; }
-  .paper-holder .strip { height:300px; }
-  #printGallery { gap:3px; padding:3px; }
-  .paper-holder .strip { padding:4px 3px; }
-  .paper-holder .strip-title { font-size:6px; }
-  .paper-holder .strip-date { font-size:4px; }
-  .paper-holder .strip-foot { font-size:3.5px; }
-  .modal-actions button { flex:1 1 120px; }
+  #stripGallery { width:min(100%,460px); gap:8px; }
+  .strip { padding:8px 6px 9px; }
+  .strip-title { margin-top:17px; }
+  .print-dialog { padding:17px 12px 18px; }
+  .printer-stage { height:570px; }
+  .paper-holder { left:20px; right:20px; }
+  .paper-holder .strip { height:445px; }
 }
-@media(max-width:380px) {
-  #stripGallery { gap:6px; }
-  .strip { padding:8px 4px; }
-  .strip-photos { gap:5px; padding:0 1px; }
-  .strip-title { font-size:10px; }
-  .strip-foot { font-size:6px; }
-  .panel { padding:13px; }
-  .printer-stage { height:420px; }
-  .paper-holder { left:24px; right:24px; }
-  .paper-holder .strip { height:280px; }
-  .modal-actions { gap:6px; }
-  .modal-actions button { font-size:13px; padding:10px; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+@media(max-width:360px) {
+  .theme-grid { grid-template-columns:1fr; }
+  .printer-stage { height:520px; }
+  .paper-holder .strip { height:405px; }
 }
 </style>
 </head>
@@ -391,134 +853,148 @@ footer { text-align:center; color:#b28c94; font-size:12px; padding:25px 12px; }
 <body class="theme-flower">
 <header>
   <div class="brand">Our Little Photobooth ♡</div>
-  <div class="tagline">Same person, different moments,<br>always you ♡</div>
   <div class="header-buttons">
-    <button id="musicBtn" class="pill" type="button">♫ Musik</button>
-    <button id="homeBtn" class="pill" type="button">⌂ Awal</button>
+    <button class="pill" id="homeBtn" type="button">⌂ Home</button>
   </div>
 </header>
 
 <main>
-<section id="welcome" class="welcome">
-  <div class="card center">
-    <div style="font-size:30px;color:#d58ba3">୨୧ ✿ ♡ ❀</div>
-    <div class="eyebrow">A Little Celebration of Us</div>
-    <h1>Our Little<br>Photobooth ♡</h1>
-    <p class="copy">A little gift made with lots of love, just for you.</p>
-    <button id="startBtn" class="primary" type="button">Buka Surprise ♡</button>
-  </div>
-</section>
+  <!-- HALAMAN 1: WELCOME -->
+  <section id="welcome" class="welcome">
+    <article class="card center">
+      <div class="eyebrow">A little place for our memories</div>
+      <h1>Our Little Moments ♡</h1>
+      <p class="copy">
+        A little photobooth for the moments, smiles, and memories
+        that we want to keep forever.
+      </p>
+      <p class="copy">Made with love, just for us. ♡</p>
+      <button id="startBtn" class="primary" type="button">Open Your Letter 💌</button>
+    </article>
+  </section>
 
-<section id="letterPage" class="welcome hidden">
-  <article class="card letter">
-    <div class="center">
-      <div style="font-size:30px;color:#d58ba3">✿ ♡ ❀</div>
-      <div class="eyebrow">A Letter From My Heart</div>
-      <h2>Happy 5 Months, My Love ♡</h2>
+  <!-- HALAMAN 2: LETTER -->
+  <section id="letterPage" class="hidden">
+    <article class="card letter">
+      <div class="eyebrow center">To my favorite person</div>
+      <h2 class="center">Little Things, With You ♡</h2>
+      <p>Happy five months, sayangku. ♡</p>
+      <p>
+        Terima kasih sudah hadir dan membuat hari-hariku terasa lebih
+        berarti. Hal-hal kecil bersama kamu selalu menjadi kenangan
+        yang ingin aku simpan baik-baik.
+      </p>
+      <p>
+        Aku berharap kita bisa terus bersama untuk selamanya. Aku
+        berharap kamu suka dengan hadiah surprise dari aku.
+      </p>
+      <p>
+        Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu
+        suka, pasang pose terlucu kamu, dan jangan lupa senyum paling
+        manisnya, yaa.
+      </p>
+      <p class="signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
+      <p class="center note">11 · 10 · 2026 — Our 5th Month Anniversary</p>
+      <div class="center">
+        <button id="toBoothBtn" class="primary" type="button">Let's go Photobooth! 📸</button>
+      </div>
+    </article>
+  </section>
+
+  <!-- HALAMAN 3: PHOTOBOOTH -->
+  <section id="booth" class="hidden">
+    <div class="booth-heading">
+      <div class="eyebrow">Choose · Pose · Print</div>
+      <h2>Our Little Photobooth ♡</h2>
+      <p>Pilih tema, ambil 3 foto, lalu cetak kenangan kalian.</p>
     </div>
-    <p><strong>Hai, Sayang.. ❤️<br>Happy Anniversary yang ke-5 bulan! ♡</strong></p>
-    <p>Aku seneng banget, nggak terasa kita udah sampai lima bulan. Selama lima bulan ini, kita punya banyak cerita yang berarti. Ada tawa, sedih, romantis, lucu, dan masih banyak lagi. Semua itu bikin aku happy banget karena bisa melewati semuanya bersama orang yang aku sayang.</p>
-    <p>Maaf ya kalau aku belum bisa memberikan sesuatu yang mewah atau sempurna buat kamu. Tapi, aku memberikan sesuatu yang kubuat sendiri, sesuatu yang bisa kamu nikmati dan simpan sebagai kenangan kecil dari perjalanan kita.</p>
-    <p>Karena kamu suka photobooth, makanya aku membuat ini khusus buat kamu. Aku ingin kita punya lebih banyak foto, lebih banyak kenangan, dan lebih banyak alasan untuk tersenyum setiap kali mengingat hari-hari yang sudah kita lewati bersama.</p>
-    <p>Terima kasih sudah hadir di hidup aku, sudah menjadi tempat aku berbagi cerita, dan sudah menjadi seseorang yang begitu berarti buat aku. Aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
-    <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa.</p>
-    <p class="signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
-    <p class="center note">11 · 10 · 2026 — Our 5th Month Anniversary</p>
-    <div class="center"><button id="toBoothBtn" class="primary" type="button">Let's go Photobooth! 📸</button></div>
-  </article>
-</section>
 
-<section id="booth" class="hidden">
-  <div class="booth-heading">
-    <div class="eyebrow">Choose · Pose · Print</div>
-    <h2>Our Little Photobooth ♡</h2>
-    <p>Pilih tema, ambil 3 foto, lalu cetak kenangan kalian.</p>
-  </div>
+    <div class="layout">
+      <div class="controls">
+        <section class="panel">
+          <label class="label">1. Pilih Tema Photostrip</label>
+          <div class="theme-grid" id="themeList">
+            <button class="theme-btn active" data-theme="flower" type="button">💗 Our Five Months<small>Anniversary</small></button>
+            <button class="theme-btn" data-theme="letter" type="button">💌 Anniversary Letter<small>Little Things, With You</small></button>
+            <button class="theme-btn" data-theme="kawaii" type="button">📸 Our Little Memories<small>Five Months of Us</small></button>
+            <button class="theme-btn" data-theme="film" type="button">🎞 Classic Film<small>Our Little Moments</small></button>
+            <button class="theme-btn" data-theme="coquette" type="button">🎀 Coquette<small>My Darling</small></button>
+            <button class="theme-btn" data-theme="stars" type="button">🌙 Moon & Stars<small>You're My Universe</small></button>
+            <button class="theme-btn" data-theme="y2k" type="button">💿 Retro Y2K<small>LOVE U 4EVER</small></button>
+            <button class="theme-btn" data-theme="botanical" type="button">🌿 Vintage Botanical<small>A Love to Keep</small></button>
+            <button class="theme-btn" data-theme="pixel" type="button">👾 Pixel Love<small>Player 1 + Player 2</small></button>
+            <button class="theme-btn" data-theme="sunset" type="button">🌅 Golden Sunset<small>Meet Me at Sunset</small></button>
+            <button class="theme-btn" data-theme="beigeBlue" type="button">🩵 Beige & Blue<small>Modern Memories</small></button>
+            <button class="theme-btn" data-theme="captured" type="button">💙 Captured Moments<small>Timeless Memories</small></button>
+            <button class="theme-btn" data-theme="streetwear" type="button">🧢 Streetwear Y2K<small>Human Being</small></button>
+            <button class="theme-btn" data-theme="retroFriends" type="button">🍄 Retro Friends<small>Good Vibes</small></button>
+            <button class="theme-btn" data-theme="greenPlayer" type="button">🎵 Green Music Player<small>Favorite Playlist</small></button>
+            <button class="theme-btn" data-theme="redCheck" type="button">💗 Red Checkerboard<small>Playful Love</small></button>
+            <button class="theme-btn" data-theme="blackDoodle" type="button">🖤 Black Doodle<small>Besties Forever</small></button>
+            <button class="theme-btn" data-theme="groovy" type="button">🧡 Groovy Happiness<small>Good Times</small></button>
+            <button class="theme-btn" data-theme="purpleVintage" type="button">📼 Purple Vintage<small>Night Movie</small></button>
+            <button class="theme-btn" data-theme="redFloral" type="button">🌹 Red Floral<small>Your Story</small></button>
+            <button class="theme-btn" data-theme="cartoon" type="button">💛 Cartoon Pop<small>Hey! Hello!</small></button>
+          </div>
+        </section>
 
-  <div class="layout">
-    <div class="controls">
-      <section class="panel">
-        <label class="label">1. Pilih Tema (21 Desain)</label>
-        <div class="theme-grid" id="themeList">
-          <button class="theme-btn active" data-theme="flower" type="button">💗 Our Five Months<small>Anniversary</small></button>
-          <button class="theme-btn" data-theme="letter" type="button">💌 Anniversary Letter<small>Little Things, With You</small></button>
-          <button class="theme-btn" data-theme="kawaii" type="button">📸 Our Little Memories<small>Five Months of Us</small></button>
-          <button class="theme-btn" data-theme="film" type="button">🎞 Classic Film<small>Our Little Moments</small></button>
-          <button class="theme-btn" data-theme="coquette" type="button">🎀 Coquette<small>My Darling</small></button>
-          <button class="theme-btn" data-theme="stars" type="button">🌙 Moon & Stars<small>You're My Universe</small></button>
-          <button class="theme-btn" data-theme="y2k" type="button">💿 Retro Y2K<small>LOVE U 4EVER</small></button>
-          <button class="theme-btn" data-theme="botanical" type="button">🌿 Vintage Botanical<small>A Love to Keep</small></button>
-          <button class="theme-btn" data-theme="pixel" type="button">👾 Pixel Love<small>Player 1 + Player 2</small></button>
-          <button class="theme-btn" data-theme="sunset" type="button">🌅 Golden Sunset<small>Meet Me at Sunset</small></button>
-          <button class="theme-btn" data-theme="beigeBlue" type="button">🩵 Beige & Blue<small>Modern Memories</small></button>
-          <button class="theme-btn" data-theme="captured" type="button">💙 Captured Moments<small>Timeless Memories</small></button>
-          <button class="theme-btn" data-theme="streetwear" type="button">🧢 Streetwear Y2K<small>Human Being</small></button>
-          <button class="theme-btn" data-theme="retroFriends" type="button">🍄 Retro Friends<small>Good Vibes</small></button>
-          <button class="theme-btn" data-theme="greenPlayer" type="button">🎵 Green Music Player<small>Favorite Playlist</small></button>
-          <button class="theme-btn" data-theme="redCheck" type="button">❤️ Red Checkerboard<small>Playful Love</small></button>
-          <button class="theme-btn" data-theme="blackDoodle" type="button">🖤 Black Doodle<small>Friendship Forever</small></button>
-          <button class="theme-btn" data-theme="groovy" type="button">🧡 Groovy Happiness<small>Good Times</small></button>
-          <button class="theme-btn" data-theme="purpleVintage" type="button">📼 Purple Vintage<small>Night Movie</small></button>
-          <button class="theme-btn" data-theme="redFloral" type="button">🌹 Red Floral<small>Your Story</small></button>
-          <button class="theme-btn" data-theme="cartoon" type="button">💛 Cartoon Pop<small>Hey! Hello!</small></button>
+        <section class="panel">
+          <h3>2. Ambil 3 Foto</h3>
+          <p id="stepText" class="step">Foto 1 dari 3 · belum diisi</p>
+          <div id="progress" class="progress">
+            <span class="current"></span><span></span><span></span>
+          </div>
+
+          <div class="actions">
+            <button id="uploadBtn" class="secondary" type="button">↑ Upload Foto</button>
+            <button id="cameraBtn" class="primary" type="button">📷 Kamera</button>
+          </div>
+          <input id="fileInput" class="hidden" type="file" accept="image/*">
+
+          <div id="cameraPanel" class="hidden">
+            <div class="camera"><video id="video" autoplay playsinline muted></video></div>
+            <div class="camera-actions">
+              <button id="captureBtn" class="primary" type="button">Ambil Foto</button>
+              <button id="closeCameraBtn" class="secondary" type="button">Tutup Kamera</button>
+            </div>
+            <p class="note">Kamera membutuhkan izin browser dan koneksi HTTPS atau localhost.</p>
+          </div>
+
+          <div class="actions" style="margin-top:12px">
+            <button id="retakeBtn" class="secondary" type="button" disabled>↻ Retake</button>
+            <button id="okayBtn" class="primary" type="button" disabled>Okee ✓</button>
+            <button id="resetBtn" class="secondary" type="button">Reset</button>
+          </div>
+          <p id="status" class="status" aria-live="polite">Pilih tema, lalu ambil atau upload foto.</p>
+        </section>
+      </div>
+
+      <section class="panel preview-panel">
+        <h3>✧ Preview Photostrip</h3>
+        <div class="preview-wrap">
+          <div id="stripGallery">
+            <div id="strip1" class="strip">
+              <div class="strip-title">Our Five Months ♡</div>
+              <div class="strip-date">11 · 10 · 2026</div>
+              <div class="strip-photos" id="photos1"></div>
+              <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
+            </div>
+            <div id="strip2" class="strip">
+              <div class="strip-title">Our Five Months ♡</div>
+              <div class="strip-date">11 · 10 · 2026</div>
+              <div class="strip-photos" id="photos2"></div>
+              <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
+            </div>
+          </div>
         </div>
-      </section>
-
-      <section class="panel">
-        <label class="label">2. Ambil 3 Foto</label>
-        <div class="progress" id="progress"><span></span><span></span><span></span></div>
-        <p id="stepText" class="step">Foto 1 dari 3 · belum diisi</p>
+        <p class="note center">Dua strip berdampingan. Setiap strip berisi 3 foto.</p>
+        <p class="note center">Ukuran PNG gabungan: 1080 × 2400 piksel.</p>
         <div class="actions">
-          <button id="uploadBtn" class="secondary" type="button">♧ Upload Foto</button>
-          <button id="cameraBtn" class="primary" type="button">📷 Kamera Langsung</button>
+          <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>        
         </div>
-        <input id="fileInput" class="hidden" type="file" accept="image/*">
-
-        <div id="cameraPanel" class="hidden">
-          <div class="camera"><video id="video" autoplay playsinline muted></video></div>
-          <div class="camera-actions">
-            <button id="captureBtn" class="primary" type="button">Ambil Foto</button>
-            <button id="closeCameraBtn" class="secondary" type="button">Tutup Kamera</button>
-          </div>
-          <p class="note">Kamera membutuhkan izin browser dan koneksi HTTPS atau localhost.</p>
-        </div>
-
-        <div class="actions" style="margin-top:12px">
-          <button id="retakeBtn" class="secondary" type="button">↻ Retake</button>
-          <button id="okayBtn" class="primary" type="button">Okee ✓</button>
-          <button id="resetBtn" class="secondary" type="button">Reset</button>
-        </div>
-        <p id="status" class="status" aria-live="polite">Pilih tema, lalu ambil atau upload foto.</p>
       </section>
     </div>
-
-    <section class="panel preview-panel">
-      <h3>✧ Preview Photostrip</h3>
-      <div class="preview-wrap">
-        <div id="stripGallery">
-          <div id="strip1" class="strip">
-            <div class="strip-title">Our Five Months ♡</div>
-            <div class="strip-date">11 · 10 · 2026</div>
-            <div class="strip-photos" id="photos1"></div>
-            <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
-          </div>
-          <div id="strip2" class="strip">
-            <div class="strip-title">Our Five Months ♡</div>
-            <div class="strip-date">11 · 10 · 2026</div>
-            <div class="strip-photos" id="photos2"></div>
-            <div class="strip-foot">FIVE MONTHS DOWN, FOREVER TO GO ♡</div>
-          </div>
-        </div>
-      </div>
-      <p class="note center">Dua strip berdampingan. Setiap strip berisi 3 foto dengan susunan berbeda.</p>
-      <p class="note center">Ukuran PNG gabungan: 1080 × 2400 piksel.</p>
-      <div class="actions">
-        <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
-        <button id="downloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
-      </div>
-    </section>
-  </div>
-</section>
+  </section>
 </main>
 
 <footer>MADE WITH LOVE ♡ OUR LITTLE PHOTOBOOTH</footer>
@@ -550,16 +1026,14 @@ footer { text-align:center; color:#b28c94; font-size:12px; padding:25px 12px; }
 </div>
 
 <div id="toast" class="toast hidden" role="status"></div>
-
-<audio id="music" preload="metadata" loop>
-  <source src="assets/Stephen Sanchez - Until I Found You (Official Video).mp3" type="audio/mpeg">
-</audio>
 <div id="exportStage" aria-hidden="true"></div>
 
 <script>
 (() => {
 "use strict";
+
 const $ = id => document.getElementById(id);
+
 const themeData = {
   flower:{title:"Our Five Months ♡",foot:"FIVE MONTHS DOWN, FOREVER TO GO ♡"},
   letter:{title:"Little Things, With You",foot:"SEALED WITH LOVE · 11.10.26"},
@@ -586,78 +1060,96 @@ const themeData = {
 
 const orders = [[0,1,2],[1,2,0]];
 const photos = Array.from({length:3},()=>({src:null,locked:false}));
+
 let activeIndex = 0;
 let currentTheme = "flower";
 let stream = null;
 let printing = false;
 let printed = false;
 let toastTimer = null;
+let printRun = 0;
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve,ms));
-}
+const wait = ms => new Promise(resolve=>setTimeout(resolve,ms));
+
 function toast(message) {
   $("toast").textContent = message;
   $("toast").classList.remove("hidden");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=>$("toast").classList.add("hidden"),2800);
 }
+
 function setStatus(message) {
   $("status").textContent = message;
 }
+
 function complete() {
-  return photos.every(p=>p.src && p.locked);
+  return photos.every(photo=>photo.src && photo.locked);
 }
+
 function nextUnlocked() {
-  const i = photos.findIndex(p=>!p.locked);
-  if(i !== -1) activeIndex = i;
+  const index = photos.findIndex(photo=>!photo.locked);
+  if(index !== -1) activeIndex = index;
 }
+
 function showScreen(id) {
-  ["welcome","letterPage","booth"].forEach(s=>$ (s).classList.toggle("hidden",s!==id));
+  ["welcome","letterPage","booth"].forEach(screen=>{
+    $(screen).classList.toggle("hidden",screen!==id);
+  });
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function showPrintModal() {
   $("printModal").classList.remove("hidden");
 }
+
 function closePrintModal() {
   if(printing) return;
   $("printModal").classList.add("hidden");
 }
+
 function resetPrinter() {
-  printed = false;
+  printRun++;
   printing = false;
+  printed = false;
+
   $("printerStage").classList.remove("printing","printed");
   $("paperHolder").innerHTML = "";
   $("countdown").textContent = "";
+
   $("modalDownloadBtn").classList.add("hidden");
   $("modalDownloadBtn").classList.remove("download-ready");
   $("modalDownloadBtn").disabled = true;
   $("modalDoneBtn").disabled = true;
   $("modalCloseBtn").disabled = false;
+
+  $("printBtn").textContent = "▣ Cetak";
   $("printBtn").disabled = !complete();
   $("downloadBtn").disabled = !complete();
-  $("printBtn").textContent = "▣ Cetak";
+
   $("printMessage").textContent = "Printer akan mulai dalam 3 detik… ♡";
   $("printMessageBottom").textContent = "Menyiapkan kenangan kecilmu…";
 }
+
 function setTheme(theme) {
   if(!themeData[theme]) return;
   currentTheme = theme;
   document.body.className = "theme-" + theme;
 
-  document.querySelectorAll(".theme-btn").forEach(b=>{
-    const active = b.dataset.theme === theme;
-    b.classList.toggle("active",active);
-    b.setAttribute("aria-pressed",String(active));
+  document.querySelectorAll(".theme-btn").forEach(button=>{
+    const active = button.dataset.theme === theme;
+    button.classList.toggle("active",active);
+    button.setAttribute("aria-pressed",String(active));
   });
 
   ["strip1","strip2"].forEach(id=>{
     $(id).querySelector(".strip-title").textContent = themeData[theme].title;
     $(id).querySelector(".strip-foot").textContent = themeData[theme].foot;
   });
+
   resetPrinter();
   renderPhotos();
 }
+
 function makeFrame(photo,index,active) {
   const frame = document.createElement("div");
   frame.className = "strip-photo";
@@ -676,21 +1168,35 @@ function makeFrame(photo,index,active) {
   }
   return frame;
 }
+
 function renderPhotos() {
   nextUnlocked();
   $("photos1").innerHTML = "";
   $("photos2").innerHTML = "";
-  orders[0].forEach(i=>$("photos1").appendChild(makeFrame(photos[i],i,i===activeIndex&&!photos[i].locked&&!complete())));
-  orders[1].forEach(i=>$("photos2").appendChild(makeFrame(photos[i],i,false)));
+
+  orders[0].forEach(index=>{
+    $("photos1").appendChild(
+      makeFrame(photos[index],index,index===activeIndex&&!photos[index].locked&&!complete())
+    );
+  });
+
+  orders[1].forEach(index=>{
+    $("photos2").appendChild(makeFrame(photos[index],index,false));
+  });
+
   updateControls();
 }
+
 function updateControls() {
   nextUnlocked();
-  $("progress").querySelectorAll("span").forEach((bar,i)=>{
-    bar.classList.toggle("done",photos[i].locked);
-    bar.classList.toggle("current",i===activeIndex&&!complete());
+
+  $("progress").querySelectorAll("span").forEach((bar,index)=>{
+    bar.classList.toggle("done",photos[index].locked);
+    bar.classList.toggle("current",index===activeIndex&&!complete());
   });
+
   const done = complete();
+
   $("stepText").textContent = done
     ? "3 dari 3 foto terkunci · siap dicetak ♡"
     : `Foto ${activeIndex+1} dari 3 · ${photos[activeIndex].src?"siap diperiksa":"belum diisi"}`;
@@ -702,8 +1208,8 @@ function updateControls() {
   $("captureBtn").disabled = done || photos[activeIndex].locked;
   $("printBtn").disabled = !done || printed || printing;
   $("downloadBtn").disabled = !done;
-  $("modalDownloadBtn").disabled = !done;
 }
+
 function loadFile(file) {
   if(!file || !file.type.startsWith("image/")) {
     toast("Pilih file gambar ya ♡");
@@ -713,6 +1219,7 @@ function loadFile(file) {
     toast("Foto ini sudah terkunci. Tekan Reset untuk mulai lagi.");
     return;
   }
+
   const reader = new FileReader();
   reader.onload = () => {
     const image = new Image();
@@ -728,6 +1235,7 @@ function loadFile(file) {
   reader.onerror = () => toast("Gambar tidak berhasil dibaca.");
   reader.readAsDataURL(file);
 }
+
 function retake() {
   if(complete() || photos[activeIndex].locked) {
     toast("Foto terkunci. Tekan Reset untuk mulai lagi.");
@@ -738,6 +1246,7 @@ function retake() {
   renderPhotos();
   setStatus("Frame "+(activeIndex+1)+" siap diulang ♡");
 }
+
 function confirmPhoto() {
   const photo = photos[activeIndex];
   if(!photo || !photo.src) {
@@ -745,7 +1254,9 @@ function confirmPhoto() {
     return;
   }
   if(photo.locked) return;
+
   photo.locked = true;
+
   if(complete()) {
     renderPhotos();
     resetPrinter();
@@ -758,15 +1269,20 @@ function confirmPhoto() {
     toast("Foto tersimpan ♡");
   }
 }
+
 async function openCamera() {
   if(complete()) return;
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     toast("Kamera membutuhkan HTTPS atau localhost. Kamu bisa upload foto.");
     return;
   }
+
   try {
     closeCamera();
-    stream = await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user"}});
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio:false,
+      video:{facingMode:"user"}
+    });
     $("video").srcObject = stream;
     $("cameraPanel").classList.remove("hidden");
     await $("video").play();
@@ -776,6 +1292,7 @@ async function openCamera() {
     toast("Akses kamera gagal. Izinkan kamera atau upload foto.");
   }
 }
+
 function closeCamera() {
   if(stream) {
     stream.getTracks().forEach(track=>track.stop());
@@ -783,12 +1300,15 @@ function closeCamera() {
   }
   $("video").srcObject = null;
 }
+
 function hideCamera() {
   closeCamera();
   $("cameraPanel").classList.add("hidden");
 }
+
 function capturePhoto() {
   const video = $("video");
+
   if(!stream || !video.videoWidth) {
     toast("Tunggu kamera siap ya ♡");
     return;
@@ -798,50 +1318,66 @@ function capturePhoto() {
   const canvas = document.createElement("canvas");
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
+
   const ctx = canvas.getContext("2d");
   ctx.translate(canvas.width,0);
   ctx.scale(-1,1);
   ctx.drawImage(video,0,0,canvas.width,canvas.height);
+
   photos[activeIndex].src = canvas.toDataURL("image/jpeg",0.96);
   resetPrinter();
   renderPhotos();
   setStatus("Foto berhasil diambil. Tekan Retake atau Okee ♡");
 }
+
 function resetAll() {
   photos.forEach(photo=>{
     photo.src = null;
     photo.locked = false;
   });
+
   activeIndex = 0;
+  hideCamera();
   resetPrinter();
   $("printModal").classList.add("hidden");
   renderPhotos();
   setStatus("Semua foto direset. Mulai lagi dari foto pertama ♡");
   toast("Photobooth siap lagi ♡");
 }
+
 function cloneStripsInto(target) {
   target.innerHTML = "";
+
   [$("strip1"),$("strip2")].forEach(strip=>{
     const clone = strip.cloneNode(true);
     clone.removeAttribute("id");
     clone.classList.add("export-strip");
+
     clone.querySelectorAll("[id]").forEach(node=>node.removeAttribute("id"));
+    clone.querySelectorAll(".active-frame").forEach(node=>node.classList.remove("active-frame"));
+
     target.appendChild(clone);
   });
 }
+
 function makePrintGallery() {
   const holder = $("paperHolder");
   holder.innerHTML = "";
+
   const gallery = document.createElement("div");
   gallery.id = "printGallery";
+
   [$("strip1"),$("strip2")].forEach(strip=>{
     const clone = strip.cloneNode(true);
     clone.removeAttribute("id");
     clone.querySelectorAll("[id]").forEach(node=>node.removeAttribute("id"));
+    clone.querySelectorAll(".active-frame").forEach(node=>node.classList.remove("active-frame"));
     gallery.appendChild(clone);
   });
+
   holder.appendChild(gallery);
 }
+
 function animateCountdownNumber(number) {
   const counter = $("countdown");
   counter.classList.remove("pop");
@@ -849,6 +1385,7 @@ function animateCountdownNumber(number) {
   void counter.offsetWidth;
   counter.classList.add("pop");
 }
+
 async function printStrip() {
   if(!complete()) {
     toast("Lengkapi tiga foto terlebih dahulu ♡");
@@ -856,7 +1393,9 @@ async function printStrip() {
   }
   if(printing || printed) return;
 
+  const thisRun = ++printRun;
   printing = true;
+
   $("printBtn").disabled = true;
   $("downloadBtn").disabled = true;
   $("modalDownloadBtn").classList.add("hidden");
@@ -877,10 +1416,13 @@ async function printStrip() {
   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
 
   for(const number of [3,2,1]) {
+    if(thisRun !== printRun) return;
     animateCountdownNumber(number);
     $("printMessage").textContent = "Printer mulai dalam " + number + "… ♡";
     await wait(1000);
   }
+
+  if(thisRun !== printRun) return;
 
   $("countdown").textContent = "♡";
   $("printMessage").textContent = "Photostrip sedang keluar dari slot printer…";
@@ -888,10 +1430,13 @@ async function printStrip() {
 
   void stage.offsetWidth;
   stage.classList.add("printing");
-  await wait(2450);
+
+  await wait(2650);
+  if(thisRun !== printRun) return;
 
   stage.classList.remove("printing");
   stage.classList.add("printed");
+
   $("countdown").textContent = "";
   printing = false;
   printed = true;
@@ -911,7 +1456,7 @@ async function printStrip() {
   toast("Photostrip berhasil dicetak ♡");
 }
 
-/* PNG GABUNGAN: TEPAT 1080 x 2400 PX */
+/* DOWNLOAD PNG GABUNGAN 1080 x 2400 */
 async function downloadPNG() {
   if(!complete()) {
     toast("Lengkapi tiga foto dahulu ♡");
@@ -923,18 +1468,23 @@ async function downloadPNG() {
   }
 
   const buttons = [$("downloadBtn"),$("modalDownloadBtn")];
+  const oldLabels = buttons.map(button=>button.textContent);
+
   buttons.forEach(button=>{
     button.disabled = true;
     button.textContent = "Menyiapkan PNG…";
   });
 
   const stage = $("exportStage");
+
   try {
     cloneStripsInto(stage);
 
+    /* Tunggu semua gambar selesai dimuat sebelum dirender. */
     const images = [...stage.querySelectorAll("img")];
     await Promise.all(images.map(img=>{
       if(img.complete && img.naturalWidth > 0) return Promise.resolve();
+
       return new Promise(resolve=>{
         img.onload = resolve;
         img.onerror = resolve;
@@ -968,9 +1518,11 @@ async function downloadPNG() {
     const link = document.createElement("a");
     link.href = url;
     link.download = "our-little-photobooth-"+currentTheme+"-1080x2400.png";
+
     document.body.appendChild(link);
     link.click();
     link.remove();
+
     setTimeout(()=>URL.revokeObjectURL(url),10000);
     toast("PNG berhasil diunduh · 1080 × 2400 piksel ♡");
   } catch(error) {
@@ -978,72 +1530,65 @@ async function downloadPNG() {
     toast(error.message || "PNG gagal dibuat. Coba lagi ya ♡");
   } finally {
     stage.innerHTML = "";
-    buttons.forEach(button=>{
+
+    buttons.forEach((button,index)=>{
       button.disabled = !complete();
-      button.textContent = "⇩ Download PNG";
+      button.textContent = oldLabels[index] === "Menyiapkan PNG…"
+        ? "⇩ Download PNG"
+        : oldLabels[index];
     });
+
     $("printBtn").disabled = !complete() || printed || printing;
   }
 }
 
-/* NAVIGASI DAN EVENT */
+/* NAVIGASI */
 $("startBtn").addEventListener("click",()=>showScreen("letterPage"));
 $("toBoothBtn").addEventListener("click",()=>showScreen("booth"));
+
 $("homeBtn").addEventListener("click",()=>{
   if(printing) return;
   $("printModal").classList.add("hidden");
   showScreen("welcome");
 });
-document.querySelectorAll(".theme-btn").forEach(button=>
-  button.addEventListener("click",()=>setTheme(button.dataset.theme))
-);
-$("uploadBtn").addEventListener("click",()=>$("fileInput").click());
+
+document.querySelectorAll(".theme-btn").forEach(button=>{
+  button.addEventListener("click",()=>setTheme(button.dataset.theme));
+});
+
+$("uploadBtn").addEventListener("click",()=>{
+  $("fileInput").click();
+});
+
 $("fileInput").addEventListener("change",event=>{
-  if(event.target.files && event.target.files[0]) loadFile(event.target.files[0]);
+  loadFile(event.target.files[0]);
   event.target.value = "";
 });
+
+$("cameraBtn").addEventListener("click",openCamera);
+$("captureBtn").addEventListener("click",capturePhoto);
+$("closeCameraBtn").addEventListener("click",hideCamera);
 $("retakeBtn").addEventListener("click",retake);
 $("okayBtn").addEventListener("click",confirmPhoto);
 $("resetBtn").addEventListener("click",resetAll);
-$("cameraBtn").addEventListener("click",openCamera);
-$("closeCameraBtn").addEventListener("click",hideCamera);
-$("captureBtn").addEventListener("click",capturePhoto);
 $("printBtn").addEventListener("click",printStrip);
 $("downloadBtn").addEventListener("click",downloadPNG);
 $("modalDownloadBtn").addEventListener("click",downloadPNG);
-$("modalCloseBtn").addEventListener("click",closePrintModal);
 $("modalDoneBtn").addEventListener("click",closePrintModal);
+$("modalCloseBtn").addEventListener("click",closePrintModal);
 
 $("printModal").addEventListener("click",event=>{
   if(event.target === $("printModal")) closePrintModal();
 });
+
 document.addEventListener("keydown",event=>{
   if(event.key === "Escape" && !printing) closePrintModal();
 });
 
-$("musicBtn").addEventListener("click",async()=>{
-  const audio = $("music");
-  const button = $("musicBtn");
-  if(audio.paused) {
-    try {
-      await audio.play();
-      button.textContent = "♫ Musik: ON";
-    } catch(error) {
-      console.error(error);
-      toast("Musik belum bisa diputar. Periksa file MP3 di folder assets.");
-    }
-  } else {
-    audio.pause();
-    button.textContent = "♫ Musik: OFF";
-  }
-});
-$("music").addEventListener("error",()=>{
-  $("musicBtn").title = "Pastikan file MP3 ada di folder assets.";
-});
-window.addEventListener("beforeunload",closeCamera);
-
-setTheme(currentTheme);
+/* Tampilan awal */
+setTheme("flower");
 renderPhotos();
+
 })();
 </script>
 </body>
