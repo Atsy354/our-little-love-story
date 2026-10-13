@@ -177,7 +177,7 @@ video {
 .camera-actions { display:flex; gap:8px; margin-top:8px; }
 .camera-actions button { flex:1; }
 
-/* AREA PREVIEW */
+/* PREVIEW */
 .preview-panel {
   overflow:hidden;
   background:
@@ -268,55 +268,31 @@ video {
   box-shadow:0 2px 6px #6c43501c;
 }
 .strip-photo:nth-child(1) {
-  width:96%;
-  align-self:flex-start;
-  transform:rotate(-.6deg);
+  width:96%;align-self:flex-start;transform:rotate(-.6deg);
 }
 .strip-photo:nth-child(2) {
-  width:94%;
-  align-self:flex-end;
-  transform:rotate(.6deg);
+  width:94%;align-self:flex-end;transform:rotate(.6deg);
 }
 .strip-photo:nth-child(3) {
-  width:96%;
-  align-self:flex-start;
-  transform:rotate(-.3deg);
+  width:96%;align-self:flex-start;transform:rotate(-.3deg);
 }
 .strip-photo img {
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
+  display:block;width:100%;height:100%;
+  object-fit:cover;object-position:center;
 }
 .strip-photo .empty {
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  white-space:pre-line;
-  color:#bc929f;
-  font-size:11px;
-  line-height:1.6;
+  width:100%;height:100%;
+  display:flex;justify-content:center;align-items:center;
+  text-align:center;white-space:pre-line;
+  color:#bc929f;font-size:11px;line-height:1.6;
   background:linear-gradient(135deg,#fff4f6,#f8e5eb);
 }
-.strip-photo.active-frame {
-  outline:2px solid #d47795;
-  outline-offset:2px;
-}
+.strip-photo.active-frame { outline:2px solid #d47795;outline-offset:2px; }
 .strip-foot {
-  position:relative;
-  text-align:center;
-  font-size:7px;
-  font-weight:bold;
-  letter-spacing:.6px;
-  line-height:1.6;
-  margin-top:12px;
-  padding:7px 2px 0;
-  border-top:1px dashed var(--decoration);
-  overflow-wrap:anywhere;
+  position:relative;text-align:center;
+  font-size:7px;font-weight:bold;letter-spacing:.6px;
+  line-height:1.6;margin-top:12px;padding:7px 2px 0;
+  border-top:1px dashed var(--decoration);overflow-wrap:anywhere;
 }
 
 /* 21 TEMA */
@@ -336,25 +312,23 @@ video {
 .theme-kawaii .strip {
   --paper:#fff0f5;--ink:#b35f87;--edge:#e3a3bf;--decoration:#df8fb2;
   background:radial-gradient(circle,#f4c2d6 1px,transparent 2px) 0 0/15px 15px,#fff0f5;
-  border:3px dotted #e3a3bf;
-  border-radius:13px;
+  border:3px dotted #e3a3bf;border-radius:13px;
 }
 .theme-kawaii .strip:before { content:"૮ ˶ᵔ ᵕ ᵔ˶ ა"; }
 
 .theme-film .strip {
   --paper:#242326;--ink:#fff0d7;--edge:#4a4147;--decoration:#f3d6b3;
-  background:#242326;
-  border:5px solid #242326;
+  background:#242326;border:5px solid #242326;
 }
 .theme-film .strip:before { content:"• • • FILM • • •"; }
-.theme-film .strip-title { font-family:Arial,sans-serif; letter-spacing:1px; }
+.theme-film .strip-title { font-family:Arial,sans-serif;letter-spacing:1px; }
 
 .theme-coquette .strip {
   --paper:#fff7fa;--ink:#a9577c;--edge:#e5b8c7;--decoration:#cf82a0;
   background:radial-gradient(ellipse at 0 0,#f9e0e8 0,transparent 40%),#fff7fa;
 }
 .theme-coquette .strip:before { content:"୨୧ ♡ ୨୧"; }
-.theme-coquette .strip:after { content:"🎀"; font-size:13px; }
+.theme-coquette .strip:after { content:"🎀";font-size:13px; }
 .theme-coquette .strip-photo { border-radius:12px 3px 12px 3px; }
 
 .theme-stars .strip {
@@ -365,28 +339,24 @@ video {
 
 .theme-y2k .strip {
   --paper:#ffe0f0;--ink:#87569b;--edge:#d59de4;--decoration:#b86cce;
-  background:linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff);
-  border-radius:10px;
+  background:linear-gradient(135deg,#ffe0f0,#dff6ff 48%,#f1e4ff);border-radius:10px;
 }
 .theme-y2k .strip:before { content:"♡ XOXO ♡"; }
-.theme-y2k .strip-title { font-family:Arial,sans-serif; font-weight:bold; }
+.theme-y2k .strip-title { font-family:Arial,sans-serif;font-weight:bold; }
 
 .theme-botanical .strip {
   --paper:#eee5d2;--ink:#647359;--edge:#b4a17e;--decoration:#748a68;
   background:radial-gradient(ellipse at 0 0,#d4ddc2 0,transparent 45%),#eee5d2;
-  border-style:double;
-  border-width:4px;
+  border-style:double;border-width:4px;
 }
 .theme-botanical .strip:before { content:"❦ FOLIAGE ❦"; }
 
 .theme-pixel .strip {
   --paper:#f4f0ff;--ink:#7566a5;--edge:#8374b4;--decoration:#9282c6;
   background:linear-gradient(90deg,#e6ddff 1px,transparent 1px),linear-gradient(#e6ddff 1px,transparent 1px),#f4f0ff;
-  background-size:12px 12px;
-  border:3px dashed #8374b4;
-  border-radius:0;
+  background-size:12px 12px;border:3px dashed #8374b4;border-radius:0;
 }
-.theme-pixel .strip:before { content:"♥ ♥ ♥ ♥ ♥"; font-family:monospace; }
+.theme-pixel .strip:before { content:"♥ ♥ ♥ ♥ ♥";font-family:monospace; }
 
 .theme-sunset .strip {
   --paper:#ffe7c7;--ink:#9d594b;--edge:#dc987f;--decoration:#c87563;
@@ -402,16 +372,14 @@ video {
 
 .theme-captured .strip {
   --paper:#1263b7;--ink:#fff;--edge:#0b4d9d;--decoration:#d6efff;
-  background:linear-gradient(135deg,#1675cf,#07428c);
-  border:0;border-radius:0;
+  background:linear-gradient(135deg,#1675cf,#07428c);border:0;border-radius:0;
 }
 .theme-captured .strip:before { content:"CAPTURED MOMENTS";color:white; }
 .theme-captured .strip-photo { border-radius:8px; }
 
 .theme-streetwear .strip {
   --paper:#081b51;--ink:#fff;--edge:#2975ff;--decoration:#51baff;
-  background:linear-gradient(135deg,#07133d,#123a91);
-  border:3px solid #0a102a;border-radius:0;
+  background:linear-gradient(135deg,#07133d,#123a91);border:3px solid #0a102a;border-radius:0;
 }
 .theme-streetwear .strip:before {
   content:"HUMAN BEING";color:white;font-family:Arial,sans-serif;font-weight:900;
@@ -485,361 +453,183 @@ video {
 
 /* POPUP PRINTER */
 .print-modal {
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  padding:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(46,26,37,.74);
-  backdrop-filter:blur(5px);
+  position:fixed;inset:0;z-index:1000;padding:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(46,26,37,.74);backdrop-filter:blur(5px);
   overflow-y:auto;
 }
 .print-dialog {
-  width:min(460px,100%);
-  max-height:96dvh;
-  overflow-y:auto;
-  overscroll-behavior:contain;
-  position:relative;
-  padding:18px 16px 20px;
-  border:1px solid #e7b7c7;
-  border-radius:22px;
-  background:#fffaf7;
-  box-shadow:0 25px 80px #2b12244d;
-  text-align:center;
+  width:min(460px,100%);max-height:96dvh;overflow-y:auto;
+  overscroll-behavior:contain;position:relative;
+  padding:18px 16px 20px;border:1px solid #e7b7c7;
+  border-radius:22px;background:#fffaf7;
+  box-shadow:0 25px 80px #2b12244d;text-align:center;
 }
 .modal-close {
-  position:absolute;
-  right:12px;
-  top:10px;
-  width:34px;
-  height:34px;
-  border:1px solid #eccbd5;
-  border-radius:50%;
-  background:white;
-  color:#a04d6e;
-  z-index:10;
+  position:absolute;right:12px;top:10px;width:34px;height:34px;
+  border:1px solid #eccbd5;border-radius:50%;
+  background:white;color:#a04d6e;z-index:10;
 }
 .print-dialog h3 {
-  margin:6px 30px 5px;
-  color:#b54f73;
-  font-weight:normal;
-  font-style:italic;
-  font-size:25px;
+  margin:6px 30px 5px;color:#b54f73;
+  font-weight:normal;font-style:italic;font-size:25px;
 }
-.modal-subtitle {
-  color:#a17684;
-  font:12px/1.6 Arial,sans-serif;
-  margin:8px 0;
-  min-height:20px;
-}
+.modal-subtitle { color:#a17684;font:12px/1.6 Arial,sans-serif;margin:8px 0;min-height:20px; }
 .countdown {
-  min-height:43px;
-  display:grid;
-  place-items:center;
-  font:bold 36px Arial,sans-serif;
-  color:#d45d83;
+  min-height:43px;display:grid;place-items:center;
+  font:bold 36px Arial,sans-serif;color:#d45d83;
 }
 .countdown.pop { animation:countPop .55s ease-out; }
 @keyframes countPop {
-  0% { transform:scale(.55); opacity:.2; }
-  65% { transform:scale(1.18); opacity:1; }
-  100% { transform:scale(1); opacity:1; }
+  0% { transform:scale(.55);opacity:.2; }
+  65% { transform:scale(1.18);opacity:1; }
+  100% { transform:scale(1);opacity:1; }
 }
-
-/*
-  Area animasi dibuat tinggi.
-  Kertas bergerak ke bawah dari slot, tetapi bagian atas kertas
-  tetap terlihat dan seluruh hasil tidak dipotong oleh wadah.
-*/
 .printer-stage {
-  width:min(100%,350px);
-  height:610px;
-  margin:8px auto 0;
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
+  width:min(100%,350px);height:610px;margin:8px auto 0;
+  position:relative;overflow:hidden;isolation:isolate;
 }
 .printer-machine {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  z-index:4;
+  position:absolute;top:0;left:0;right:0;z-index:4;
   padding:0 12px 12px;
   background:linear-gradient(145deg,#f9dce3,#e6b9c7);
-  border:1px solid #d9a4b4;
-  border-radius:18px 18px 12px 12px;
+  border:1px solid #d9a4b4;border-radius:18px 18px 12px 12px;
   box-shadow:0 7px 16px #a15c7024;
 }
 .printer-top {
-  height:38px;
-  display:grid;
-  place-items:center;
-  color:#94566b;
-  font:bold 9px Arial,sans-serif;
-  letter-spacing:1.5px;
+  height:38px;display:grid;place-items:center;color:#94566b;
+  font:bold 9px Arial,sans-serif;letter-spacing:1.5px;
 }
 .printer-front {
-  height:30px;
-  display:grid;
-  place-items:center;
-  color:#94566b;
-  font:bold 9px Arial,sans-serif;
-  letter-spacing:1px;
+  height:30px;display:grid;place-items:center;color:#94566b;
+  font:bold 9px Arial,sans-serif;letter-spacing:1px;
   background:linear-gradient(145deg,#f3cbd6,#e6b9c7);
   border-top:1px solid #d9a4b4;
 }
 .printer-mouth {
-  height:22px;
-  margin:0;
-  position:relative;
-  z-index:6;
-  border:2px solid #b77f90;
-  border-radius:5px;
-  background:#39262e;
-  box-shadow:inset 0 2px 3px #0004;
+  height:22px;margin:0;position:relative;z-index:6;
+  border:2px solid #b77f90;border-radius:5px;
+  background:#39262e;box-shadow:inset 0 2px 3px #0004;
 }
 .paper-holder {
-  position:absolute;
-  z-index:2;
-  top:103px;
-  left:26px;
-  right:26px;
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(-620px);
+  position:absolute;z-index:2;top:103px;left:26px;right:26px;
+  opacity:0;pointer-events:none;transform:translateY(-620px);
   will-change:transform,opacity;
 }
 #printGallery {
-  width:100%;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:4px;
-  padding:4px;
-  background:#fffaf6;
-  border:1px solid #ead4d9;
+  width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:4px;padding:4px;background:#fffaf6;border:1px solid #ead4d9;
   box-shadow:0 8px 18px #6e344222;
 }
 .paper-holder .strip {
-  min-width:0;
-  height:480px;
-  padding:7px 5px 6px;
-  border-width:1px;
-  border-radius:2px;
-  box-shadow:none;
-  display:flex;
-  flex-direction:column;
+  min-width:0;height:480px;padding:7px 5px 6px;
+  border-width:1px;border-radius:2px;box-shadow:none;
+  display:flex;flex-direction:column;
 }
-.paper-holder .strip:before {
-  top:2px;
-  font-size:5px;
-  letter-spacing:.5px;
-}
-.paper-holder .strip:after {
-  bottom:10px;
-  right:2px;
-  font-size:8px;
-}
-.paper-holder .strip-title {
-  font-size:7px;
-  line-height:1.2;
-  margin:12px 0 4px;
-  padding:0 1px;
-}
-.paper-holder .strip-date {
-  font-size:5px;
-  letter-spacing:.3px;
-  margin-bottom:5px;
-}
-.paper-holder .strip-photos {
-  flex:1;
-  min-height:0;
-  gap:4px;
-  padding:0 2px;
-}
+.paper-holder .strip:before { top:2px;font-size:5px;letter-spacing:.5px; }
+.paper-holder .strip:after { bottom:10px;right:2px;font-size:8px; }
+.paper-holder .strip-title { font-size:7px;line-height:1.2;margin:12px 0 4px;padding:0 1px; }
+.paper-holder .strip-date { font-size:5px;letter-spacing:.3px;margin-bottom:5px; }
+.paper-holder .strip-photos { flex:1;min-height:0;gap:4px;padding:0 2px; }
 .paper-holder .strip-photo {
-  flex:1;
-  min-height:0;
-  width:100%!important;
-  aspect-ratio:4/5!important;
-  border-width:1px;
-  box-shadow:none;
-  transform:none!important;
+  flex:1;min-height:0;width:100%!important;aspect-ratio:auto!important;
+  border-width:1px;box-shadow:none;transform:none!important;
 }
-.paper-holder .strip-photo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+.paper-holder .strip-photo img { width:100%;height:100%;object-fit:cover; }
 .paper-holder .strip-foot {
-  font-size:4px;
-  letter-spacing:0;
-  margin-top:6px;
-  padding:4px 1px 0;
-  line-height:1.35;
+  font-size:4px;letter-spacing:0;margin-top:6px;
+  padding:4px 1px 0;line-height:1.35;
 }
 .printer-stage.printing .paper-holder {
   animation:paperEmerge 2.6s cubic-bezier(.2,.7,.2,1) forwards;
 }
-.printer-stage.printed .paper-holder {
-  opacity:1;
-  transform:translateY(0);
-}
+.printer-stage.printed .paper-holder { opacity:1;transform:translateY(0); }
 @keyframes paperEmerge {
-  0% { opacity:0; transform:translateY(-620px); }
-  10% { opacity:1; transform:translateY(-620px); }
-  100% { opacity:1; transform:translateY(0); }
+  0% { opacity:0;transform:translateY(-620px); }
+  10% { opacity:1;transform:translateY(-620px); }
+  100% { opacity:1;transform:translateY(0); }
 }
 .print-message {
-  text-align:center;
-  font:12px/1.6 Arial,sans-serif;
-  color:#a17681;
-  margin:4px 0 10px;
-  min-height:19px;
+  text-align:center;font:12px/1.6 Arial,sans-serif;color:#a17681;
+  margin:4px 0 10px;min-height:19px;
 }
 .modal-actions {
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
-  width:100%;
-  margin:8px auto 0;
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  width:100%;margin:8px auto 0;
 }
-.modal-actions button { flex:1 1 140px; min-height:42px; }
+.modal-actions button { flex:1 1 140px;min-height:42px; }
 .modal-actions .download-ready { animation:buttonReveal .35s ease-out both; }
 @keyframes buttonReveal {
-  from { opacity:0; transform:translateY(8px); }
-  to { opacity:1; transform:translateY(0); }
+  from { opacity:0;transform:translateY(8px); }
+  to { opacity:1;transform:translateY(0); }
 }
 
-/*
-  EKSPOR FINAL:
-  SATU PNG GABUNGAN 1080 x 2400 PX.
-  Dua strip masing-masing 540 x 2400 PX.
-  Frame foto memakai ukuran tetap agar tidak memanjang mengikuti sisa tinggi.
-*/
+/* PNG GABUNGAN: TEPAT 1080 x 2400 PX */
 #exportStage {
-  position:fixed;
-  left:-30000px;
-  top:0;
-  z-index:-10;
-  width:1080px;
-  height:2400px;
-  display:flex;
-  gap:0;
-  background:#fffaf6;
-  overflow:hidden;
+  position:fixed;left:-30000px;top:0;z-index:-10;
+  width:1080px;height:2400px;display:flex;gap:0;
+  background:#fffaf6;overflow:hidden;
 }
 .export-strip {
-  width:540px!important;
-  height:2400px!important;
-  min-width:540px!important;
-  max-width:540px!important;
+  width:540px!important;height:2400px!important;
+  min-width:540px!important;max-width:540px!important;
   flex:0 0 540px!important;
   padding:55px 35px 42px!important;
-  border-width:5px!important;
-  border-radius:4px!important;
-  box-shadow:none!important;
-  display:flex!important;
-  flex-direction:column!important;
-  overflow:hidden!important;
+  border-width:5px!important;border-radius:4px!important;
+  box-shadow:none!important;display:flex!important;
+  flex-direction:column!important;overflow:hidden!important;
 }
-.export-strip:before {
-  top:17px!important;
-  font-size:17px!important;
-  letter-spacing:4px!important;
-}
-.export-strip:after {
-  bottom:25px!important;
-  right:15px!important;
-  font-size:30px!important;
-}
+.export-strip:before { top:17px!important;font-size:17px!important;letter-spacing:4px!important; }
+.export-strip:after { bottom:25px!important;right:15px!important;font-size:30px!important; }
 .export-strip .strip-title {
-  flex:0 0 auto;
-  font-size:30px!important;
-  line-height:1.2!important;
-  margin:33px 5px 12px!important;
-  padding:0 8px!important;
+  flex:0 0 auto;font-size:30px!important;line-height:1.2!important;
+  margin:33px 5px 12px!important;padding:0 8px!important;
 }
 .export-strip .strip-date {
-  flex:0 0 auto;
-  font-size:15px!important;
-  letter-spacing:2.5px!important;
+  flex:0 0 auto;font-size:15px!important;letter-spacing:2.5px!important;
   margin-bottom:20px!important;
 }
 .export-strip .strip-photos {
-  flex:1 1 auto!important;
-  min-height:0!important;
-  padding:0 8px!important;
-  gap:15px!important;
-  justify-content:space-evenly!important;
-  align-items:stretch!important;
+  flex:1 1 auto!important;min-height:0!important;
+  padding:0 8px!important;gap:15px!important;
+  justify-content:space-evenly!important;align-items:stretch!important;
 }
 .export-strip .strip-photo {
-  flex:0 0 auto!important;
-  min-height:0!important;
-  max-height:none!important;
-  width:100%!important;
-  aspect-ratio:4/5!important;
-  height:auto!important;
-  border-width:4px!important;
-  transform:none!important;
-  overflow:hidden!important;
+  flex:0 0 auto!important;min-height:0!important;max-height:none!important;
+  width:100%!important;aspect-ratio:4/5!important;height:auto!important;
+  border-width:4px!important;transform:none!important;overflow:hidden!important;
 }
 .export-strip .strip-photo:nth-child(1),
 .export-strip .strip-photo:nth-child(2),
 .export-strip .strip-photo:nth-child(3) {
-  width:100%!important;
-  align-self:stretch!important;
+  width:100%!important;align-self:stretch!important;
 }
 .export-strip .strip-photo img {
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:center!important;
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
 }
 .export-strip .strip-photo .empty { font-size:22px!important; }
 .export-strip .strip-foot {
-  flex:0 0 auto;
-  font-size:12px!important;
-  letter-spacing:1px!important;
-  line-height:1.5!important;
-  margin-top:20px!important;
-  padding:15px 5px 0!important;
-  border-top-width:2px!important;
+  flex:0 0 auto;font-size:12px!important;letter-spacing:1px!important;
+  line-height:1.5!important;margin-top:20px!important;
+  padding:15px 5px 0!important;border-top-width:2px!important;
 }
-footer {
-  text-align:center;
-  color:#b28c94;
-  font-size:12px;
-  padding:25px 12px;
-}
+footer { text-align:center;color:#b28c94;font-size:12px;padding:25px 12px; }
 .toast {
-  position:fixed;
-  z-index:1200;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#674652;
-  color:white;
-  border-radius:25px;
-  padding:11px 17px;
-  font:12px Arial,sans-serif;
-  max-width:90vw;
-  text-align:center;
+  position:fixed;z-index:1200;bottom:20px;left:50%;
+  transform:translateX(-50%);background:#674652;color:white;
+  border-radius:25px;padding:11px 17px;font:12px Arial,sans-serif;
+  max-width:90vw;text-align:center;
 }
 @media(max-width:760px) {
-  header { flex-wrap:wrap; padding:14px; }
+  header { flex-wrap:wrap;padding:14px; }
   .layout { grid-template-columns:1fr; }
-  #stripGallery { width:min(100%,460px); gap:8px; }
+  #stripGallery { width:min(100%,460px);gap:8px; }
   .strip { padding:8px 6px 9px; }
   .strip-title { margin-top:17px; }
   .print-dialog { padding:17px 12px 18px; }
   .printer-stage { height:570px; }
-  .paper-holder { left:20px; right:20px; }
+  .paper-holder { left:20px;right:20px; }
   .paper-holder .strip { height:445px; }
 }
 @media(max-width:360px) {
@@ -859,40 +649,24 @@ footer {
 </header>
 
 <main>
-  <!-- HALAMAN 1: WELCOME -->
   <section id="welcome" class="welcome">
     <article class="card center">
       <div class="eyebrow">A little place for our memories</div>
       <h1>Our Little Moments ♡</h1>
-      <p class="copy">
-        A little photobooth for the moments, smiles, and memories
-        that we want to keep forever.
-      </p>
+      <p class="copy">A little photobooth for the moments, smiles, and memories that we want to keep forever.</p>
       <p class="copy">Made with love, just for us. ♡</p>
       <button id="startBtn" class="primary" type="button">Open Your Letter 💌</button>
     </article>
   </section>
 
-  <!-- HALAMAN 2: LETTER -->
   <section id="letterPage" class="hidden">
     <article class="card letter">
       <div class="eyebrow center">To my favorite person</div>
       <h2 class="center">Little Things, With You ♡</h2>
       <p>Happy five months, sayangku. ♡</p>
-      <p>
-        Terima kasih sudah hadir dan membuat hari-hariku terasa lebih
-        berarti. Hal-hal kecil bersama kamu selalu menjadi kenangan
-        yang ingin aku simpan baik-baik.
-      </p>
-      <p>
-        Aku berharap kita bisa terus bersama untuk selamanya. Aku
-        berharap kamu suka dengan hadiah surprise dari aku.
-      </p>
-      <p>
-        Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu
-        suka, pasang pose terlucu kamu, dan jangan lupa senyum paling
-        manisnya, yaa.
-      </p>
+      <p>Terima kasih sudah hadir dan membuat hari-hariku terasa lebih berarti. Hal-hal kecil bersama kamu selalu menjadi kenangan yang ingin aku simpan baik-baik.</p>
+      <p>Aku berharap kita bisa terus bersama untuk selamanya. Aku berharap kamu suka dengan hadiah surprise dari aku.</p>
+      <p>Sekarang, ayo kita bikin kenangan baru! Pilih tema yang kamu suka, pasang pose terlucu kamu, dan jangan lupa senyum paling manisnya, yaa.</p>
       <p class="signoff">Dari pacar ganteng kamu,<br>I LOVE U SAYANG ♡</p>
       <p class="center note">11 · 10 · 2026 — Our 5th Month Anniversary</p>
       <div class="center">
@@ -901,7 +675,6 @@ footer {
     </article>
   </section>
 
-  <!-- HALAMAN 3: PHOTOBOOTH -->
   <section id="booth" class="hidden">
     <div class="booth-heading">
       <div class="eyebrow">Choose · Pose · Print</div>
@@ -941,9 +714,7 @@ footer {
         <section class="panel">
           <h3>2. Ambil 3 Foto</h3>
           <p id="stepText" class="step">Foto 1 dari 3 · belum diisi</p>
-          <div id="progress" class="progress">
-            <span class="current"></span><span></span><span></span>
-          </div>
+          <div id="progress" class="progress"><span class="current"></span><span></span><span></span></div>
 
           <div class="actions">
             <button id="uploadBtn" class="secondary" type="button">↑ Upload Foto</button>
@@ -990,7 +761,7 @@ footer {
         <p class="note center">Dua strip berdampingan. Setiap strip berisi 3 foto.</p>
         <p class="note center">Ukuran PNG gabungan: 1080 × 2400 piksel.</p>
         <div class="actions">
-          <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>        
+          <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
         </div>
       </section>
     </div>
@@ -999,7 +770,6 @@ footer {
 
 <footer>MADE WITH LOVE ♡ OUR LITTLE PHOTOBOOTH</footer>
 
-<!-- POPUP PRINTER -->
 <div id="printModal" class="print-modal hidden" role="dialog" aria-modal="true" aria-labelledby="printTitle">
   <div class="print-dialog">
     <button id="modalCloseBtn" class="modal-close" type="button" aria-label="Tutup popup">×</button>
@@ -1124,7 +894,6 @@ function resetPrinter() {
 
   $("printBtn").textContent = "▣ Cetak";
   $("printBtn").disabled = !complete();
-  $("downloadBtn").disabled = !complete();
 
   $("printMessage").textContent = "Printer akan mulai dalam 3 detik… ♡";
   $("printMessageBottom").textContent = "Menyiapkan kenangan kecilmu…";
@@ -1207,7 +976,6 @@ function updateControls() {
   $("okayBtn").disabled = done || !photos[activeIndex].src || photos[activeIndex].locked;
   $("captureBtn").disabled = done || photos[activeIndex].locked;
   $("printBtn").disabled = !done || printed || printing;
-  $("downloadBtn").disabled = !done;
 }
 
 function loadFile(file) {
@@ -1260,7 +1028,7 @@ function confirmPhoto() {
   if(complete()) {
     renderPhotos();
     resetPrinter();
-    setStatus("Tiga foto terkunci. Tekan Cetak atau Download PNG ♡");
+    setStatus("Tiga foto terkunci. Tekan Cetak untuk membuat PNG ♡");
     toast("Selesai! Siap dicetak ♡");
   } else {
     nextUnlocked();
@@ -1397,7 +1165,6 @@ async function printStrip() {
   printing = true;
 
   $("printBtn").disabled = true;
-  $("downloadBtn").disabled = true;
   $("modalDownloadBtn").classList.add("hidden");
   $("modalDownloadBtn").classList.remove("download-ready");
   $("modalDownloadBtn").disabled = true;
@@ -1443,7 +1210,6 @@ async function printStrip() {
 
   $("printBtn").textContent = "✓ Sudah dicetak";
   $("printBtn").disabled = true;
-  $("downloadBtn").disabled = false;
 
   $("modalDownloadBtn").classList.remove("hidden");
   $("modalDownloadBtn").classList.add("download-ready");
@@ -1467,20 +1233,16 @@ async function downloadPNG() {
     return;
   }
 
-  const buttons = [$("downloadBtn"),$("modalDownloadBtn")];
-  const oldLabels = buttons.map(button=>button.textContent);
-
-  buttons.forEach(button=>{
-    button.disabled = true;
-    button.textContent = "Menyiapkan PNG…";
-  });
+  const button = $("modalDownloadBtn");
+  const oldLabel = button.textContent;
+  button.disabled = true;
+  button.textContent = "Menyiapkan PNG…";
 
   const stage = $("exportStage");
 
   try {
     cloneStripsInto(stage);
 
-    /* Tunggu semua gambar selesai dimuat sebelum dirender. */
     const images = [...stage.querySelectorAll("img")];
     await Promise.all(images.map(img=>{
       if(img.complete && img.naturalWidth > 0) return Promise.resolve();
@@ -1518,7 +1280,6 @@ async function downloadPNG() {
     const link = document.createElement("a");
     link.href = url;
     link.download = "our-little-photobooth-"+currentTheme+"-1080x2400.png";
-
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -1530,15 +1291,8 @@ async function downloadPNG() {
     toast(error.message || "PNG gagal dibuat. Coba lagi ya ♡");
   } finally {
     stage.innerHTML = "";
-
-    buttons.forEach((button,index)=>{
-      button.disabled = !complete();
-      button.textContent = oldLabels[index] === "Menyiapkan PNG…"
-        ? "⇩ Download PNG"
-        : oldLabels[index];
-    });
-
-    $("printBtn").disabled = !complete() || printed || printing;
+    button.disabled = false;
+    button.textContent = oldLabel === "Menyiapkan PNG…" ? "⇩ Download PNG" : oldLabel;
   }
 }
 
@@ -1556,10 +1310,7 @@ document.querySelectorAll(".theme-btn").forEach(button=>{
   button.addEventListener("click",()=>setTheme(button.dataset.theme));
 });
 
-$("uploadBtn").addEventListener("click",()=>{
-  $("fileInput").click();
-});
-
+$("uploadBtn").addEventListener("click",()=>$("fileInput").click());
 $("fileInput").addEventListener("change",event=>{
   loadFile(event.target.files[0]);
   event.target.value = "";
@@ -1572,7 +1323,6 @@ $("retakeBtn").addEventListener("click",retake);
 $("okayBtn").addEventListener("click",confirmPhoto);
 $("resetBtn").addEventListener("click",resetAll);
 $("printBtn").addEventListener("click",printStrip);
-$("downloadBtn").addEventListener("click",downloadPNG);
 $("modalDownloadBtn").addEventListener("click",downloadPNG);
 $("modalDoneBtn").addEventListener("click",closePrintModal);
 $("modalCloseBtn").addEventListener("click",closePrintModal);
@@ -1585,7 +1335,6 @@ document.addEventListener("keydown",event=>{
   if(event.key === "Escape" && !printing) closePrintModal();
 });
 
-/* Tampilan awal */
 setTheme("flower");
 renderPhotos();
 
