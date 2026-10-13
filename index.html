@@ -75,7 +75,7 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 .strip-photo.active-frame{outline:2px solid #d47795;outline-offset:2px}
 .strip-foot{position:relative;text-align:center;font-size:7px;font-weight:bold;letter-spacing:.6px;line-height:1.6;margin-top:12px;padding:7px 2px 0;border-top:1px dashed var(--decoration);overflow-wrap:anywhere}
 
-/* 21 TEMA PHOTOSTRIP */
+/* TEMA PHOTOSTRIP */
 .theme-flower .strip{--paper:#fffaf2;--ink:#9c5c6d;--edge:#d6a4a2;--decoration:#cb8c9d;background:radial-gradient(circle at 5% 7%,#f5dce1 0 3px,transparent 4px),radial-gradient(circle at 95% 92%,#f5dce1 0 4px,transparent 5px),#fffaf2}
 .theme-flower .strip:before{content:"✿ ♡ ❀"}
 .theme-flower .strip:after{content:"❀"}
@@ -177,222 +177,46 @@ video{width:100%;max-height:350px;aspect-ratio:3/4;object-fit:cover;display:bloc
 .theme-cartoon .strip-photo{border:4px solid #17418c;box-shadow:4px 4px 0 #ed8c26}
 
 /* POPUP PRINTER */
-.print-modal{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(46,26,37,.72);
-  backdrop-filter:blur(5px);
-  overflow-y:auto;
-}
-.print-dialog{
-  width:min(440px,100%);
-  max-height:94dvh;
-  overflow-y:auto;
-  overscroll-behavior:contain;
-  position:relative;
-  padding:20px 18px 22px;
-  border:1px solid #e7b7c7;
-  border-radius:22px;
-  background:#fffaf7;
-  box-shadow:0 25px 80px #2b12244d;
-  text-align:center;
-}
-.modal-close{
-  position:absolute;
-  right:12px;
-  top:10px;
-  width:34px;
-  height:34px;
-  border:1px solid #eccbd5;
-  border-radius:50%;
-  background:white;
-  color:#a04d6e;
-  z-index:10;
-}
+.print-modal{position:fixed;inset:0;z-index:1000;padding:16px;display:flex;align-items:center;justify-content:center;background:rgba(46,26,37,.72);backdrop-filter:blur(5px);overflow-y:auto}
+.print-dialog{width:min(440px,100%);max-height:94dvh;overflow-y:auto;overscroll-behavior:contain;position:relative;padding:20px 18px 22px;border:1px solid #e7b7c7;border-radius:22px;background:#fffaf7;box-shadow:0 25px 80px #2b12244d;text-align:center}
+.modal-close{position:absolute;right:12px;top:10px;width:34px;height:34px;border:1px solid #eccbd5;border-radius:50%;background:white;color:#a04d6e;z-index:10}
 .print-dialog h3{margin:6px 30px 5px;color:#b54f73;font-weight:normal;font-style:italic}
 .modal-subtitle{color:#a17684;font:12px/1.6 Arial,sans-serif;margin:8px 0}
 
-/*
-  PENTING:
-  Tinggi stage disediakan agar foto tidak menindih tombol.
-  Kertas berada di belakang bodi printer.
-  Bagian atas kertas mulai dari area mulut printer.
-*/
-.printer-stage{
-  width:min(100%,340px);
-  height:455px;
-  margin:20px auto 0;
-  position:relative;
-  overflow:visible;
-  isolation:isolate;
-}
-.printer-machine{
-  position:absolute;
-  left:0;
-  right:0;
-  top:0;
-  z-index:3;
-  padding:0 12px 10px;
-  background:linear-gradient(145deg,#f9dce3,#e6b9c7);
-  border:1px solid #d9a4b4;
-  border-radius:18px 18px 12px 12px;
-  box-shadow:0 7px 16px #a15c7024;
-}
-.printer-top{
-  height:38px;
-  display:grid;
-  place-items:center;
-  color:#94566b;
-  font:bold 9px Arial,sans-serif;
-  letter-spacing:2px;
-}
-.printer-mouth{
-  height:19px;
-  border-radius:5px;
-  background:#39262e;
-  border:2px solid #b77f90;
-  position:relative;
-  z-index:4;
-  box-shadow:inset 0 2px 3px #0004;
-}
-.printer-front{
-  position:relative;
-  z-index:4;
-  height:48px;
-  display:grid;
-  place-items:center;
-  color:#94566b;
-  font:bold 9px Arial,sans-serif;
-  letter-spacing:1px;
-  background:linear-gradient(145deg,#f3cbd6,#e6b9c7);
-  border-top:1px solid #d9a4b4;
-}
-
-/* KERTAS BERGERAK KELUAR DARI SLOT */
-.paper-holder{
-  position:absolute;
-  z-index:2;
-  top:43px;
-  left:48px;
-  right:48px;
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(0);
-  transform-origin:top center;
-  will-change:transform,opacity;
-}
-#printGallery{
-  width:100%;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:5px;
-  padding:5px;
-  background:#fffaf6;
-  border:1px solid #ead4d9;
-  box-shadow:0 8px 18px #6e344222;
-}
-.paper-holder .strip{
-  padding:5px 4px;
-  border-width:1px;
-  border-radius:2px;
-  box-shadow:none;
-}
-.paper-holder .strip:before{font-size:5px;top:2px;letter-spacing:1px}
-.paper-holder .strip:after{font-size:8px;bottom:12px;right:2px}
+/* POSISI PRINTER DAN SLOT */
+.printer-stage{width:min(100%,340px);height:460px;margin:18px auto 0;position:relative;overflow:hidden;isolation:isolate}
+.printer-machine{position:absolute;inset:0 0 auto;z-index:3;padding:0 12px 12px;background:linear-gradient(145deg,#f9dce3,#e6b9c7);border:1px solid #d9a4b4;border-radius:18px 18px 12px 12px;box-shadow:0 7px 16px #a15c7024}
+.printer-top{height:38px;display:grid;place-items:center;color:#94566b;font:bold 9px Arial,sans-serif;letter-spacing:1.5px}
+.printer-front{height:30px;display:grid;place-items:center;color:#94566b;font:bold 9px Arial,sans-serif;letter-spacing:1px;background:linear-gradient(145deg,#f3cbd6,#e6b9c7);border-top:1px solid #d9a4b4}
+.printer-mouth{height:22px;margin:0;position:relative;z-index:5;border:2px solid #b77f90;border-radius:5px;background:#39262e;box-shadow:inset 0 2px 3px #0004}
+.paper-holder{position:absolute;z-index:2;top:88px;left:48px;right:48px;opacity:0;pointer-events:none;transform:translateY(-12px);transform-origin:top center;will-change:transform,opacity}
+#printGallery{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:5px;background:#fffaf6;border:1px solid #ead4d9;box-shadow:0 8px 18px #6e344222}
+.paper-holder .strip{min-width:0;padding:5px 4px;border-width:1px;border-radius:2px;box-shadow:none}
+.paper-holder .strip:before{top:2px;font-size:5px;letter-spacing:1px}
+.paper-holder .strip:after{bottom:12px;right:2px;font-size:8px}
 .paper-holder .strip-title{font-size:7px;line-height:1.2;margin:12px 0 4px;padding:0 1px}
 .paper-holder .strip-date{font-size:5px;letter-spacing:.3px;margin-bottom:5px}
 .paper-holder .strip-photos{gap:4px;padding:0 2px}
-.paper-holder .strip-photo{
-  aspect-ratio:3/2.5;
-  border-width:1px;
-  box-shadow:none;
-}
-.paper-holder .strip-photo:nth-child(1),
-.paper-holder .strip-photo:nth-child(2),
-.paper-holder .strip-photo:nth-child(3){
-  width:100%;
-  transform:none;
-}
+.paper-holder .strip-photo{width:100%!important;aspect-ratio:3/2.5;border-width:1px;box-shadow:none;transform:none!important}
 .paper-holder .strip-foot{font-size:4px;letter-spacing:0;margin-top:6px;padding:4px 1px 0;line-height:1.35}
-
-/*
-  Kertas berhenti dekat slot:
-  posisi akhir = top 43px + translateY 57px.
-  Bodi printer menutupi bagian atas kertas sehingga kertas tampak
-  keluar dari lubang, bukan muncul dari belakang alat.
-*/
-.printer-stage.printing .paper-holder{
-  animation:paperEmerge 2.4s cubic-bezier(.2,.7,.2,1) forwards;
-}
-.printer-stage.printed .paper-holder{
-  opacity:1;
-  transform:translateY(57px);
-}
+.printer-stage.printing .paper-holder{animation:paperEmerge 2.4s cubic-bezier(.2,.7,.2,1) forwards}
+.printer-stage.printed .paper-holder{opacity:1;transform:translateY(75px)}
 @keyframes paperEmerge{
-  0%{opacity:0;transform:translateY(0)}
-  8%{opacity:1;transform:translateY(0)}
-  38%{opacity:1;transform:translateY(25px)}
-  72%{opacity:1;transform:translateY(57px)}
-  86%{opacity:1;transform:translateY(53px)}
-  100%{opacity:1;transform:translateY(57px)}
+  0%{opacity:0;transform:translateY(-12px)}
+  10%{opacity:1;transform:translateY(-12px)}
+  70%{opacity:1;transform:translateY(75px)}
+  86%{opacity:1;transform:translateY(70px)}
+  100%{opacity:1;transform:translateY(75px)}
 }
-.print-message{
-  text-align:center;
-  font:12px/1.6 Arial,sans-serif;
-  color:#a17681;
-  margin:8px 0 14px;
-  min-height:19px;
-}
-.modal-actions{
-  position:relative;
-  z-index:5;
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  flex-wrap:wrap;
-  width:100%;
-  margin:8px auto 0;
-}
-.modal-actions button{
-  flex:1 1 140px;
-  min-height:42px;
-}
+.print-message{text-align:center;font:12px/1.6 Arial,sans-serif;color:#a17681;margin:8px 0 14px;min-height:19px}
+.modal-actions{position:relative;z-index:5;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;width:100%;margin:8px auto 0}
+.modal-actions button{flex:1 1 140px;min-height:42px}
 .modal-actions .download-ready{animation:buttonReveal .35s ease-out both}
-@keyframes buttonReveal{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes buttonReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* EKSPOR: MASING-MASING STRIP 1080 × 2400 PX */
-#exportStage{
-  position:fixed;
-  left:-30000px;
-  top:0;
-  z-index:-10;
-  width:2160px;
-  display:flex;
-  gap:0;
-  background:#fffaf6;
-}
-.export-strip{
-  width:1080px!important;
-  height:2400px!important;
-  min-width:1080px!important;
-  max-width:1080px!important;
-  flex:0 0 1080px!important;
-  padding:75px 75px 65px!important;
-  border-width:8px!important;
-  border-radius:8px!important;
-  box-shadow:none!important;
-  display:flex!important;
-  flex-direction:column!important;
-  overflow:hidden!important;
-}
+/* EKSPOR: 1080 x 2400 PER STRIP, 2160 x 2400 UNTUK GABUNGAN */
+#exportStage{position:fixed;left:-30000px;top:0;z-index:-10;width:2160px;height:2400px;display:flex;gap:0;background:#fffaf6;overflow:hidden}
+.export-strip{width:1080px!important;height:2400px!important;min-width:1080px!important;max-width:1080px!important;flex:0 0 1080px!important;padding:75px 75px 65px!important;border-width:8px!important;border-radius:8px!important;box-shadow:none!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
 .export-strip:before{top:25px!important;font-size:28px!important;letter-spacing:12px!important}
 .export-strip:after{bottom:50px!important;right:30px!important;font-size:52px!important}
 .export-strip .strip-title{flex:0 0 auto;font-size:55px!important;line-height:1.25!important;margin:70px 15px 25px!important;padding:0 20px!important}
@@ -420,7 +244,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
   .strip-photos{gap:6px}
   .print-modal{padding:10px}
   .print-dialog{width:min(420px,100%);padding:18px 12px 20px;max-height:94dvh}
-  .printer-stage{width:min(100%,320px);height:clamp(370px,58vh,455px);margin-top:16px}
+  .printer-stage{width:min(100%,320px);height:clamp(370px,58vh,455px)}
   .paper-holder{left:43px;right:43px}
   #printGallery{gap:4px;padding:4px}
   .paper-holder .strip{padding:4px 3px}
@@ -446,6 +270,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 }
 </style>
 </head>
+
 <body class="theme-flower">
 <header>
   <div class="brand">Our Little Photobooth ♡</div>
@@ -492,6 +317,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
     <h2>Our Little Photobooth ♡</h2>
     <p>Pilih tema, ambil 3 foto, lalu cetak kenangan kalian.</p>
   </div>
+
   <div class="layout">
     <div class="controls">
       <section class="panel">
@@ -530,6 +356,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
           <button id="cameraBtn" class="primary" type="button">📷 Kamera Langsung</button>
         </div>
         <input id="fileInput" class="hidden" type="file" accept="image/*">
+
         <div id="cameraPanel" class="hidden">
           <div class="camera"><video id="video" autoplay playsinline muted></video></div>
           <div class="camera-actions">
@@ -538,6 +365,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
           </div>
           <p class="note">Kamera membutuhkan izin browser dan koneksi HTTPS atau localhost.</p>
         </div>
+
         <div class="actions" style="margin-top:12px">
           <button id="retakeBtn" class="secondary" type="button">↻ Retake</button>
           <button id="okayBtn" class="primary" type="button">Okee ✓</button>
@@ -566,7 +394,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
         </div>
       </div>
       <p class="note center">Dua strip berdampingan. Setiap strip berisi 3 foto dengan susunan berbeda.</p>
-      <p class="note center">Ukuran ekspor: 1080 × 2400 piksel per strip. File gabungan: 2160 × 2400 piksel.</p>
+      <p class="note center">Ukuran ekspor: 1080 × 2400 piksel per strip. PNG gabungan: 2160 × 2400 piksel.</p>
       <div class="actions">
         <button id="printBtn" class="secondary" type="button" disabled>▣ Cetak</button>
         <button id="downloadBtn" class="primary" type="button" disabled>⇩ Download PNG</button>
@@ -587,12 +415,11 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
     <p class="modal-subtitle" id="printMessage">Printer akan mulai dalam 3 detik… ♡</p>
 
     <div id="printerStage" class="printer-stage">
-      <!-- Kertas ada di belakang badan printer -->
       <div class="paper-holder" id="paperHolder"></div>
       <div class="printer-machine">
         <div class="printer-top">♡ LITTLE LOVE PRINTER ♡</div>
-        <div class="printer-mouth"></div>
         <div class="printer-front">♡ KEEP YOUR MEMORIES ♡</div>
+        <div class="printer-mouth"></div>
       </div>
     </div>
 
@@ -606,7 +433,7 @@ footer{text-align:center;color:#b28c94;font-size:12px;padding:25px 12px}
 
 <div id="toast" class="toast hidden" role="status"></div>
 
-<!-- Letakkan file MP3 dalam folder yang sama dengan HTML ini -->
+<!-- Musik berada di folder assets -->
 <audio id="music" preload="metadata" loop>
   <source src="assets/Stephen Sanchez - Until I Found You (Official Video).mp3" type="audio/mpeg">
 </audio>
@@ -655,27 +482,22 @@ function toast(message){
 }
 function setStatus(message){$("status").textContent=message}
 function complete(){return photos.every(p=>p.src&&p.locked)}
-
 function nextUnlocked(){
   const i=photos.findIndex(p=>!p.locked);
   if(i!==-1)activeIndex=i;
 }
-
 function showScreen(id){
   ["welcome","letterPage","booth"].forEach(s=>$(s).classList.toggle("hidden",s!==id));
   window.scrollTo({top:0,behavior:"smooth"});
 }
-
 function showPrintModal(){
   $("printModal").classList.remove("hidden");
   $("modalCloseBtn").focus();
 }
-
 function closePrintModal(){
   if(printing)return;
   $("printModal").classList.add("hidden");
 }
-
 function resetPrinter(){
   printed=false;
   printing=false;
@@ -692,7 +514,6 @@ function resetPrinter(){
   $("printMessage").textContent="Printer akan mulai dalam 3 detik… ♡";
   $("printMessageBottom").textContent="Menyiapkan kenangan kecilmu…";
 }
-
 function setTheme(theme){
   if(!themeData[theme])return;
   currentTheme=theme;
@@ -712,7 +533,6 @@ function setTheme(theme){
   resetPrinter();
   renderPhotos();
 }
-
 function makeFrame(photo,index,active){
   const f=document.createElement("div");
   f.className="strip-photo";
@@ -731,7 +551,6 @@ function makeFrame(photo,index,active){
   }
   return f;
 }
-
 function renderPhotos(){
   nextUnlocked();
   $("photos1").innerHTML="";
@@ -740,7 +559,6 @@ function renderPhotos(){
   orders[1].forEach(i=>$("photos2").appendChild(makeFrame(photos[i],i,false)));
   updateControls();
 }
-
 function updateControls(){
   nextUnlocked();
   $("progress").querySelectorAll("span").forEach((b,i)=>{
@@ -762,7 +580,6 @@ function updateControls(){
   $("downloadBtn").disabled=!done;
   $("modalDownloadBtn").disabled=!done;
 }
-
 function loadFile(file){
   if(!file||!file.type.startsWith("image/")){
     toast("Pilih file gambar ya ♡");
@@ -788,7 +605,6 @@ function loadFile(file){
   reader.onerror=()=>toast("Gambar tidak berhasil dibaca.");
   reader.readAsDataURL(file);
 }
-
 function retake(){
   if(complete()||photos[activeIndex].locked){
     toast("Foto terkunci. Tekan Reset untuk mulai lagi.");
@@ -799,7 +615,6 @@ function retake(){
   renderPhotos();
   setStatus("Frame "+(activeIndex+1)+" siap diulang ♡");
 }
-
 function confirmPhoto(){
   const p=photos[activeIndex];
   if(!p||!p.src){
@@ -821,7 +636,6 @@ function confirmPhoto(){
     toast("Foto tersimpan ♡");
   }
 }
-
 async function openCamera(){
   if(complete())return;
 
@@ -842,7 +656,6 @@ async function openCamera(){
     toast("Akses kamera gagal. Izinkan kamera atau upload foto.");
   }
 }
-
 function closeCamera(){
   if(stream){
     stream.getTracks().forEach(t=>t.stop());
@@ -850,12 +663,10 @@ function closeCamera(){
   }
   $("video").srcObject=null;
 }
-
 function hideCamera(){
   closeCamera();
   $("cameraPanel").classList.add("hidden");
 }
-
 function capturePhoto(){
   const v=$("video");
   if(!stream||!v.videoWidth){
@@ -877,7 +688,6 @@ function capturePhoto(){
   renderPhotos();
   setStatus("Foto berhasil diambil. Tekan Retake atau Okee ♡");
 }
-
 function resetAll(){
   photos.forEach(p=>{
     p.src=null;
@@ -890,7 +700,6 @@ function resetAll(){
   setStatus("Semua foto direset. Mulai lagi dari foto pertama ♡");
   toast("Photobooth siap lagi ♡");
 }
-
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
 function cloneStripsInto(target){
@@ -903,7 +712,6 @@ function cloneStripsInto(target){
     target.appendChild(c);
   });
 }
-
 function makePrintGallery(){
   const holder=$("paperHolder");
   holder.innerHTML="";
@@ -919,7 +727,6 @@ function makePrintGallery(){
 
   holder.appendChild(gallery);
 }
-
 async function printStrip(){
   if(!complete()){
     toast("Lengkapi tiga foto terlebih dahulu ♡");
@@ -936,7 +743,7 @@ async function printStrip(){
   $("modalDoneBtn").disabled=true;
   $("modalCloseBtn").disabled=true;
 
-  $("printMessage").textContent="Printer mulai bekerja dalam 3 detik… ♡";
+  $("printMessage").textContent="Printer mulai bekerja… ♡";
   $("printMessageBottom").textContent="Menyiapkan kertas foto…";
 
   const stage=$("printerStage");
@@ -944,18 +751,16 @@ async function printStrip(){
   makePrintGallery();
   showPrintModal();
 
-  // Pastikan browser menyelesaikan layout sebelum animasi dimulai.
-  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-  await wait(3000);
+  await new Promise(resolve=>
+    requestAnimationFrame(()=>requestAnimationFrame(resolve))
+  );
+  await wait(1200);
 
   $("printMessage").textContent="Photostrip sedang keluar dari lubang printer… ♡";
   $("printMessageBottom").textContent="Kertas foto sedang dicetak…";
 
-  stage.classList.remove("printed");
   void stage.offsetWidth;
   stage.classList.add("printing");
-
-  // Durasi disamakan dengan animasi CSS.
   await wait(2450);
 
   stage.classList.remove("printing");
@@ -968,18 +773,22 @@ async function printStrip(){
   $("printBtn").disabled=true;
   $("downloadBtn").disabled=false;
 
-  // Tombol muncul di bawah stage, sesudah animasi selesai.
   $("modalDownloadBtn").classList.remove("hidden");
   $("modalDownloadBtn").classList.add("download-ready");
   $("modalDownloadBtn").disabled=false;
   $("modalDoneBtn").disabled=false;
   $("modalCloseBtn").disabled=false;
 
-  $("printMessage").textContent="Dua photostrip selesai dicetak ♡";
-  $("printMessageBottom").textContent="Selesai! Tombol download ada tepat di bawah foto.";
+  $("printMessage").textContent="Photostrip selesai dicetak ♡";
+  $("printMessageBottom").textContent="Selesai! Download atau tutup popup ini.";
   toast("Photostrip berhasil dicetak ♡");
 }
 
+/*
+  EKSPOR UKURAN TEPAT:
+  1 strip = 1080 x 2400 px
+  2 strip berdampingan = 2160 x 2400 px
+*/
 async function downloadPNG(){
   if(!complete()){
     toast("Lengkapi tiga foto dahulu ♡");
@@ -1001,14 +810,17 @@ async function downloadPNG(){
   try{
     cloneStripsInto(stage);
 
-    await Promise.all([...stage.querySelectorAll("img")].map(img=>
-      img.complete&&img.naturalWidth
-        ?Promise.resolve()
-        :new Promise(resolve=>{
-          img.onload=resolve;
-          img.onerror=resolve;
-        })
-    ));
+    await Promise.all([...stage.querySelectorAll("img")].map(img=>{
+      if(img.complete&&img.naturalWidth>0)return Promise.resolve();
+      return new Promise(resolve=>{
+        img.onload=resolve;
+        img.onerror=resolve;
+      });
+    }));
+
+    await new Promise(resolve=>
+      requestAnimationFrame(()=>requestAnimationFrame(resolve))
+    );
 
     const canvas=await html2canvas(stage,{
       backgroundColor:"#fffaf6",
@@ -1016,38 +828,40 @@ async function downloadPNG(){
       width:2160,
       height:2400,
       windowWidth:2160,
+      windowHeight:2400,
       useCORS:true,
-      logging:false
+      logging:false,
+      scrollX:0,
+      scrollY:0
     });
 
     if(canvas.width!==2160||canvas.height!==2400){
-      throw new Error("Ukuran hasil tidak sesuai. Silakan coba lagi.");
+      throw new Error(`Ukuran PNG salah: ${canvas.width} × ${canvas.height} px.`);
     }
 
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
-    if(!blob)throw new Error("PNG gagal dibuat.");
+    if(!blob)throw new Error("PNG gagal dibuat. Silakan coba lagi.");
 
     const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;
-    a.download="our-little-photobooth-"+currentTheme+"-2-strips-1080x2400-each.png";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    const link=document.createElement("a");
+    link.href=url;
+    link.download=`our-little-photobooth-${currentTheme}-2160x2400.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 
     setTimeout(()=>URL.revokeObjectURL(url),5000);
-    toast("PNG tersimpan: 2 strip, masing-masing 1080 × 2400 px ♡");
+    toast("PNG berhasil diunduh! Setiap strip 1080 × 2400 px ♡");
   }catch(e){
     console.error(e);
-    toast(e.message||"PNG belum berhasil dibuat. Coba lagi.");
+    toast(e.message||"PNG gagal dibuat. Coba lagi ya ♡");
   }finally{
     stage.innerHTML="";
     buttons.forEach(b=>{
       b.disabled=!complete();
       b.textContent="⇩ Download PNG";
     });
-    $("modalDownloadBtn").disabled=!complete();
-    $("downloadBtn").disabled=!complete();
+    $("printBtn").disabled=!complete()||printed||printing;
   }
 }
 
@@ -1066,7 +880,6 @@ document.querySelectorAll(".theme-btn").forEach(b=>
 );
 
 $("uploadBtn").addEventListener("click",()=>$("fileInput").click());
-
 $("fileInput").addEventListener("change",e=>{
   if(e.target.files&&e.target.files[0])loadFile(e.target.files[0]);
   e.target.value="";
@@ -1087,12 +900,11 @@ $("modalDoneBtn").addEventListener("click",closePrintModal);
 $("printModal").addEventListener("click",e=>{
   if(e.target===$("printModal"))closePrintModal();
 });
-
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&!printing)closePrintModal();
 });
 
-/* MUSIK: Stephen Sanchez - Until I Found You */
+/* MUSIK: file MP3 berada di folder assets */
 $("musicBtn").addEventListener("click",async()=>{
   const audio=$("music");
   const button=$("musicBtn");
@@ -1103,16 +915,15 @@ $("musicBtn").addEventListener("click",async()=>{
       button.textContent="♫ Musik: ON";
     }catch(e){
       console.error(e);
-      toast("Musik belum bisa diputar. Pastikan file MP3 berada di folder yang sama dengan HTML.");
+      toast("Musik belum bisa diputar. Periksa file MP3 di folder assets.");
     }
   }else{
     audio.pause();
-    button.textContent="♫ Musik";
+    button.textContent="♫ Musik: OFF";
   }
 });
-
 $("music").addEventListener("error",()=>{
-  $("musicBtn").title="Pastikan file MP3 ada di folder yang sama dengan file HTML.";
+  $("musicBtn").title="Pastikan file MP3 ada di folder assets.";
 });
 
 window.addEventListener("beforeunload",closeCamera);
