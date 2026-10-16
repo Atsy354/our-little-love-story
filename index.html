@@ -301,51 +301,56 @@ video { width:100%; max-height:350px; aspect-ratio:3/4; object-fit:cover; displa
 }
 
 /* EKSPOR: GABUNGAN DUA STRIP = 1080 x 2400 PX */
+/* Area ekspor: ukuran total tetap 1080 × 2400 px */
 #exportStage {
-  position:fixed; left:-30000px; top:0; z-index:-10;
-  width:1080px; height:2400px; display:flex; gap:0;
-  background:#fffaf6; overflow:hidden;
+  width: 1080px;
+  height: 2400px;
+  display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.export-strip {
-  width:540px!important; height:2400px!important;
-  min-width:540px!important; max-width:540px!important;
-  flex:0 0 540px!important; padding:75px 34px 65px!important;
-  border-width:6px!important; border-radius:4px!important;
-  box-shadow:none!important; display:flex!important;
-  flex-direction:column!important; overflow:hidden!important;
+
+/* Dua strip dengan ukuran sama */
+#exportStage .export-strip {
+  width: 540px;
+  height: 2400px;
+  flex: 0 0 540px;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.export-strip:before { top:25px!important; font-size:19px!important; letter-spacing:5px!important; }
-.export-strip:after { bottom:40px!important; right:20px!important; font-size:36px!important; }
-.export-strip .strip-title {
-  flex:0 0 auto; font-size:34px!important; line-height:1.25!important;
-  margin:55px 8px 18px!important; padding:0 10px!important;
+
+/* Area yang menampung tiga foto */
+#exportStage .strip-photos {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 15px;
+  overflow: hidden;
 }
-.export-strip .strip-date {
-  flex:0 0 auto; font-size:17px!important; letter-spacing:3px!important; margin-bottom:24px!important;
+
+/* Semua frame memiliki tinggi yang sama */
+#exportStage .strip-photo {
+  width: 100%;
+  height: auto;
+  flex: 1 1 0;
+  min-height: 0;
+  aspect-ratio: auto;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.export-strip .strip-photos {
-  flex:1 1 auto!important; min-height:0!important; padding:0 8px!important;
-  gap:20px!important; justify-content:space-evenly!important;
-}
-.export-strip .strip-photo {
-  flex:1 1 0!important; min-height:0!important; max-height:none!important;
-  width:100%!important; aspect-ratio:auto!important; border-width:5px!important;
-}
-.export-strip .strip-photo:nth-child(1) { width:96%!important; }
-.export-strip .strip-photo:nth-child(2) { width:93%!important; }
-.export-strip .strip-photo:nth-child(3) { width:96%!important; }
-.export-strip .strip-photo .empty { font-size:22px!important; }
-.export-strip .strip-foot {
-  flex:0 0 auto; font-size:13px!important; letter-spacing:1.5px!important;
-  line-height:1.5!important; margin-top:24px!important; padding:18px 5px 0!important;
-  border-top-width:2px!important;
-}
-#exportStage .strip-photo img { width:100%!important; height:100%!important; object-fit:cover!important; }
-footer { text-align:center; color:#b28c94; font-size:12px; padding:25px 12px; }
-.toast {
-  position:fixed; z-index:1200; bottom:20px; left:50%; transform:translateX(-50%);
-  background:#674652; color:white; border-radius:25px; padding:11px 17px;
-  font:12px Arial,sans-serif; max-width:90vw; text-align:center;
+
+/* Foto memenuhi frame tanpa mengubah proporsi objek */
+#exportStage .strip-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 @media(max-width:760px) {
   header { flex-wrap:wrap; padding:14px; }
